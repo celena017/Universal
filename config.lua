@@ -19,9 +19,9 @@ powerLevelerIndex = 3
 --Buy features wont work on some maps because the npc is on a different cell / location--
 --Settings for auto purchase--
 buyBalls = true
-MinMoney = 330000
-buyBallType = "Ultra Ball"
-MinBalls = 42
+MinMoney = 100000
+buyBallType = "Pokeball"
+MinBalls = 30
 buyAmt = 1
 
 -- Settings for escape rope --
