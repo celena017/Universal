@@ -26,7 +26,7 @@ buyAmt = 1
 
 -- Settings for escape rope --
 -- NOTE: Only work on those maps that are able to use it --
--- NOTE: Might not work when buyBalls is turn on --
+-- NOTE: Won't Work when buyBalls is on --
 useEscapeRope = true
 autoRefill = true
 minRopeAmt = 5
