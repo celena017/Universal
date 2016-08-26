@@ -262,8 +262,11 @@ function onBattleMessage(wild)
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4) + (recentExp5 - startExp5) + (recentExp6 - startExp6) / math.floor(os.clock() / 3600))
 		end
 		log("Info | Balls remaining: " .. recentPBall .. " Pokeballs " .. recentGBall .. " Great Balls " .. recentUBall .. " Ultra Balls")
+		if useEscapeRope then
+		log("Info | Escape Ropes Remaining " .. getItemQuantity("Escape Rope"))
+		end
 		log("Info | Balls used: " .. startPokeballCount - recentPBall .. " Pokeballs " .. startGreatballCount - recentGBall .. " Great Balls " .. startUltraballCount - recentUBall .. " Ultra Balls")
-		log("=======================================")
+	    log("=======================================")
 	elseif stringContains(wild, "A Wild ") then
         wildCounter = wildCounter + 1
 		recentMoney = getMoney()
@@ -387,8 +390,11 @@ function onBattleMessage(wild)
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4) + (recentExp5 - startExp5) + (recentExp6 - startExp6) / math.floor(os.clock() / 3600))
 		end
 		log("Info | Balls remaining: " .. recentPBall .. " Pokeballs " .. recentGBall .. " Great Balls " .. recentUBall .. " Ultra Balls")
+		if useEscapeRope then
+		log("Info | Escape Ropes Remaining " .. getItemQuantity("Escape Rope"))
+		end
 		log("Info | Balls used: " .. startPokeballCount - recentPBall .. " Pokeballs " .. startGreatballCount - recentGBall .. " Great Balls " .. startUltraballCount - recentUBall .. " Ultra Balls")
-		log("=======================================")
+	    log("=======================================")
 	elseif stringContains(wild, "wrapped") or stringContains(wild, "You can not switch this Pokemon!") or stringContains(wild, "You failed to run away!") or stringContains(wild, "You can not run away!")  then
 	trapped = true
 	log("Info | Anti-Trap mode activated")
@@ -500,7 +506,7 @@ function onBattleMessage(wild)
 		log("Info | Shineys encountered: " .. shinyCounter)
 		log("Info | Pokemon(s) encountered: " .. wildCounter .. " and Catched " ..Catch.. " Pokemon(s).")
 	    log("Info | Total Earning: $" .. tostring(recentMoney - startMoney).." (" .. string.format("$%.1f", (recentMoney - startMoney)/wildCounter) .." average)")
-	  	log("Info | PokeDollars/Hour: $" .. tostring(recentMoney - startMoney) / math.floor(os.clock() / 3600))
+	    log("Info | PokeDollars/Hour: $" .. tostring(recentMoney - startMoney) / math.floor(os.clock() / 3600))
 		if getTeamSize() == 1 then
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) / math.floor(os.clock() / 3600))
 		elseif getTeamSize() == 2 then
@@ -515,8 +521,11 @@ function onBattleMessage(wild)
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4) + (recentExp5 - startExp5) + (recentExp6 - startExp6) / math.floor(os.clock() / 3600))
 		end
 		log("Info | Balls remaining: " .. recentPBall .. " Pokeballs " .. recentGBall .. " Great Balls " .. recentUBall .. " Ultra Balls")
+		if useEscapeRope then
+		log("Info | Escape Ropes Remaining " .. getItemQuantity("Escape Rope"))
+		end
 		log("Info | Balls used: " .. startPokeballCount - recentPBall .. " Pokeballs " .. startGreatballCount - recentGBall .. " Great Balls " .. startUltraballCount - recentUBall .. " Ultra Balls")
-		log("=======================================")
+	    log("=======================================")
 	end
 end
 
@@ -550,7 +559,10 @@ function onPause()
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4) + (recentExp5 - startExp5) + (recentExp6 - startExp6) / math.floor(os.clock() / 3600))
 		end
 	log("Info | Balls remaining: " .. recentPBall .. " Pokeballs " .. recentGBall .. " Great Balls " .. recentUBall .. " Ultra Balls")
-    log("Info | Balls used: " .. startPokeballCount - recentPBall .. " Pokeballs " .. startGreatballCount - recentGBall .. " Great Balls " .. startUltraballCount - recentUBall .. " Ultra Balls")
+    if useEscapeRope then
+	    log("Info | Escape Ropes Remaining " .. getItemQuantity("Escape Rope"))
+	    end
+	log("Info | Balls used: " .. startPokeballCount - recentPBall .. " Pokeballs " .. startGreatballCount - recentGBall .. " Great Balls " .. startUltraballCount - recentUBall .. " Ultra Balls")
 	log("Info | Bought " .. ballsBought .. " " .. buyBallType  .. "(s).")
 	if getTeamSize() == 1 then
 	log("Info | Your First Pokemon, ".. getPokemonName(1) ..", has gained ".. (getPokemonLevel(1) - startLevel1) .." levels!")
@@ -610,7 +622,10 @@ function onStop()
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4) + (recentExp5 - startExp5) + (recentExp6 - startExp6) / math.floor(os.clock() / 3600))
 		end
 	log("Info | Balls remaining: " .. recentPBall .. " Pokeballs " .. recentGBall .. " Great Balls " .. recentUBall .. " Ultra Balls")
-    log("Info | Balls used: " .. startPokeballCount - recentPBall .. " Pokeballs " .. startGreatballCount - recentGBall .. " Great Balls " .. startUltraballCount - recentUBall .. " Ultra Balls")
+    if useEscapeRope then
+		log("Info | Escape Ropes Remaining " .. getItemQuantity("Escape Rope"))
+		end
+	log("Info | Balls used: " .. startPokeballCount - recentPBall .. " Pokeballs " .. startGreatballCount - recentGBall .. " Great Balls " .. startUltraballCount - recentUBall .. " Ultra Balls")
 	log("Info | Bought " .. ballsBought .. " " .. buyBallType  .. "(s).")
 		if getTeamSize() == 1 then
 	log("Info | Your First Pokemon, ".. getPokemonName(1) ..", has gained ".. (getPokemonLevel(1) - startLevel1) .." levels!")
