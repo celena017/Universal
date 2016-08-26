@@ -1,19 +1,19 @@
 --supports up to 5 stops and mart, leave unused stops blank--
-city = "Blackthorn City"
-pokecenter = "Pokecenter Blackthorn"
-stop1 = "Dragons Den Entrance"
+city = ""
+pokecenter = ""
+stop1 = ""
 stop2 = ""
 stop3 = ""
 stop4 = ""
 stop5 = ""
-endLocation = "Dragons Den"
-martLocation = "Blackthorn City Pokemart"
+endLocation = ""
+martLocation = ""
 
 -- Settings for Power Leveling weaker pokemon aka ExpShare --
 --Turn this off if you want to use advanceCatching / onlyCatch--
 powerLevel = false
 stopAtLevel = 70
-powerLevelingPokemon = "Kadabra"
+powerLevelingPokemon = "Charmander"
 powerLevelerIndex = 3
 
 --Buy features wont work on some maps because the npc is on a different cell / location--
@@ -107,7 +107,7 @@ rodType = "Old Rod"
 --the below is case-sensitive, add more moves by adding commas. ex : onlyCatchThesePokemon = {"Pokemon 1", "Pokemon 2", "Pokemon 3"}--
 --Even if you set all other capture variables to false, we'll still try to catch these/this pokemon--
 --Leave an empty "" here if you aren't using it--
-catchThesePokemon = {"Kingdra", "Abra", "Squirtle", "Bulbasaur", "Charmander", "Dratini", "Dragonair"}
+catchThesePokemon = {"Kingdra", "Gyarados", "Abra", "Squirtle", "Bulbasaur", "Charmander", "Dratini", "Dragonair"}
 
 
 --the below will be the percentage of your last alive poke's health that we'll stop fighting at--
