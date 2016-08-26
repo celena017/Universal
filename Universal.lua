@@ -8,6 +8,7 @@ stops = 0
 
 function onStart()
 	randTime = math.floor(os.clock())
+	randomnizer = math.random(1,5)
 	shinyCounter = 0
 	wildCounter = 0
 	pokecenterCounter = 0
@@ -172,7 +173,7 @@ function onBattleMessage(wild)
 		recentExp5 = getPokemonTotalExperience(5)
 		recentExp6 = getPokemonTotalExperience(6)
 		end
-    if (randTime / 25) < 25 then
+        if (randTime / 25) < 25 then
 		if Pattern == 1 then
 		Pattern = Pattern + 1
 		log("Pattern " .. Pattern)
@@ -184,43 +185,60 @@ function onBattleMessage(wild)
 		log("Pattern " .. Pattern)
 		elseif Pattern == 4 then
 		Pattern = Pattern + 1
-		log("Pattern " .. Pattern)		
+		log("Pattern " .. Pattern)
 		elseif Pattern == 5 then
 		Pattern = 1
-		log("Pattern " .. Pattern)		
+		log("Pattern " .. Pattern)
 		end
 		elseif (randTime / 25) > 25 and (randTime / 60) < 60 then
 		if Pattern == 1 then
 		Pattern = Pattern + 1
-		log("Pattern " .. Pattern)	
+		log("Pattern " .. Pattern)
 		elseif Pattern == 2 then
 		Pattern = Pattern + 2
-		log("Pattern " .. Pattern)	
+		log("Pattern " .. Pattern)
 		elseif Pattern == 3 then
 		Pattern = Pattern + 2
-		log("Pattern " .. Pattern)	
+		log("Pattern " .. Pattern)
 		elseif Pattern == 4 then
 		Pattern = Pattern - 1
-		log("Pattern " .. Pattern)	
+		log("Pattern " .. Pattern)
 		elseif Pattern == 5 then
 		Pattern = 1
-		log("Pattern " .. Pattern)	
+		log("Pattern " .. Pattern)
 		end
-		else
+		elseif (randTime / 60) > 60 and (randTime / 90) < 90 then
 		if Pattern == 1 then
 		Pattern = Pattern + 4
-		log("Pattern " .. Pattern)	
+		log("Pattern " .. Pattern)
 		elseif Pattern == 2 then
 		Pattern = Pattern + 2
-		log("Pattern " .. Pattern)	
+		log("Pattern " .. Pattern)
 		elseif Pattern == 3 then
 		Pattern = Pattern - 2
-		log("Pattern " .. Pattern)	
+		log("Pattern " .. Pattern)
 		elseif Pattern == 4 then
 		Pattern = Pattern - 1
 		log("Pattern " .. Pattern)
 		elseif Pattern == 5 then
 		Pattern = Pattern - 3
+		log("Pattern " .. Pattern)
+		end
+		else
+		if randomnizer == 1 then
+		Pattern = 1
+		log("Pattern " .. Pattern)	
+		elseif randomnizer == 2 then
+		Pattern = 2
+		log("Pattern " .. Pattern)	
+		elseif randomnizer == 3 then
+		Pattern = 3
+		log("Pattern " .. Pattern)	
+		elseif randomnizer == 4 then
+		Pattern = 4
+		log("Pattern " .. Pattern)
+		elseif randomnizer == 5 then
+		Pattern = 5
 		log("Pattern " .. Pattern)
 		end
 		end
@@ -314,7 +332,7 @@ function onBattleMessage(wild)
 		Pattern = 1
 		log("Pattern " .. Pattern)
 		end
-		else 
+		elseif (randTime / 60) > 60 and (randTime / 90) < 90 then
 		if Pattern == 1 then
 		Pattern = Pattern + 4
 		log("Pattern " .. Pattern)
@@ -329,6 +347,23 @@ function onBattleMessage(wild)
 		log("Pattern " .. Pattern)
 		elseif Pattern == 5 then
 		Pattern = Pattern - 3
+		log("Pattern " .. Pattern)
+		end
+		else
+		if randomnizer == 1 then
+		Pattern = 1
+		log("Pattern " .. Pattern)	
+		elseif randomnizer == 2 then
+		Pattern = 2
+		log("Pattern " .. Pattern)	
+		elseif randomnizer == 3 then
+		Pattern = 3
+		log("Pattern " .. Pattern)	
+		elseif randomnizer == 4 then
+		Pattern = 4
+		log("Pattern " .. Pattern)
+		elseif randomnizer == 5 then
+		Pattern = 5
 		log("Pattern " .. Pattern)
 		end
 		end
@@ -391,7 +426,7 @@ function onBattleMessage(wild)
 		recentExp5 = getPokemonTotalExperience(5)
 		recentExp6 = getPokemonTotalExperience(6)
 		end
-    if (randTime / 25) < 25 then
+        if (randTime / 25) < 25 then
 		if Pattern == 1 then
 		Pattern = Pattern + 1
 		log("Pattern " .. Pattern)
@@ -425,7 +460,7 @@ function onBattleMessage(wild)
 		Pattern = 1
 		log("Pattern " .. Pattern)
 		end
-		else 
+		elseif (randTime / 60) > 60 and (randTime / 90) < 90 then
 		if Pattern == 1 then
 		Pattern = Pattern + 4
 		log("Pattern " .. Pattern)
@@ -440,6 +475,23 @@ function onBattleMessage(wild)
 		log("Pattern " .. Pattern)
 		elseif Pattern == 5 then
 		Pattern = Pattern - 3
+		log("Pattern " .. Pattern)
+		end
+		else
+		if randomnizer == 1 then
+		Pattern = 1
+		log("Pattern " .. Pattern)	
+		elseif randomnizer == 2 then
+		Pattern = 2
+		log("Pattern " .. Pattern)	
+		elseif randomnizer == 3 then
+		Pattern = 3
+		log("Pattern " .. Pattern)	
+		elseif randomnizer == 4 then
+		Pattern = 4
+		log("Pattern " .. Pattern)
+		elseif randomnizer == 5 then
+		Pattern = 5
 		log("Pattern " .. Pattern)
 		end
 		end
