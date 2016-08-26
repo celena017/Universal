@@ -686,7 +686,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		log("Getting on " .. mount)
 		
 	elseif advanceCatching and stops == 0 and pokecenterOnRoute and (not isPokemonUsable(1) or not isPokemonUsable(moveUserIndex) or getRemainingPowerPoints(moveUserIndex, moveName) == 0) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") then
+	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
 		moveToMap(pokecenter)
@@ -699,7 +699,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 	end
 	
 	elseif advanceCatching and stops == 0 and not pokecenterOnRoute and (not isPokemonUsable(1) or not isPokemonUsable(moveUserIndex) or getRemainingPowerPoints(moveUserIndex, moveName) == 0) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") then
+	    	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
 		moveToMap(city)
@@ -731,7 +731,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 	end
 	
 	elseif advanceCatching and stops == 2 and (not isPokemonUsable(1) or not isPokemonUsable(moveUserIndex) or getRemainingPowerPoints(moveUserIndex, moveName) == 0) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") then
+	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
 		moveToMap(stop2)
@@ -750,7 +750,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 	end
 	
 	elseif advanceCatching and stops == 3 and (not isPokemonUsable(1) or not isPokemonUsable(moveUserIndex) or getRemainingPowerPoints(moveUserIndex, moveName) == 0) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") then
+	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
 		moveToMap(stop3)
@@ -771,7 +771,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 	end
 	
 	elseif advanceCatching and stops == 4 and (not isPokemonUsable(1) or not isPokemonUsable(moveUserIndex) or getRemainingPowerPoints(moveUserIndex, moveName) == 0) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") then
+	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
 		moveToMap(stop4)
@@ -794,7 +794,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 	end
 	
 	elseif advanceCatching and stops == 5 and (not isPokemonUsable(1) or not isPokemonUsable(moveUserIndex) or getRemainingPowerPoints(moveUserIndex, moveName) == 0) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") then
+	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
 		moveToMap(stop5)
@@ -819,7 +819,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 	end
 	
 	elseif useMoveOnly and stops == 0 and pokecenterOnRoute and (not isPokemonUsable(1) or getRemainingPowerPoints(1, usingMove) == 0) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") then
+	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
 		moveToMap(pokecenter)
@@ -832,7 +832,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 	end
 	
 	elseif useMoveOnly and stops == 0 and not pokecenterOnRoute and (not isPokemonUsable(1) or getRemainingPowerPoints(1, usingMove) == 0) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") then
+	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
 		moveToMap(city)
@@ -864,7 +864,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 	end
 	
 	elseif useMoveOnly and stops == 2 and (not isPokemonUsable(1) or getRemainingPowerPoints(1, usingMove) == 0) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") then
+	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
 		moveToMap(stop2)
@@ -883,7 +883,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 	end
 	
 	elseif useMoveOnly and stops == 3 and (not isPokemonUsable(1) or getRemainingPowerPoints(1, usingMove) == 0) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") then
+	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
 		moveToMap(stop3)
@@ -904,7 +904,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 	end
 	
 	elseif useMoveOnly and stops == 4 and (not isPokemonUsable(1) or getRemainingPowerPoints(1, usingMove) == 0) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") then
+	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
 		moveToMap(stop4)
@@ -927,7 +927,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 	end
 	
 	elseif useMoveOnly and stops == 5 and (not isPokemonUsable(1) or getRemainingPowerPoints(1, usingMove) == 0) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") then
+	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
 		moveToMap(stop5)
@@ -952,7 +952,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 	end
 		
 	elseif powerLevel == true and stops == 0 and pokecenterOnRoute and (not isPokemonUsable(1) or not isPokemonUsable(powerLevelerIndex)) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") then
+	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
 		moveToMap(pokecenter)
@@ -965,7 +965,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 	end
 	
 	elseif powerLevel == true and stops == 0 and not pokecenterOnRoute and (not isPokemonUsable(1) or not isPokemonUsable(powerLevelerIndex)) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") then
+	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
 		moveToMap(city)
@@ -980,7 +980,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 	end
 	
 	elseif powerLevel == true and stops == 1 and (not isPokemonUsable(1) or not isPokemonUsable(powerLevelerIndex)) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") then
+	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
 		moveToMap(stop1)
@@ -997,7 +997,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 	end
 		
 	elseif powerLevel == true and stops == 2 and (not isPokemonUsable(1) or not isPokemonUsable(powerLevelerIndex)) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") then
+	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
 		moveToMap(stop2)
@@ -1016,7 +1016,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 	end
 		
 	elseif powerLevel == true and stops == 3 and (not isPokemonUsable(1) or not isPokemonUsable(powerLevelerIndex)) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") then
+	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
 		moveToMap(stop3)
@@ -1037,7 +1037,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 	end
 		
 	elseif powerLevel == true and stops == 4 and (not isPokemonUsable(1) or not isPokemonUsable(powerLevelerIndex)) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") then
+	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
 		moveToMap(stop4)
@@ -1060,7 +1060,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 	end
 		
 		elseif powerLevel == true and stops == 5 and (not isPokemonUsable(1) or not isPokemonUsable(powerLevelerIndex)) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") then
+	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
 		moveToMap(stop5)
@@ -1521,9 +1521,7 @@ else
 		startUltraballCount = startUltraballCount + buyAmt
 		end
 		log("Info | Bought " .. ballsBought .. " " .. buyBallType  .. "(s).")
-		elseif getItemQuantity(buyBallType) >= MinBalls and getMapName() == martLocation then
-		moveToMap(city)	
-		elseif getMapName() == martLocation and buyBalls == false then
+		elseif buyBalls and getItemQuantity(buyBallType) >= MinBalls and getMapName() == martLocation then
 		moveToMap(city)
 		
 	elseif autoRefill and getMapName() == city and getItemQuantity("Escape Rope") == 0 and getMoney()>= MinMoney then
@@ -1538,11 +1536,11 @@ else
 		buyItem("Escape Rope", buyRopeAmt)
 		ropeBought = ropeBought + buyRopeAmt
 		log("Info | Bought " .. ropeBought .. " Escape Rope(s).")
-		elseif getItemQuantity("Escape Rope") >= minRopeAmt and getMapName() == martLocation then
+		elseif autoRefill and getItemQuantity("Escape Rope") >= minRopeAmt and getMapName() == martLocation then
 		moveToMap(city)
 		
 	elseif stops == 0 and pokecenterOnRoute then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") then
+	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
 			moveToMap(pokecenter)
@@ -1574,7 +1572,7 @@ else
 	end
 	
 	elseif stops == 1 then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") then
+	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
 			moveToMap(stop1)
