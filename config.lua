@@ -28,7 +28,7 @@ buyAmt = 1
 -- NOTE: Only work on those maps that are able to use it --
 -- NOTE: Won't Work when buyBalls is on --
 useEscapeRope = true
-autoRefill = true
+autoRefill = false
 minRopeAmt = 5
 buyRopeAmt = 1
 
