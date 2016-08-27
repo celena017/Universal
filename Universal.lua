@@ -732,11 +732,11 @@ function onPathAction()
 get_usingMove = false
 if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= healthToRunAt and isPokemonUsable(ReturnHighestIndexUnderLevel()) then
 	
-	if not onlyCatch and not IsSorted() and (not powerLevel or not advanceCatching or not useMoveOnly) then
+	if not onlyCatch and not IsSorted() and not powerLevel and not advanceCatching and not useMoveOnly then
 		sortTeamByLevelAscending()
         log("Sorting Pokemon in-progress")
 		
-    elseif powerLevel == true and getPokemonName(1) != powerLevelingPokemon then
+    elseif powerLevel and getPokemonName(1) != powerLevelingPokemon then
 	    swapPokemonWithLeader(powerLevelingPokemon)
 	   	log("Swapping " .. powerLevelingPokemon .. " to first index to be Power-Leveled!")      		
 	
@@ -1157,7 +1157,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		elseif buyBalls == true and onlyCatch == true and getMoney() < MinMoney then
 		log("You got less than the required amount $"..MinMoney .. " Turning off Auto-Buying ")
 		buyBalls = false
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) == 0 and getMoney() >= MinMoney and getMapName() == endLocation then
+	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == endLocation then
 		moveToMap(martLocation)				
 		elseif buyBalls == true and getMapName() == martLocation and getMapName() != "Indigo Plateau Center" and not isShopOpen() then
 		elseif buyBalls == true and getMapName() == "Indigo Plateau Center" and not isShopOpen() then
@@ -1205,9 +1205,9 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		elseif buyBalls == true and onlyCatch == true and getMoney() < MinMoney then
 		log("You got less than the required amount $"..MinMoney .. " Turning off Auto-Buying ")
 		buyBalls = false
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) == 0 and getMoney() >= MinMoney and getMapName() == endLocation then
+	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == endLocation then
 		moveToMap(city)				
-		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) == 0 and getMoney() >= MinMoney and getMapName() == city then
+		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == city then
         moveToMap(martLocation)
 		elseif buyBalls == true and getMapName() == "Indigo Plateau Center" and not isShopOpen() then
 		talkToNpcOnCell(16, 22)
@@ -1256,11 +1256,11 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		elseif buyBalls == true and onlyCatch == true and getMoney() < MinMoney then
 		log("You got less than the required amount $"..MinMoney .. " Turning off Auto-Buying ")
 		buyBalls = false
-		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) == 0 and getMoney() >= MinMoney and getMapName() == endLocation then
+		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == endLocation then
 		moveToMap(stop1)
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) == 0 and getMoney() >= MinMoney and getMapName() == stop1 then
+	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop1 then
 		moveToMap(city)				
-		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) == 0 and getMoney() >= MinMoney and getMapName() == city then
+		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == city then
         moveToMap(martLocation)
 		elseif buyBalls == true and getMapName() == "Indigo Plateau Center" and not isShopOpen() then
 		talkToNpcOnCell(16, 22)
@@ -1311,13 +1311,13 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		elseif buyBalls == true and onlyCatch == true and getMoney() < MinMoney then
 		log("You got less than the required amount $"..MinMoney .. " Turning off Auto-Buying ")
 		buyBalls = false
-		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) == 0 and getMoney() >= MinMoney and getMapName() == endLocation then
+		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == endLocation then
 		moveToMap(stop2)
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) == 0 and getMoney() >= MinMoney and getMapName() == stop2 then
+	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop2 then
 		moveToMap(stop1)
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) == 0 and getMoney() >= MinMoney and getMapName() == stop1 then
+	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop1 then
 		moveToMap(city)				
-		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) == 0 and getMoney() >= MinMoney and getMapName() == city then
+		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == city then
         moveToMap(martLocation)
 		elseif buyBalls == true and getMapName() == "Indigo Plateau Center" and not isShopOpen() then
 		talkToNpcOnCell(16, 22)
@@ -1370,15 +1370,15 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		elseif buyBalls == true and onlyCatch == true and getMoney() < MinMoney then
 		log("You got less than the required amount $"..MinMoney .. " Turning off Auto-Buying ")
 		buyBalls = false
-		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) == 0 and getMoney() >= MinMoney and getMapName() == endLocation then
+		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == endLocation then
 		moveToMap(stop3)
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) == 0 and getMoney() >= MinMoney and getMapName() == stop3 then
+	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop3 then
 		moveToMap(stop2)
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) == 0 and getMoney() >= MinMoney and getMapName() == stop2 then
+	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop2 then
 		moveToMap(stop1)
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) == 0 and getMoney() >= MinMoney and getMapName() == stop1 then
+	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop1 then
 		moveToMap(city)				
-		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) == 0 and getMoney() >= MinMoney and getMapName() == city then
+		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == city then
         moveToMap(martLocation)
 		elseif buyBalls == true and getMapName() == "Indigo Plateau Center" and not isShopOpen() then
 		talkToNpcOnCell(16, 22)
@@ -1433,17 +1433,17 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		elseif buyBalls == true and onlyCatch == true and getMoney() < MinMoney then
 		log("You got less than the required amount $"..MinMoney .. " Turning off Auto-Buying ")
 		buyBalls = false
-		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) == 0 and getMoney() >= MinMoney and getMapName() == endLocation then
+		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == endLocation then
 		moveToMap(stop4)
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) == 0 and getMoney() >= MinMoney and getMapName() == stop4 then
+	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop4 then
 		moveToMap(stop3)
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) == 0 and getMoney() >= MinMoney and getMapName() == stop3 then
+	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop3 then
 		moveToMap(stop2)
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) == 0 and getMoney() >= MinMoney and getMapName() == stop2 then
+	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop2 then
 		moveToMap(stop1)
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) == 0 and getMoney() >= MinMoney and getMapName() == stop1 then
+	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop1 then
 		moveToMap(city)				
-		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) == 0 and getMoney() >= MinMoney and getMapName() == city then
+		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == city then
         moveToMap(martLocation)
 		elseif buyBalls == true and getMapName() == "Indigo Plateau Center" and not isShopOpen() then
 		talkToNpcOnCell(16, 22)
@@ -1500,19 +1500,19 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		elseif buyBalls == true and onlyCatch == true and getMoney() < MinMoney then
 		log("You got less than the required amount $"..MinMoney .. " Turning off Auto-Buying ")
 		buyBalls = false
-		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) == 0 and getMoney() >= MinMoney and getMapName() == endLocation then
+		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == endLocation then
 		moveToMap(stop5)
-		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) == 0 and getMoney() >= MinMoney and getMapName() == stop5 then
+		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop5 then
 		moveToMap(stop4)
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) == 0 and getMoney() >= MinMoney and getMapName() == stop4 then
+	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop4 then
 		moveToMap(stop3)
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) == 0 and getMoney() >= MinMoney and getMapName() == stop3 then
+	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop3 then
 		moveToMap(stop2)
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) == 0 and getMoney() >= MinMoney and getMapName() == stop2 then
+	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop2 then
 		moveToMap(stop1)
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) == 0 and getMoney() >= MinMoney and getMapName() == stop1 then
+	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop1 then
 		moveToMap(city)				
-		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) == 0 and getMoney() >= MinMoney and getMapName() == city then
+		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == city then
         moveToMap(martLocation)
 		elseif buyBalls == true and getMapName() == "Indigo Plateau Center" and not isShopOpen() then
 		talkToNpcOnCell(16, 22)
