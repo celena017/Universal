@@ -1,1 +1,3 @@
-
+8/28/2016
+Fix some sorting glitch
+Change autobuy balls features and onlycatch when both is turn on they will buy the ball when it hits below the minBalls
