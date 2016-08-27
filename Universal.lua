@@ -533,7 +533,7 @@ function onDialogMessage(pokecenter)
     if stringContains(pokecenter, "Would you like me to heal your Pokemon?") then
         pokecenterCounter = pokecenterCounter + 1
 		log("Info | Times in Pokecenter: " .. pokecenterCounter)
-	elseif stringContains(pokecenter, "What would you like to buy today?") or stringContains(pokecenter, "Hello! What are you intrested in buying today?") then
+	elseif stringContains(pokecenter, "What would you like to buy today?") or stringContains(pokecenter, "What are you intrested in buying today?") then
 		martvisitCounter = martvisitCounter + 1
 		log("Info | Times in Pokemart: " .. martvisitCounter)
     end
@@ -1756,15 +1756,19 @@ function onBattleAction()
 				if isPokemonUsable(getActivePokemonNumber()) then
 					if advanceCatching and getOpponentHealthPercent() > percentToStartThrowing and not isOpponentShiny then
 						return sendPokemon(moveUserIndex)
-					elseif advanceCatching and getActivePokemonNumber() == moveUserIndex and getOpponentHealthPercent() > percentToStartThrowing then
+					elseif advanceCatching and getActivePokemonNumber() == moveUserIndex and getOpponentHealthPercent() > percentToStartThrowing and getRemainingPowerPoints(moveUserIndex, moveName) >= 1 then
 						return useMove(moveName)
 					elseif advanceCatching and getOpponentHealthPercent() <= percentToStartThrowing and not isOpponentShiny then
 						return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball")
-					elseif useMoveOnly and getActivePokemonNumber() == 1 and get_usingMove == false then
+					elseif advanceCatching and getActivePokemonNumber() == moveUserIndex and getOpponentHealthPercent() > percentToStartThrowing and getRemainingPowerPoints(moveUserIndex, moveName) == 0 then
+						return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run()
+					elseif useMoveOnly and getActivePokemonNumber() == 1 and getRemainingPowerPoints(1, usingMove) >= 1 and get_usingMove == false then
 					    get_usingMove = true
 						return useMove(usingMove)
 					elseif useMoveOnly and get_usingMove == true then
 					    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball")
+					elseif useMoveOnly and getActivePokemonNumber() == 1 and getRemainingPowerPoints(1, usingMove) == 0 and get_usingMove == false then
+					    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run()
 					elseif not advanceCatching and not useMoveOnly then
 						if useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") then
 							return
@@ -1774,15 +1778,19 @@ function onBattleAction()
 					end
 					if advanceCatching and getOpponentHealthPercent() > percentToStartThrowingIfShiny and isOpponentShiny then
 						return sendPokemon(moveUserIndex)
-					elseif advanceCatching and getActivePokemonNumber() == moveUserIndex and getOpponentHealthPercent() > percentToStartThrowingIfShiny then
+					elseif advanceCatching and getActivePokemonNumber() == moveUserIndex and getOpponentHealthPercent() > percentToStartThrowing and getRemainingPowerPoints(moveUserIndex, moveName) >= 1 then
 						return useMove(moveName)
-					elseif advanceCatching and getOpponentHealthPercent() <= percentToStartThrowingIfShiny and isOpponentShiny then
+					elseif advanceCatching and getOpponentHealthPercent() <= percentToStartThrowing and not isOpponentShiny then
 						return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball")
-                    elseif useMoveOnly and getActivePokemonNumber() == 1 and get_usingMove == false then
+					elseif advanceCatching and getActivePokemonNumber() == moveUserIndex and getOpponentHealthPercent() > percentToStartThrowing and getRemainingPowerPoints(moveUserIndex, moveName) == 0 then
+						return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run()
+					elseif useMoveOnly and getActivePokemonNumber() == 1 and getRemainingPowerPoints(1, usingMove) >= 1 and get_usingMove == false then
 					    get_usingMove = true
 						return useMove(usingMove)
 					elseif useMoveOnly and get_usingMove == true then
 					    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball")
+					elseif useMoveOnly and getActivePokemonNumber() == 1 and getRemainingPowerPoints(1, usingMove) == 0 and get_usingMove == false then
+					    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run()
 					elseif not advanceCatching and not useMoveOnly then
 						if useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") then
 							return
