@@ -11,7 +11,7 @@ martLocation = ""
 
 -- Settings for Sorting --
 -- Set both false if you dont want sorting --
-SortAsc = false
+sortAsc = false
 sortDesc = false
 
 -- Settings for Power Leveling weaker pokemon aka ExpShare --
