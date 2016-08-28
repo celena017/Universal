@@ -1,17 +1,17 @@
 --supports up to 5 stops and mart, leave unused stops blank--
-city = "Cinnabar Island"
-pokecenter = "Pokecenter Cinnabar"
-stop1 = "Cinnabar mansion 1"
-stop2 = "Cinnabar mansion 2"
+city = ""
+pokecenter = ""
+stop1 = ""
+stop2 = ""
 stop3 = ""
 stop4 = ""
 stop5 = ""
-endLocation = "Cinnabar mansion 3"
-martLocation = "Cinnabar Pokemart"
+endLocation = ""
+martLocation = ""
 
 -- Settings for Sorting --
 -- Asc/Desc if unused leave blank --
-sorting = "Desc"
+sorting = "Asc"
 
 -- Settings for Power Leveling weaker pokemon aka ExpShare --
 --Turn this off if you want to use advanceCatching / onlyCatch--
@@ -43,10 +43,15 @@ surfMount = "Lapras Mount"
 --if no city, and pokecenter is on route, change this to true, and leave city blank--
 pokecenterOnRoute = false
 
---Leave this true unless you are not fighting/catching in grass/water--
---Please set only one of the below to true if u want to look in grass or water then turn the other to false--
-lookForGrass = true
+--Leave this true unless you are not fighting/catching in grass/water/fishing--
+--Please set only one of the below to true if u want to look for in grass or water or fishing then turn the others to false--
+lookForGrass = false
 lookForWater = false
+lookForFishingSpot = false
+--If lookForFishingSpot = true--
+rod = "Super Rod"
+fishingSpotX = 30
+fishingSpotY = 30
 
 --If the above is false, what rectangle do you want to walk within at your endLocation?--
 --You can set an infinite number of patterns to walk in, this makes you appear more like an actual human!--
@@ -77,19 +82,44 @@ rectXE2 = 47
 rectYE1 = 15
 rectYE2 = 15
 
+rectXF1 = 45
+rectXF2 = 47
+rectYF1 = 15
+rectYF2 = 15
+
+rectXG1 = 45
+rectXG2 = 47
+rectYG1 = 15
+rectYG2 = 15
+
+rectXH1 = 45
+rectXH2 = 47
+rectYH1 = 15
+rectYH2 = 15
+
+rectXI1 = 45
+rectXI2 = 47
+rectYI1 = 15
+rectYI2 = 15
+
+rectXJ1 = 45
+rectXJ2 = 47
+rectYJ1 = 15
+rectYJ2 = 15
+
 --Do you want to catch shineys and uncaught pokemon?--
 catchShineys = true
 
 catchNotCaught = false
 
 --Do you only want to catch pokemon, and not level?--
-onlyCatch = true
+onlyCatch = false
 
 --Advance Catching Settings--
 --NOTE: Turn onlyCatch for best experience--
-advanceCatching = true
+advanceCatching = false
 syncName = "Kadabra"
-moveUserIndex = 3
+moveUserIndex = 6
 moveName = "False Swipe"
 
 --Advance Catch without Sync for catching e.g. Abra--
@@ -103,12 +133,6 @@ usingMove = "Mean Look"
 percentToStartThrowing = 1
 --DEFAULT: 50--
 percentToStartThrowingIfShiny = 25
-
--- Currently In Progress --
-useRod = false
-rodType = "Old Rod"
-fishingSpotX = 1
-fishingSpotY = 1
 
 --the below is case-sensitive, add more moves by adding commas. ex : onlyCatchThesePokemon = {"Pokemon 1", "Pokemon 2", "Pokemon 3"}--
 --Even if you set all other capture variables to false, we'll still try to catch these/this pokemon--
