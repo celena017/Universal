@@ -7,8 +7,9 @@ Fix issues with advance catching (not throwing Ball or when active Pokemon is de
 Added log when a pokemon learns a new move
 Fix Catching Shiny Pokemon issue
 Add configuration for Sorting (Asc/Desc)
-Shows $/exp/Hour only after an hour
+Shows $/Exp/Hour only after an hour
 
 8/29/2016
 Supports fishing
 Rework random movement
+Rework on $/Exp/Hour log
