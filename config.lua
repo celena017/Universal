@@ -10,9 +10,8 @@ endLocation = "Cinnabar mansion 3"
 martLocation = "Cinnabar Pokemart"
 
 -- Settings for Sorting --
--- Set both false if you dont want sorting --
-sortAsc = false
-sortDesc = false
+-- Asc/Desc if unused leave blank --
+sorting = "Desc"
 
 -- Settings for Power Leveling weaker pokemon aka ExpShare --
 --Turn this off if you want to use advanceCatching / onlyCatch--
