@@ -3,6 +3,6 @@ Fix some sorting glitch
 When onlycatch is on with buyballs will buy the ball when it hits below the minBalls instead only when it reach 0
 8/29/2016
 Fix issues with advance catching
-Added log for learning new move
-Fix Shiny Pokemon issue
+Added log when a pokemon learn a new move
+Fix Catching Shiny Pokemon issue
 Add configuration for Sorting
