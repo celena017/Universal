@@ -6,7 +6,7 @@ Change buyBalls feature with catchOnly on to refill balls when below the minBall
 Fix issues with advance catching (not throwing Ball or when active Pokemon is dead)
 Added log when a pokemon learns a new move
 Fix Catching Shiny Pokemon issue
-Add configuration for Sorting
+Add configuration for Sorting (Asc/Desc)
 Shows $/exp/Hour only after an hour
 
 8/29/2016
