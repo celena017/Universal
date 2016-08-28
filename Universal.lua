@@ -111,10 +111,12 @@ function onStart()
 	if useEscapeRope then 
 	log("Info | Use Escape Rope is on!")
 	end
-	if sortAsc then
+	if sorting == "Asc" then
 	log("Info | Sorting Pokemon Ascendingly")
-	elseif sortDesc then
+	elseif sorting == "Desc" then
 	log("Info | Sorting Pokemon Descendingly")
+	else 
+	log("Info | Sorting is off!")
 	end
 	if autoRefill then
 	log("Info | AutoRefill Escape Rope is on!")
@@ -773,11 +775,11 @@ function onPathAction()
 get_usingMove = false
 if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= healthToRunAt and isPokemonUsable(ReturnHighestIndexUnderLevel()) then
 	
-	if sortAsc and not onlyCatch and not IsSorted() and not powerLevel and not advanceCatching and not useMoveOnly then
+	if sorting == "Asc" and not onlyCatch and not IsSorted() and not powerLevel and not advanceCatching and not useMoveOnly then
 		sortTeamByLevelAscending()
         log("Sorting Pokemon Level Ascendingly in-progress")
 		
-	elseif sortDesc and not onlyCatch and not IsSortedDesc and not powerLevel and not advanceCatching and not useMoveOnly then
+	elseif sorting == "Desc" and not onlyCatch and not IsSortedDesc() and not powerLevel and not advanceCatching and not useMoveOnly then
 		sortTeamByLevelDescending()
         log("Sorting Pokemon Level Descendingly in-progress")
 		
