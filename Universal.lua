@@ -700,6 +700,42 @@ function IsSorted()
 	end
 end
 
+function IsSortedDesc()
+	if getTeamSize() == 1 then
+		return true
+	elseif getTeamSize() == 2 then
+		if getPokemonLevel(1) >= getPokemonLevel(2) then
+			return true
+		else
+			return false
+		end
+	elseif getTeamSize() == 3 then
+		if getPokemonLevel(1) >= getPokemonLevel(2) and getPokemonLevel(2) >= getPokemonLevel(3) then
+			return true
+		else
+			return false
+		end
+	elseif getTeamSize() == 4 then
+		if getPokemonLevel(1) >= getPokemonLevel(2) and getPokemonLevel(2) >= getPokemonLevel(3) and getPokemonLevel(3) >= getPokemonLevel(4) then
+			return true
+		else
+			return false
+		end
+	elseif getTeamSize() == 5 then
+		if getPokemonLevel(1) >= getPokemonLevel(2) and getPokemonLevel(2) >= getPokemonLevel(3) and getPokemonLevel(3) >= getPokemonLevel(4) and getPokemonLevel(4) >= getPokemonLevel(5) then
+			return true
+		else
+			return false
+		end
+	elseif getTeamSize() == 6 then
+		if getPokemonLevel(1) >= getPokemonLevel(2) and getPokemonLevel(2) >= getPokemonLevel(3) and getPokemonLevel(3) >= getPokemonLevel(4) and getPokemonLevel(4) >= getPokemonLevel(5) and getPokemonLevel(5) >= getPokemonLevel(6) then
+			return true
+		else
+			return false
+		end
+	end
+end
+
 function ReturnHighestIndexUnderLevel()
 	result = 0
 	for i = 1, getTeamSize(), 1 do
@@ -741,8 +777,8 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		sortTeamByLevelAscending()
         log("Sorting Pokemon Level Ascendingly in-progress")
 		
-	elseif sortDesc and not onlyCatch and not IsSorted() and not powerLevel and not advanceCatching and not useMoveOnly then
-		SortTeamByLevelDescending()
+	elseif sortDesc and not onlyCatch and not IsSortedDesc and not powerLevel and not advanceCatching and not useMoveOnly then
+		sortTeamByLevelDescending()
         log("Sorting Pokemon Level Descendingly in-progress")
 		
     elseif powerLevel and getPokemonName(1) != powerLevelingPokemon then
