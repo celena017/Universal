@@ -6,4 +6,4 @@ Fix issues with advance catching (Not throwing Ball and Bot Stop when active Pok
 Added log when a pokemon learn a new move
 Fix Catching Shiny Pokemon issue
 Add configuration for Sorting
-Only shows $/exp/Hour after an hour
+Shows $/exp/Hour after an hour
