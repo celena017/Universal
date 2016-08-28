@@ -254,8 +254,11 @@ function onBattleMessage(wild)
 		log("Info | Shineys encountered: " .. shinyCounter)
 		log("Info | Pokemon(s) encountered: " .. wildCounter .. " and Catched " ..Catch.. " Pokemon(s).")
 	    log("Info | Total Earning: $" .. tostring(recentMoney - startMoney).." (" .. string.format("$%.1f", (recentMoney - startMoney)/wildCounter) .." average)")
-	    log("Info | PokeDollars/Hour: $" .. tostring(recentMoney - startMoney) / math.floor(os.clock() / 3600))
-		if getTeamSize() == 1 then
+	    if (randTime / 60) > 60 then
+	    log("Info | PokeDollars/Hour: " .. string.format("$%.1f", (recentMoney - startMoney) / math.floor(os.clock() / 3600)))
+	    end
+	    if (randTime / 60) > 60 then
+	    if getTeamSize() == 1 then
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) / math.floor(os.clock() / 3600))
 		elseif getTeamSize() == 2 then
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) / math.floor(os.clock() / 3600))
@@ -268,6 +271,7 @@ function onBattleMessage(wild)
 		elseif getTeamSize() == 6 then
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4) + (recentExp5 - startExp5) + (recentExp6 - startExp6) / math.floor(os.clock() / 3600))
 		end
+	end
 		log("Info | Balls remaining: " .. recentPBall .. " Pokeballs " .. recentGBall .. " Great Balls " .. recentUBall .. " Ultra Balls")
 		if useEscapeRope then
 		log("Info | Escape Ropes Remaining " .. getItemQuantity("Escape Rope"))
@@ -382,8 +386,11 @@ function onBattleMessage(wild)
 		log("Info | Shineys encountered: " .. shinyCounter)
 		log("Info | Pokemon(s) encountered: " .. wildCounter .. " and Catched " ..Catch.. " Pokemon(s).")
 	    log("Info | Total Earning: $" .. tostring(recentMoney - startMoney).." (" .. string.format("$%.1f", (recentMoney - startMoney)/wildCounter) .." average)")
-	    log("Info | PokeDollars/Hour: $" .. tostring(recentMoney - startMoney) / math.floor(os.clock() / 3600))
-		if getTeamSize() == 1 then
+	    if (randTime / 60) > 60 then
+	    log("Info | PokeDollars/Hour: " .. string.format("$%.1f", (recentMoney - startMoney) / math.floor(os.clock() / 3600)))
+	    end
+	    if (randTime / 60) > 60 then
+	    if getTeamSize() == 1 then
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) / math.floor(os.clock() / 3600))
 		elseif getTeamSize() == 2 then
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) / math.floor(os.clock() / 3600))
@@ -396,6 +403,7 @@ function onBattleMessage(wild)
 		elseif getTeamSize() == 6 then
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4) + (recentExp5 - startExp5) + (recentExp6 - startExp6) / math.floor(os.clock() / 3600))
 		end
+	end
 		log("Info | Balls remaining: " .. recentPBall .. " Pokeballs " .. recentGBall .. " Great Balls " .. recentUBall .. " Ultra Balls")
 		if useEscapeRope then
 		log("Info | Escape Ropes Remaining " .. getItemQuantity("Escape Rope"))
@@ -513,8 +521,11 @@ function onBattleMessage(wild)
 		log("Info | Shineys encountered: " .. shinyCounter)
 		log("Info | Pokemon(s) encountered: " .. wildCounter .. " and Catched " ..Catch.. " Pokemon(s).")
 	    log("Info | Total Earning: $" .. tostring(recentMoney - startMoney).." (" .. string.format("$%.1f", (recentMoney - startMoney)/wildCounter) .." average)")
-	    log("Info | PokeDollars/Hour: $" .. tostring(recentMoney - startMoney) / math.floor(os.clock() / 3600))
-		if getTeamSize() == 1 then
+	    if (randTime / 60) > 60 then
+	    log("Info | PokeDollars/Hour: " .. string.format("$%.1f", (recentMoney - startMoney) / math.floor(os.clock() / 3600)))
+	    end
+	    if (randTime / 60) > 60 then
+	    if getTeamSize() == 1 then
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) / math.floor(os.clock() / 3600))
 		elseif getTeamSize() == 2 then
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) / math.floor(os.clock() / 3600))
@@ -527,6 +538,7 @@ function onBattleMessage(wild)
 		elseif getTeamSize() == 6 then
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4) + (recentExp5 - startExp5) + (recentExp6 - startExp6) / math.floor(os.clock() / 3600))
 		end
+	end
 		log("Info | Balls remaining: " .. recentPBall .. " Pokeballs " .. recentGBall .. " Great Balls " .. recentUBall .. " Ultra Balls")
 		if useEscapeRope then
 		log("Info | Escape Ropes Remaining " .. getItemQuantity("Escape Rope"))
@@ -551,7 +563,10 @@ function onPause()
 	log("Info | Shineys encountered: " .. shinyCounter)
 	log("Info | Pokemon(s) encountered: " .. wildCounter .. " and Catched " ..Catch.. " Pokemon(s).")
 	log("Info | Total Earning: $" .. tostring(recentMoney - startMoney).." (" .. string.format("$%.1f", (recentMoney - startMoney)/wildCounter) .." average)")
-    log("Info | PokeDollars/Hour: $" .. tostring(recentMoney - startMoney) / math.floor(os.clock() / 3600))
+    if (randTime / 60) > 60 then
+	log("Info | PokeDollars/Hour: " .. string.format("$%.1f", (recentMoney - startMoney) / math.floor(os.clock() / 3600)))
+	end
+	if (randTime / 60) > 60 then
 	if getTeamSize() == 1 then
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) / math.floor(os.clock() / 3600))
 		elseif getTeamSize() == 2 then
@@ -565,6 +580,7 @@ function onPause()
 		elseif getTeamSize() == 6 then
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4) + (recentExp5 - startExp5) + (recentExp6 - startExp6) / math.floor(os.clock() / 3600))
 		end
+	end
 	log("Info | Balls remaining: " .. recentPBall .. " Pokeballs " .. recentGBall .. " Great Balls " .. recentUBall .. " Ultra Balls")
     if useEscapeRope then
 	    log("Info | Escape Ropes Remaining " .. getItemQuantity("Escape Rope"))
@@ -614,7 +630,10 @@ function onStop()
 	log("Info | Shineys encountered: " .. shinyCounter)
 	log("Info | Pokemon(s) encountered: " .. wildCounter .. " and Catched " ..Catch.. " Pokemon(s).")
 	log("Info | Total Earning: $" .. tostring(recentMoney - startMoney).." (" .. string.format("$%.1f", (recentMoney - startMoney)/wildCounter) .." average)")
-	log("Info | PokeDollars/Hour: $" .. tostring(recentMoney - startMoney) / math.floor(os.clock() / 3600))
+	if (randTime / 60) > 60 then
+	log("Info | PokeDollars/Hour: " .. string.format("$%.1f", (recentMoney - startMoney) / math.floor(os.clock() / 3600)))
+	end
+	if (randTime / 60) > 60 then
 	if getTeamSize() == 1 then
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) / math.floor(os.clock() / 3600))
 		elseif getTeamSize() == 2 then
@@ -628,6 +647,7 @@ function onStop()
 		elseif getTeamSize() == 6 then
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4) + (recentExp5 - startExp5) + (recentExp6 - startExp6) / math.floor(os.clock() / 3600))
 		end
+	end
 	log("Info | Balls remaining: " .. recentPBall .. " Pokeballs " .. recentGBall .. " Great Balls " .. recentUBall .. " Ultra Balls")
     if useEscapeRope then
 		log("Info | Escape Ropes Remaining " .. getItemQuantity("Escape Rope"))
