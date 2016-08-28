@@ -732,9 +732,13 @@ function onPathAction()
 get_usingMove = false
 if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= healthToRunAt and isPokemonUsable(ReturnHighestIndexUnderLevel()) then
 	
-	if not onlyCatch and not IsSorted() and not powerLevel and not advanceCatching and not useMoveOnly then
+	if sortAsc and not onlyCatch and not IsSorted() and not powerLevel and not advanceCatching and not useMoveOnly then
 		sortTeamByLevelAscending()
-        log("Sorting Pokemon in-progress")
+        log("Sorting Pokemon Level Ascendingly in-progress")
+		
+	if sortDesc and not onlyCatch and not IsSorted() and not powerLevel and not advanceCatching and not useMoveOnly then
+		SortTeamByLevelDescending()
+        log("Sorting Pokemon Level Descendingly in-progress")
 		
     elseif powerLevel and getPokemonName(1) != powerLevelingPokemon then
 	    swapPokemonWithLeader(powerLevelingPokemon)
