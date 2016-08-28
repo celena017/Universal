@@ -108,8 +108,8 @@ percentToStartThrowingIfShiny = 25
 -- Currently In Progress --
 useRod = false
 rodType = "Old Rod"
-fishingSpotX =
-fishingSpotY =
+fishingSpotX = 1
+fishingSpotY = 1
 
 --the below is case-sensitive, add more moves by adding commas. ex : onlyCatchThesePokemon = {"Pokemon 1", "Pokemon 2", "Pokemon 3"}--
 --Even if you set all other capture variables to false, we'll still try to catch these/this pokemon--
