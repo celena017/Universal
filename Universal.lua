@@ -1754,13 +1754,13 @@ function onBattleAction()
 		if isWildBattle() and ((isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught())) or IsPokemonOnCaptureList() then
 			if getPokemonHealthPercent(getTeamSize()) > healthToRunAt then
 				if isPokemonUsable(getActivePokemonNumber()) then
-					if advanceCatching and getOpponentHealthPercent() > percentToStartThrowing and not isOpponentShiny then
+					if advanceCatching and getActivePokemonNumber() != moveUserIndex and getOpponentHealthPercent() > percentToStartThrowing and not isOpponentShiny then
 						return sendPokemon(moveUserIndex)
 					elseif advanceCatching and getActivePokemonNumber() == moveUserIndex and getOpponentHealthPercent() > percentToStartThrowing and getRemainingPowerPoints(moveUserIndex, moveName) >= 1 then
 						return useMove(moveName)
-					elseif advanceCatching and getOpponentHealthPercent() <= percentToStartThrowing and not isOpponentShiny then
+					elseif advanceCatching and getOpponentHealthPercent() <= percentToStartThrowing then
 						return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball")
-					elseif advanceCatching and getActivePokemonNumber() == moveUserIndex and getOpponentHealthPercent() > percentToStartThrowing and getRemainingPowerPoints(moveUserIndex, moveName) == 0 then
+					elseif advanceCatching and getActivePokemonNumber() == moveUserIndex and getOpponentHealthPercent() > percentToStartThrowing and not isOpponentShiny and getRemainingPowerPoints(moveUserIndex, moveName) == 0 then
 						return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run()
 					elseif useMoveOnly and getActivePokemonNumber() == 1 and getRemainingPowerPoints(1, usingMove) >= 1 and get_usingMove == false then
 					    get_usingMove = true
@@ -1772,17 +1772,17 @@ function onBattleAction()
 					elseif not advanceCatching and not useMoveOnly then
 						if useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") then
 							return
-						elseif not advanceCatching and not useMoveOnly then
+						else
 							return attack() or sendUsablePokemon() or run()
 						end
 					end
-					if advanceCatching and getOpponentHealthPercent() > percentToStartThrowingIfShiny and isOpponentShiny then
+					if advanceCatching and getActivePokemonNumber() != moveUserIndex and getOpponentHealthPercent() > percentToStartThrowingIfShiny and isOpponentShiny then
 						return sendPokemon(moveUserIndex)
-					elseif advanceCatching and getActivePokemonNumber() == moveUserIndex and getOpponentHealthPercent() > percentToStartThrowing and getRemainingPowerPoints(moveUserIndex, moveName) >= 1 then
+					elseif advanceCatching and getActivePokemonNumber() == moveUserIndex and getOpponentHealthPercent() > percentToStartThrowingIfShiny and isOpponentShiny and getRemainingPowerPoints(moveUserIndex, moveName) >= 1 then
 						return useMove(moveName)
-					elseif advanceCatching and getOpponentHealthPercent() <= percentToStartThrowing and not isOpponentShiny then
+					elseif advanceCatching and getOpponentHealthPercent() <= percentToStartThrowingIfShiny and isOpponentShiny then
 						return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball")
-					elseif advanceCatching and getActivePokemonNumber() == moveUserIndex and getOpponentHealthPercent() > percentToStartThrowing and getRemainingPowerPoints(moveUserIndex, moveName) == 0 then
+					elseif advanceCatching and getActivePokemonNumber() == moveUserIndex and getOpponentHealthPercent() > percentToStartThrowingIfShiny and isOpponentShiny and getRemainingPowerPoints(moveUserIndex, moveName) == 0 then
 						return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run()
 					elseif useMoveOnly and getActivePokemonNumber() == 1 and getRemainingPowerPoints(1, usingMove) >= 1 and get_usingMove == false then
 					    get_usingMove = true
@@ -1818,5 +1818,6 @@ function onBattleAction()
 	end
 	
 function onLearningMove(moveName, pokemonIndex)
-	forgetAnyMoveExcept(movesNotToForget)
+	log(getPokemonName(pokemonIndex) .. " is learning a new move " .. moveName)
+	return forgetAnyMoveExcept(movesNotToForget)
 end
