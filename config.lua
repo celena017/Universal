@@ -1,13 +1,13 @@
 --supports up to 5 stops and mart, leave unused stops blank--
-city = ""
-pokecenter = ""
-stop1 = ""
-stop2 = ""
+city = "Cinnabar Island"
+pokecenter = "Pokecenter Cinnabar"
+stop1 = "Cinnabar mansion 1"
+stop2 = "Cinnabar mansion 2"
 stop3 = ""
 stop4 = ""
 stop5 = ""
-endLocation = ""
-martLocation = ""
+endLocation = "Cinnabar mansion 3"
+martLocation = "Cinnbar Pokemart"
 
 -- Settings for Sorting --
 -- Set both false if you dont want sorting --
