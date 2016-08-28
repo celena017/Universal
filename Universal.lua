@@ -1794,7 +1794,7 @@ function onBattleAction()
 					elseif not advanceCatching and not useMoveOnly then
 						if useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") then
 							return
-						elseif not advanceCatching and not useMoveOnly then
+						else
 							return attack() or sendUsablePokemon() or run()
 						end
 					end
