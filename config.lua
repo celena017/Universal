@@ -9,40 +9,45 @@ stop5 = ""
 endLocation = ""
 martLocation = ""
 
+-- Settings for Sorting --
+-- Set both false if you don't want any sortings --
+SortAsc = false
+sortDesc = false
+
 -- Settings for Power Leveling weaker pokemon aka ExpShare --
 --Turn this off if you want to use advanceCatching / onlyCatch--
 powerLevel = false
-stopAtLevel = 70
-powerLevelingPokemon = "Charmander"
-powerLevelerIndex = 3
+stopAtLevel = 50
+powerLevelingPokemon = "Snorlax"
+powerLevelerIndex = 6
 
 --Buy features wont work on some maps because the npc is on a different cell / location--
 --Settings for auto purchase--
-buyBalls = true
-MinMoney = 100000
-buyBallType = "Pokeball"
-MinBalls = 30
+buyBalls = false
+MinMoney = 350000
+buyBallType = "Ultra Ball"
+MinBalls = 35
 buyAmt = 1
 
 -- Settings for escape rope --
 -- NOTE: Only work on those maps that are able to use it --
 -- NOTE: Won't Work when buyBalls is on --
-useEscapeRope = true
+useEscapeRope = false
 autoRefill = false
 minRopeAmt = 5
 buyRopeAmt = 1
 
 --Declare which mount u use / leave blank if no mount--
-mount = "Arcanine Mount"
-surfMount = ""
+mount = "Absol Mount"
+surfMount = "Lapras Mount"
 
 --if no city, and pokecenter is on route, change this to true, and leave city blank--
 pokecenterOnRoute = false
 
 --Leave this true unless you are not fighting/catching in grass/water--
 --Please set only one of the below to true if u want to look in grass or water then turn the other to false--
-lookForGrass = false
-lookForWater = true
+lookForGrass = true
+lookForWater = false
 
 --If the above is false, what rectangle do you want to walk within at your endLocation?--
 --You can set an infinite number of patterns to walk in, this makes you appear more like an actual human!--
@@ -76,16 +81,16 @@ rectYE2 = 15
 --Do you want to catch shineys and uncaught pokemon?--
 catchShineys = true
 
-catchNotCaught = true
+catchNotCaught = false
 
 --Do you only want to catch pokemon, and not level?--
-onlyCatch = false
+onlyCatch = true
 
 --Advance Catching Settings--
 --NOTE: Turn onlyCatch for best experience--
-advanceCatching = false
+advanceCatching = true
 syncName = "Kadabra"
-moveUserIndex = 4
+moveUserIndex = 3
 moveName = "False Swipe"
 
 --Advance Catch without Sync for catching e.g. Abra--
@@ -103,11 +108,13 @@ percentToStartThrowingIfShiny = 25
 -- Currently In Progress --
 useRod = false
 rodType = "Old Rod"
+fishingSpotX =
+fishingSpotY =
 
 --the below is case-sensitive, add more moves by adding commas. ex : onlyCatchThesePokemon = {"Pokemon 1", "Pokemon 2", "Pokemon 3"}--
 --Even if you set all other capture variables to false, we'll still try to catch these/this pokemon--
 --Leave an empty "" here if you aren't using it--
-catchThesePokemon = {"Kingdra", "Gyarados", "Abra", "Squirtle", "Bulbasaur", "Charmander", "Dratini", "Dragonair"}
+catchThesePokemon = {"Abra", "Squirtle", "Bulbasaur", "Charmander", "Dratini", "Dragonair"}
 
 
 --the below will be the percentage of your last alive poke's health that we'll stop fighting at--
