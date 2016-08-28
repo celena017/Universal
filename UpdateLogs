@@ -13,3 +13,4 @@ Shows $/Exp/Hour only after an hour
 Supports fishing
 Rework random movement
 Rework on $/Exp/Hour log
+Fix Error during the execution of 'onStop': attempt to perform arithmetic on a nil value
