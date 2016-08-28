@@ -1,9 +1,16 @@
-8/28/2016
+8/27/2016
 Fix some sorting glitch
-When onlycatch is on with buyballs will buy the ball when it hits below the minBalls instead only when it reach 0
-8/29/2016
-Fix issues with advance catching (Not throwing Ball and Bot Stop when active Pokemon is dead)
-Added log when a pokemon learn a new move
+Change buyBalls feature with catchOnly on to refill balls when below the minBalls
+
+8/28/2016
+Fix issues with advance catching (not throwing Ball or when active Pokemon is dead)
+Added log when a pokemon learns a new move
 Fix Catching Shiny Pokemon issue
 Add configuration for Sorting
 Shows $/exp/Hour only after an hour
+
+8/29/2016
+Supports fishing
+Rework random movement
+
+
