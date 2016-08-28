@@ -1,14 +1,14 @@
 --Start Script--
 dofile "config.lua"
 
-name = "Universal"
+name = "Universal Level-Catch Anywhere"
 author = "Zymu edited by ToothBrush and Royal for providing the base framework"
 description = "Training at " .. endLocation .. " and healing at " .. pokecenter .. "." .. " Leveling all pokemon in teams to " .. levelPokesTo .. "." .. " Flee @ " .. healthToRunAt.. "% HP."
 stops = 0
 
 function onStart()
 	randTime = math.floor(os.clock())
-	randomnizer = math.random(1,5)
+	randomnizer = math.random(1,10)
 	shinyCounter = 0
 	wildCounter = 0
 	pokecenterCounter = 0
@@ -146,6 +146,7 @@ end
 
 function onBattleMessage(wild)
     if stringContains(wild, "A Wild SHINY ") then
+		randomnizer = math.random(1,10)
         shinyCounter = shinyCounter + 1
 		wildCounter = wildCounter + 1
 		recentMoney = getMoney()
@@ -180,85 +181,54 @@ function onBattleMessage(wild)
 		recentExp5 = getPokemonTotalExperience(5)
 		recentExp6 = getPokemonTotalExperience(6)
 		end
-        if (randTime / 25) < 25 then
-		if Pattern == 1 then
-		Pattern = Pattern + 1
-		log("Pattern " .. Pattern)
-		elseif Pattern == 2 then
-		Pattern = Pattern + 1
-		log("Pattern " .. Pattern)
-		elseif Pattern == 3 then
-		Pattern = Pattern + 1
-		log("Pattern " .. Pattern)
-		elseif Pattern == 4 then
-		Pattern = Pattern + 1
-		log("Pattern " .. Pattern)
-		elseif Pattern == 5 then
-		Pattern = 1
-		log("Pattern " .. Pattern)
-		end
-		elseif (randTime / 25) > 25 and (randTime / 60) < 60 then
-		if Pattern == 1 then
-		Pattern = Pattern + 1
-		log("Pattern " .. Pattern)
-		elseif Pattern == 2 then
-		Pattern = Pattern + 2
-		log("Pattern " .. Pattern)
-		elseif Pattern == 3 then
-		Pattern = Pattern + 2
-		log("Pattern " .. Pattern)
-		elseif Pattern == 4 then
-		Pattern = Pattern - 1
-		log("Pattern " .. Pattern)
-		elseif Pattern == 5 then
-		Pattern = 1
-		log("Pattern " .. Pattern)
-		end
-		elseif (randTime / 60) > 60 and (randTime / 90) < 90 then
-		if Pattern == 1 then
-		Pattern = Pattern + 4
-		log("Pattern " .. Pattern)
-		elseif Pattern == 2 then
-		Pattern = Pattern + 2
-		log("Pattern " .. Pattern)
-		elseif Pattern == 3 then
-		Pattern = Pattern - 2
-		log("Pattern " .. Pattern)
-		elseif Pattern == 4 then
-		Pattern = Pattern - 1
-		log("Pattern " .. Pattern)
-		elseif Pattern == 5 then
-		Pattern = Pattern - 3
-		log("Pattern " .. Pattern)
-		end
-		else
 		if randomnizer == 1 then
-		Pattern = 1
-		log("Pattern " .. Pattern)	
+		Pattern = 1	
 		elseif randomnizer == 2 then
-		Pattern = 2
-		log("Pattern " .. Pattern)	
+		Pattern = 2	
 		elseif randomnizer == 3 then
-		Pattern = 3
-		log("Pattern " .. Pattern)	
+		Pattern = 3	
 		elseif randomnizer == 4 then
 		Pattern = 4
-		log("Pattern " .. Pattern)
 		elseif randomnizer == 5 then
 		Pattern = 5
-		log("Pattern " .. Pattern)
-		end
+		elseif randomnizer == 6 then
+		Pattern = 6	
+		elseif randomnizer == 7 then
+		Pattern = 7
+		elseif randomnizer == 8 then
+		Pattern = 8
+		elseif randomnizer == 9 then
+		Pattern = 9
+		elseif randomnizer == 10 then
+		Pattern = 10
 		end
         log("Battle Log")
 		log("=======================================")
+		log("Info | Pattern " .. Pattern)
 		log("Info | Shineys encountered: " .. shinyCounter)
 		log("Info | Pokemon(s) encountered: " .. wildCounter .. " and Catched " ..Catch.. " Pokemon(s).")
 	    log("Info | Total Earning: $" .. tostring(recentMoney - startMoney).." (" .. string.format("$%.1f", (recentMoney - startMoney)/wildCounter) .." average)")
-	    if (randTime / 60) > 60 then
-	    log("Info | PokeDollars/Hour: " .. string.format("$%.1f", (recentMoney - startMoney) / math.floor(os.clock() / 3600)))
+	    if (randTime / 60) < 60 then
+		log("Info | PokeDollars/Hour: " .. string.format("$%.0f", (recentMoney - startMoney)))
+	    else
+		log("Info | PokeDollars/Hour: " .. string.format("$%.0f", (recentMoney - startMoney) / math.floor(os.clock() / 3600)))
 	    end
-	    if (randTime / 60) > 60 then
+	    if (randTime / 60) < 60 then
 	    if getTeamSize() == 1 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1))
+		elseif getTeamSize() == 2 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2))
+		elseif getTeamSize() == 3 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3))
+		elseif getTeamSize() == 4 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4))
+		elseif getTeamSize() == 5 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4) + (recentExp5 - startExp5))
+		elseif getTeamSize() == 6 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4) + (recentExp5 - startExp5) + (recentExp6 - startExp6))
+		end
+		else
+		if getTeamSize() == 1 then
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) / math.floor(os.clock() / 3600))
 		elseif getTeamSize() == 2 then
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) / math.floor(os.clock() / 3600))
@@ -279,6 +249,7 @@ function onBattleMessage(wild)
 		log("Info | Balls used: " .. startPokeballCount - recentPBall .. " Pokeballs " .. startGreatballCount - recentGBall .. " Great Balls " .. startUltraballCount - recentUBall .. " Ultra Balls")
 	    log("=======================================")
 	elseif stringContains(wild, "A Wild ") then
+		randomnizer = math.random(1,10)
         wildCounter = wildCounter + 1
 		recentMoney = getMoney()
 		recentPBall = getItemQuantity("Pokeball")
@@ -312,85 +283,55 @@ function onBattleMessage(wild)
 		recentExp5 = getPokemonTotalExperience(5)
 		recentExp6 = getPokemonTotalExperience(6)
 		end
-	    if (randTime / 25) < 25 then
-		if Pattern == 1 then
-		Pattern = Pattern + 1
-		log("Pattern " .. Pattern)
-		elseif Pattern == 2 then
-		Pattern = Pattern + 1
-		log("Pattern " .. Pattern)
-		elseif Pattern == 3 then
-		Pattern = Pattern + 1
-		log("Pattern " .. Pattern)
-		elseif Pattern == 4 then
-		Pattern = Pattern + 1
-		log("Pattern " .. Pattern)
-		elseif Pattern == 5 then
-		Pattern = 1
-		log("Pattern " .. Pattern)
-		end
-		elseif (randTime / 25) > 25 and (randTime / 60) < 60 then
-		if Pattern == 1 then
-		Pattern = Pattern + 1
-		log("Pattern " .. Pattern)
-		elseif Pattern == 2 then
-		Pattern = Pattern + 2
-		log("Pattern " .. Pattern)
-		elseif Pattern == 3 then
-		Pattern = Pattern + 2
-		log("Pattern " .. Pattern)
-		elseif Pattern == 4 then
-		Pattern = Pattern - 1
-		log("Pattern " .. Pattern)
-		elseif Pattern == 5 then
-		Pattern = 1
-		log("Pattern " .. Pattern)
-		end
-		elseif (randTime / 60) > 60 and (randTime / 90) < 90 then
-		if Pattern == 1 then
-		Pattern = Pattern + 4
-		log("Pattern " .. Pattern)
-		elseif Pattern == 2 then
-		Pattern = Pattern + 2
-		log("Pattern " .. Pattern)
-		elseif Pattern == 3 then
-		Pattern = Pattern - 2
-		log("Pattern " .. Pattern)
-		elseif Pattern == 4 then
-		Pattern = Pattern - 1
-		log("Pattern " .. Pattern)
-		elseif Pattern == 5 then
-		Pattern = Pattern - 3
-		log("Pattern " .. Pattern)
-		end
-		else
 		if randomnizer == 1 then
-		Pattern = 1
-		log("Pattern " .. Pattern)	
+		Pattern = 1	
 		elseif randomnizer == 2 then
-		Pattern = 2
-		log("Pattern " .. Pattern)	
+		Pattern = 2	
 		elseif randomnizer == 3 then
-		Pattern = 3
-		log("Pattern " .. Pattern)	
+		Pattern = 3	
 		elseif randomnizer == 4 then
 		Pattern = 4
-		log("Pattern " .. Pattern)
 		elseif randomnizer == 5 then
 		Pattern = 5
-		log("Pattern " .. Pattern)
-		end
+		elseif randomnizer == 6 then
+		Pattern = 6	
+		elseif randomnizer == 7 then
+		Pattern = 7
+		elseif randomnizer == 8 then
+		Pattern = 8
+		elseif randomnizer == 9 then
+		Pattern = 9
+		elseif randomnizer == 10 then
+		Pattern = 10
 		end
 		log("Battle Log")
 		log("=======================================")
+		log("Info | Pattern " .. Pattern)
+		log("Info | Randomizer " .. randomnizer)
 		log("Info | Shineys encountered: " .. shinyCounter)
 		log("Info | Pokemon(s) encountered: " .. wildCounter .. " and Catched " ..Catch.. " Pokemon(s).")
 	    log("Info | Total Earning: $" .. tostring(recentMoney - startMoney).." (" .. string.format("$%.1f", (recentMoney - startMoney)/wildCounter) .." average)")
-	    if (randTime / 60) > 60 then
-	    log("Info | PokeDollars/Hour: " .. string.format("$%.1f", (recentMoney - startMoney) / math.floor(os.clock() / 3600)))
+	    if (randTime / 60) < 60 then
+		log("Info | PokeDollars/Hour: " .. string.format("$%.0f", (recentMoney - startMoney)))
+	    else
+		log("Info | PokeDollars/Hour: " .. string.format("$%.0f", (recentMoney - startMoney) / math.floor(os.clock() / 3600)))
 	    end
-	    if (randTime / 60) > 60 then
+	    if (randTime / 60) < 60 then
 	    if getTeamSize() == 1 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1))
+		elseif getTeamSize() == 2 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2))
+		elseif getTeamSize() == 3 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3))
+		elseif getTeamSize() == 4 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4))
+		elseif getTeamSize() == 5 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4) + (recentExp5 - startExp5))
+		elseif getTeamSize() == 6 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4) + (recentExp5 - startExp5) + (recentExp6 - startExp6))
+		end
+		else
+		if getTeamSize() == 1 then
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) / math.floor(os.clock() / 3600))
 		elseif getTeamSize() == 2 then
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) / math.floor(os.clock() / 3600))
@@ -414,6 +355,7 @@ function onBattleMessage(wild)
 	trapped = true
 	log("Info | Anti-Trap mode activated")
 	elseif stringContains(wild, "caught ") then
+		randomnizer = math.random(1,10)
         Catch = Catch + 1
 		recentMoney = getMoney()
 	    recentPBall = getItemQuantity("Pokeball")
@@ -447,85 +389,54 @@ function onBattleMessage(wild)
 		recentExp5 = getPokemonTotalExperience(5)
 		recentExp6 = getPokemonTotalExperience(6)
 		end
-        if (randTime / 25) < 25 then
-		if Pattern == 1 then
-		Pattern = Pattern + 1
-		log("Pattern " .. Pattern)
-		elseif Pattern == 2 then
-		Pattern = Pattern + 1
-		log("Pattern " .. Pattern)
-		elseif Pattern == 3 then
-		Pattern = Pattern + 1
-		log("Pattern " .. Pattern)
-		elseif Pattern == 4 then
-		Pattern = Pattern + 1
-		log("Pattern " .. Pattern)
-		elseif Pattern == 5 then
-		Pattern = 1
-		log("Pattern " .. Pattern)
-		end
-		elseif (randTime / 25) > 25 and (randTime / 60) < 60 then
-		if Pattern == 1 then
-		Pattern = Pattern + 1
-		log("Pattern " .. Pattern)
-		elseif Pattern == 2 then
-		Pattern = Pattern + 2
-		log("Pattern " .. Pattern)
-		elseif Pattern == 3 then
-		Pattern = Pattern + 2
-		log("Pattern " .. Pattern)
-		elseif Pattern == 4 then
-		Pattern = Pattern - 1
-		log("Pattern " .. Pattern)
-		elseif Pattern == 5 then
-		Pattern = 1
-		log("Pattern " .. Pattern)
-		end
-		elseif (randTime / 60) > 60 and (randTime / 90) < 90 then
-		if Pattern == 1 then
-		Pattern = Pattern + 4
-		log("Pattern " .. Pattern)
-		elseif Pattern == 2 then
-		Pattern = Pattern + 2
-		log("Pattern " .. Pattern)
-		elseif Pattern == 3 then
-		Pattern = Pattern - 2
-		log("Pattern " .. Pattern)
-		elseif Pattern == 4 then
-		Pattern = Pattern - 1
-		log("Pattern " .. Pattern)
-		elseif Pattern == 5 then
-		Pattern = Pattern - 3
-		log("Pattern " .. Pattern)
-		end
-		else
 		if randomnizer == 1 then
-		Pattern = 1
-		log("Pattern " .. Pattern)	
+		Pattern = 1	
 		elseif randomnizer == 2 then
-		Pattern = 2
-		log("Pattern " .. Pattern)	
+		Pattern = 2	
 		elseif randomnizer == 3 then
-		Pattern = 3
-		log("Pattern " .. Pattern)	
+		Pattern = 3	
 		elseif randomnizer == 4 then
 		Pattern = 4
-		log("Pattern " .. Pattern)
 		elseif randomnizer == 5 then
 		Pattern = 5
-		log("Pattern " .. Pattern)
-		end
+		elseif randomnizer == 6 then
+		Pattern = 6	
+		elseif randomnizer == 7 then
+		Pattern = 7
+		elseif randomnizer == 8 then
+		Pattern = 8
+		elseif randomnizer == 9 then
+		Pattern = 9
+		elseif randomnizer == 10 then
+		Pattern = 10
 		end
 	    log("Battle Log")
 		log("=======================================")
+		log("Info | Pattern " .. Pattern)
 		log("Info | Shineys encountered: " .. shinyCounter)
 		log("Info | Pokemon(s) encountered: " .. wildCounter .. " and Catched " ..Catch.. " Pokemon(s).")
 	    log("Info | Total Earning: $" .. tostring(recentMoney - startMoney).." (" .. string.format("$%.1f", (recentMoney - startMoney)/wildCounter) .." average)")
-	    if (randTime / 60) > 60 then
-	    log("Info | PokeDollars/Hour: " .. string.format("$%.1f", (recentMoney - startMoney) / math.floor(os.clock() / 3600)))
+	    if (randTime / 60) < 60 then
+		log("Info | PokeDollars/Hour: " .. string.format("$%.0f", (recentMoney - startMoney)))
+	    else
+		log("Info | PokeDollars/Hour: " .. string.format("$%.0f", (recentMoney - startMoney) / math.floor(os.clock() / 3600)))
 	    end
-	    if (randTime / 60) > 60 then
+	    if (randTime / 60) < 60 then
 	    if getTeamSize() == 1 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1))
+		elseif getTeamSize() == 2 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2))
+		elseif getTeamSize() == 3 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3))
+		elseif getTeamSize() == 4 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4))
+		elseif getTeamSize() == 5 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4) + (recentExp5 - startExp5))
+		elseif getTeamSize() == 6 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4) + (recentExp5 - startExp5) + (recentExp6 - startExp6))
+		end
+		else
+		if getTeamSize() == 1 then
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) / math.floor(os.clock() / 3600))
 		elseif getTeamSize() == 2 then
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) / math.floor(os.clock() / 3600))
@@ -559,15 +470,63 @@ function onDialogMessage(pokecenter)
 end
 
 function onPause()
+	recentMoney = getMoney()
+	if getTeamSize() == 1 then
+		recentExp1 = getPokemonTotalExperience(1)
+		elseif getTeamSize() == 2 then
+		recentExp1 = getPokemonTotalExperience(1)
+		recentExp2 = getPokemonTotalExperience(2)
+		elseif getTeamSize() == 3 then
+		recentExp1 = getPokemonTotalExperience(1)
+		recentExp2 = getPokemonTotalExperience(2)
+		recentExp3 = getPokemonTotalExperience(3)
+		elseif getTeamSize() == 4 then
+		recentExp1 = getPokemonTotalExperience(1)
+		recentExp2 = getPokemonTotalExperience(2)
+		recentExp3 = getPokemonTotalExperience(3)
+		recentExp4 = getPokemonTotalExperience(4)
+		elseif getTeamSize() == 5 then
+		recentExp1 = getPokemonTotalExperience(1)
+		recentExp2 = getPokemonTotalExperience(2)
+		recentExp3 = getPokemonTotalExperience(3)
+		recentExp4 = getPokemonTotalExperience(4)
+		recentExp5 = getPokemonTotalExperience(5)
+		elseif getTeamSize() == 6 then
+		recentExp1 = getPokemonTotalExperience(1)
+		recentExp2 = getPokemonTotalExperience(2)
+		recentExp3 = getPokemonTotalExperience(3)
+		recentExp4 = getPokemonTotalExperience(4)
+		recentExp5 = getPokemonTotalExperience(5)
+		recentExp6 = getPokemonTotalExperience(6)
+		end
+		recentPBall = getItemQuantity("Pokeball")
+		recentGBall = getItemQuantity("Great Ball")
+		recentUBall = getItemQuantity("Ultra Ball")
 	log("=======================================")
 	log("Info | Shineys encountered: " .. shinyCounter)
 	log("Info | Pokemon(s) encountered: " .. wildCounter .. " and Catched " ..Catch.. " Pokemon(s).")
 	log("Info | Total Earning: $" .. tostring(recentMoney - startMoney).." (" .. string.format("$%.1f", (recentMoney - startMoney)/wildCounter) .." average)")
-    if (randTime / 60) > 60 then
-	log("Info | PokeDollars/Hour: " .. string.format("$%.1f", (recentMoney - startMoney) / math.floor(os.clock() / 3600)))
-	end
-	if (randTime / 60) > 60 then
-	if getTeamSize() == 1 then
+     if (randTime / 60) < 60 then
+		log("Info | PokeDollars/Hour: " .. string.format("$%.0f", (recentMoney - startMoney)))
+	    else
+		log("Info | PokeDollars/Hour: " .. string.format("$%.0f", (recentMoney - startMoney) / math.floor(os.clock() / 3600)))
+	    end
+	    if (randTime / 60) < 60 then
+	    if getTeamSize() == 1 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1))
+		elseif getTeamSize() == 2 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2))
+		elseif getTeamSize() == 3 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3))
+		elseif getTeamSize() == 4 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4))
+		elseif getTeamSize() == 5 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4) + (recentExp5 - startExp5))
+		elseif getTeamSize() == 6 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4) + (recentExp5 - startExp5) + (recentExp6 - startExp6))
+		end
+		else
+		if getTeamSize() == 1 then
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) / math.floor(os.clock() / 3600))
 		elseif getTeamSize() == 2 then
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) / math.floor(os.clock() / 3600))
@@ -626,15 +585,63 @@ function onResume()
 end
 
 function onStop()
+	recentMoney = getMoney()
+	if getTeamSize() == 1 then
+		recentExp1 = getPokemonTotalExperience(1)
+		elseif getTeamSize() == 2 then
+		recentExp1 = getPokemonTotalExperience(1)
+		recentExp2 = getPokemonTotalExperience(2)
+		elseif getTeamSize() == 3 then
+		recentExp1 = getPokemonTotalExperience(1)
+		recentExp2 = getPokemonTotalExperience(2)
+		recentExp3 = getPokemonTotalExperience(3)
+		elseif getTeamSize() == 4 then
+		recentExp1 = getPokemonTotalExperience(1)
+		recentExp2 = getPokemonTotalExperience(2)
+		recentExp3 = getPokemonTotalExperience(3)
+		recentExp4 = getPokemonTotalExperience(4)
+		elseif getTeamSize() == 5 then
+		recentExp1 = getPokemonTotalExperience(1)
+		recentExp2 = getPokemonTotalExperience(2)
+		recentExp3 = getPokemonTotalExperience(3)
+		recentExp4 = getPokemonTotalExperience(4)
+		recentExp5 = getPokemonTotalExperience(5)
+		elseif getTeamSize() == 6 then
+		recentExp1 = getPokemonTotalExperience(1)
+		recentExp2 = getPokemonTotalExperience(2)
+		recentExp3 = getPokemonTotalExperience(3)
+		recentExp4 = getPokemonTotalExperience(4)
+		recentExp5 = getPokemonTotalExperience(5)
+		recentExp6 = getPokemonTotalExperience(6)
+		end
+		recentPBall = getItemQuantity("Pokeball")
+		recentGBall = getItemQuantity("Great Ball")
+		recentUBall = getItemQuantity("Ultra Ball")
 	log("=======================================")
 	log("Info | Shineys encountered: " .. shinyCounter)
 	log("Info | Pokemon(s) encountered: " .. wildCounter .. " and Catched " ..Catch.. " Pokemon(s).")
 	log("Info | Total Earning: $" .. tostring(recentMoney - startMoney).." (" .. string.format("$%.1f", (recentMoney - startMoney)/wildCounter) .." average)")
-	if (randTime / 60) > 60 then
-	log("Info | PokeDollars/Hour: " .. string.format("$%.1f", (recentMoney - startMoney) / math.floor(os.clock() / 3600)))
-	end
-	if (randTime / 60) > 60 then
-	if getTeamSize() == 1 then
+	 if (randTime / 60) < 60 then
+		log("Info | PokeDollars/Hour: " .. string.format("$%.0f", (recentMoney - startMoney)))
+	    else
+		log("Info | PokeDollars/Hour: " .. string.format("$%.0f", (recentMoney - startMoney) / math.floor(os.clock() / 3600)))
+	    end
+	    if (randTime / 60) < 60 then
+	    if getTeamSize() == 1 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1))
+		elseif getTeamSize() == 2 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2))
+		elseif getTeamSize() == 3 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3))
+		elseif getTeamSize() == 4 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4))
+		elseif getTeamSize() == 5 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4) + (recentExp5 - startExp5))
+		elseif getTeamSize() == 6 then
+		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4) + (recentExp5 - startExp5) + (recentExp6 - startExp6))
+		end
+		else
+		if getTeamSize() == 1 then
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) / math.floor(os.clock() / 3600))
 		elseif getTeamSize() == 2 then
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) / math.floor(os.clock() / 3600))
@@ -1251,6 +1258,11 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 				moveToGrass()
 			    elseif lookForWater then
 				return moveToWater() or useItem(surfMount)
+				elseif lookForFishingSpot then
+				moveToCell(fishingSpotX, fishingSpotY)
+				elseif lookForFishingSpot and (getPlayerX() == fishingSpotX and getPlayerY == fishingSpotY) then
+				useItem(rod)
+				log("Fishing using " .. rod)
 			else
 				if Pattern == 1 then
 		                moveToRectangle(rectX1, rectY1, rectX2, rectY2)
@@ -1262,6 +1274,16 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		                moveToRectangle(rectXD1, rectYD1, rectXD2, rectYD2)
 		                elseif Pattern == 5 then
 		                moveToRectangle(rectXE1, rectYE1, rectXE2, rectYE2)
+						elseif Pattern == 6 then
+		                moveToRectangle(rectXF1, rectYF1, rectXF2, rectYF2)
+						 elseif Pattern == 7 then
+		                moveToRectangle(rectXG1, rectYG1, rectXG2, rectYG2)
+		                elseif Pattern == 8 then
+		                moveToRectangle(rectXH1, rectYH1, rectXH2, rectYH2)
+		                elseif Pattern == 9 then
+		                moveToRectangle(rectXI1, rectYI1, rectXI2, rectYI2)
+		                elseif Pattern == 10 then
+		                moveToRectangle(rectXJ1, rectYJ1, rectXJ2, rectYJ2)
                                 end
 			end
 		end
@@ -1302,6 +1324,11 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 				moveToGrass()
 				elseif lookForWater then
 			    return moveToWater() or useItem(surfMount)
+				elseif lookForFishingSpot then
+				moveToCell(fishingSpotX, fishingSpotY)
+				elseif lookForFishingSpot and (getPlayerX() == fishingSpotX and getPlayerY == fishingSpotY) then
+				useItem(rod)
+				log("Fishing using " .. rod)
 			else
 				if Pattern == 1 then
 		                moveToRectangle(rectX1, rectY1, rectX2, rectY2)
@@ -1313,6 +1340,16 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		                moveToRectangle(rectXD1, rectYD1, rectXD2, rectYD2)
 		                elseif Pattern == 5 then
 		                moveToRectangle(rectXE1, rectYE1, rectXE2, rectYE2)
+						elseif Pattern == 6 then
+		                moveToRectangle(rectXF1, rectYF1, rectXF2, rectYF2)
+						 elseif Pattern == 7 then
+		                moveToRectangle(rectXG1, rectYG1, rectXG2, rectYG2)
+		                elseif Pattern == 8 then
+		                moveToRectangle(rectXH1, rectYH1, rectXH2, rectYH2)
+		                elseif Pattern == 9 then
+		                moveToRectangle(rectXI1, rectYI1, rectXI2, rectYI2)
+		                elseif Pattern == 10 then
+		                moveToRectangle(rectXJ1, rectYJ1, rectXJ2, rectYJ2)
                                 end
 			end
 		end
@@ -1357,6 +1394,11 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 				moveToGrass()
 				elseif lookForWater then
 				return moveToWater() or useItem(surfMount)
+				elseif lookForFishingSpot then
+				moveToCell(fishingSpotX, fishingSpotY)
+				elseif lookForFishingSpot and (getPlayerX() == fishingSpotX and getPlayerY == fishingSpotY) then
+				useItem(rod)
+				log("Fishing using " .. rod)
 			else
 				if Pattern == 1 then
 		                moveToRectangle(rectX1, rectY1, rectX2, rectY2)
@@ -1368,6 +1410,16 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		                moveToRectangle(rectXD1, rectYD1, rectXD2, rectYD2)
 		                elseif Pattern == 5 then
 		                moveToRectangle(rectXE1, rectYE1, rectXE2, rectYE2)
+						elseif Pattern == 6 then
+		                moveToRectangle(rectXF1, rectYF1, rectXF2, rectYF2)
+						 elseif Pattern == 7 then
+		                moveToRectangle(rectXG1, rectYG1, rectXG2, rectYG2)
+		                elseif Pattern == 8 then
+		                moveToRectangle(rectXH1, rectYH1, rectXH2, rectYH2)
+		                elseif Pattern == 9 then
+		                moveToRectangle(rectXI1, rectYI1, rectXI2, rectYI2)
+		                elseif Pattern == 10 then
+		                moveToRectangle(rectXJ1, rectYJ1, rectXJ2, rectYJ2)
                                 end
 			end
 		end
@@ -1415,7 +1467,12 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 			if lookForGrass then
 				moveToGrass()
 				elseif lookForWater then
-				return moveToWater() or useItem(surfMount)  		
+				return moveToWater() or useItem(surfMount)
+				elseif lookForFishingSpot then
+				moveToCell(fishingSpotX, fishingSpotY)
+				elseif lookForFishingSpot and (getPlayerX() == fishingSpotX and getPlayerY == fishingSpotY) then
+				useItem(rod)
+				log("Fishing using " .. rod)				
 			else
 				if Pattern == 1 then
 		                moveToRectangle(rectX1, rectY1, rectX2, rectY2)
@@ -1427,6 +1484,16 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		                moveToRectangle(rectXD1, rectYD1, rectXD2, rectYD2)
 		                elseif Pattern == 5 then
 		                moveToRectangle(rectXE1, rectYE1, rectXE2, rectYE2)
+						elseif Pattern == 6 then
+		                moveToRectangle(rectXF1, rectYF1, rectXF2, rectYF2)
+						 elseif Pattern == 7 then
+		                moveToRectangle(rectXG1, rectYG1, rectXG2, rectYG2)
+		                elseif Pattern == 8 then
+		                moveToRectangle(rectXH1, rectYH1, rectXH2, rectYH2)
+		                elseif Pattern == 9 then
+		                moveToRectangle(rectXI1, rectYI1, rectXI2, rectYI2)
+		                elseif Pattern == 10 then
+		                moveToRectangle(rectXJ1, rectYJ1, rectXJ2, rectYJ2)
                                 end
 			end
 		end
@@ -1479,6 +1546,11 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 				moveToGrass()
 				elseif lookForWater then
 				return moveToWater() or useItem(surfMount)
+				elseif lookForFishingSpot then
+				moveToCell(fishingSpotX, fishingSpotY)
+				elseif lookForFishingSpot and (getPlayerX() == fishingSpotX and getPlayerY == fishingSpotY) then
+				useItem(rod)
+				log("Fishing using " .. rod)
 			else
 				if Pattern == 1 then
 		                moveToRectangle(rectX1, rectY1, rectX2, rectY2)
@@ -1490,6 +1562,16 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		                moveToRectangle(rectXD1, rectYD1, rectXD2, rectYD2)
 		                elseif Pattern == 5 then
 		                moveToRectangle(rectXE1, rectYE1, rectXE2, rectYE2)
+						elseif Pattern == 6 then
+		                moveToRectangle(rectXF1, rectYF1, rectXF2, rectYF2)
+						 elseif Pattern == 7 then
+		                moveToRectangle(rectXG1, rectYG1, rectXG2, rectYG2)
+		                elseif Pattern == 8 then
+		                moveToRectangle(rectXH1, rectYH1, rectXH2, rectYH2)
+		                elseif Pattern == 9 then
+		                moveToRectangle(rectXI1, rectYI1, rectXI2, rectYI2)
+		                elseif Pattern == 10 then
+		                moveToRectangle(rectXJ1, rectYJ1, rectXJ2, rectYJ2)
                                 end
 			end
 		end
@@ -1546,6 +1628,11 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 				moveToGrass()
 				elseif lookForWater then
 				return moveToWater() or useItem(surfMount)
+				elseif lookForFishingSpot then
+				moveToCell(fishingSpotX, fishingSpotY)
+				elseif lookForFishingSpot and (getPlayerX() == fishingSpotX and getPlayerY == fishingSpotY) then
+				useItem(rod)
+				log("Fishing using " .. rod)
 			else
 				if Pattern == 1 then
 		                moveToRectangle(rectX1, rectY1, rectX2, rectY2)
@@ -1557,6 +1644,16 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		                moveToRectangle(rectXD1, rectYD1, rectXD2, rectYD2)
 		                elseif Pattern == 5 then
 		                moveToRectangle(rectXE1, rectYE1, rectXE2, rectYE2)
+						elseif Pattern == 6 then
+		                moveToRectangle(rectXF1, rectYF1, rectXF2, rectYF2)
+						 elseif Pattern == 7 then
+		                moveToRectangle(rectXG1, rectYG1, rectXG2, rectYG2)
+		                elseif Pattern == 8 then
+		                moveToRectangle(rectXH1, rectYH1, rectXH2, rectYH2)
+		                elseif Pattern == 9 then
+		                moveToRectangle(rectXI1, rectYI1, rectXI2, rectYI2)
+		                elseif Pattern == 10 then
+		                moveToRectangle(rectXJ1, rectYJ1, rectXJ2, rectYJ2)
                                 end
 			end
 		end
@@ -1617,6 +1714,11 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 				moveToGrass()
 				elseif lookForWater then
 				return moveToWater() or useItem(surfMount)
+				elseif lookForFishingSpot then
+				moveToCell(fishingSpotX, fishingSpotY)
+				elseif lookForFishingSpot and (getPlayerX() == fishingSpotX and getPlayerY == fishingSpotY) then
+				useItem(rod)
+				log("Fishing using " .. rod)
 			else
 				if Pattern == 1 then
 		                moveToRectangle(rectX1, rectY1, rectX2, rectY2)
@@ -1628,6 +1730,16 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		                moveToRectangle(rectXD1, rectYD1, rectXD2, rectYD2)
 		                elseif Pattern == 5 then
 		                moveToRectangle(rectXE1, rectYE1, rectXE2, rectYE2)
+						elseif Pattern == 6 then
+		                moveToRectangle(rectXF1, rectYF1, rectXF2, rectYF2)
+						 elseif Pattern == 7 then
+		                moveToRectangle(rectXG1, rectYG1, rectXG2, rectYG2)
+		                elseif Pattern == 8 then
+		                moveToRectangle(rectXH1, rectYH1, rectXH2, rectYH2)
+		                elseif Pattern == 9 then
+		                moveToRectangle(rectXI1, rectYI1, rectXI2, rectYI2)
+		                elseif Pattern == 10 then
+		                moveToRectangle(rectXJ1, rectYJ1, rectXJ2, rectYJ2)
                                 end
 			end
 		end
