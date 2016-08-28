@@ -7,7 +7,7 @@ stop3 = ""
 stop4 = ""
 stop5 = ""
 endLocation = "Cinnabar mansion 3"
-martLocation = "Cinnbar Pokemart"
+martLocation = "Cinnabar Pokemart"
 
 -- Settings for Sorting --
 -- Set both false if you dont want sorting --
