@@ -10,7 +10,7 @@ endLocation = ""
 martLocation = ""
 
 -- Settings for Sorting --
--- Set both false if you don't want any sortings --
+-- Set both false if you dont want sorting --
 SortAsc = false
 sortDesc = false
 
