@@ -1756,9 +1756,9 @@ function onBattleAction()
 				if isPokemonUsable(getActivePokemonNumber()) then
 					if advanceCatching and getActivePokemonNumber() != moveUserIndex and getOpponentHealthPercent() > percentToStartThrowing and not isOpponentShiny then
 						return sendPokemon(moveUserIndex)
-					elseif advanceCatching and getActivePokemonNumber() == moveUserIndex and not isOpponentShiny and getOpponentHealthPercent() > percentToStartThrowing and getRemainingPowerPoints(moveUserIndex, moveName) >= 1 then
+					elseif advanceCatching and getActivePokemonNumber() == moveUserIndex and getOpponentHealthPercent() > percentToStartThrowing and not isOpponentShiny and getRemainingPowerPoints(moveUserIndex, moveName) >= 1 then
 						return useMove(moveName)
-					elseif advanceCatching and not isOpponentShiny and getOpponentHealthPercent() <= percentToStartThrowing then
+					elseif advanceCatching and getOpponentHealthPercent() <= percentToStartThrowing and not isOpponentShiny then
 						return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball")
 					elseif advanceCatching and getActivePokemonNumber() == moveUserIndex and getOpponentHealthPercent() > percentToStartThrowing and not isOpponentShiny and getRemainingPowerPoints(moveUserIndex, moveName) == 0 then
 						return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run()
