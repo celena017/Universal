@@ -7,7 +7,7 @@ stop3 = "" -- If have Third Stop --
 stop4 = "" -- If have Fourth stop --
 stop5 = "" -- If have Fifth Stop --
 endLocation = "" -- Where are you training @? e.g. Cinnabar Mansion 3 --
-martLocation = ""
+martLocation = "" -- Name of Mart e.g. Cinnabar Pokemart --
 
 -- Settings for Sorting --
 -- Asc/Desc if unused leave blank --
