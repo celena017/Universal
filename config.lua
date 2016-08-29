@@ -6,7 +6,7 @@ stop2 = "" -- Name of Second Stop e.g. Cinnabar Mansion 2 --
 stop3 = ""
 stop4 = ""
 stop5 = ""
-endLocation = "" -- Where are you training at e.g. Cinnabar Mansion 3 --
+endLocation = "" -- Where are you training @? e.g. Cinnabar Mansion 3 --
 martLocation = ""
 
 -- Settings for Sorting --
