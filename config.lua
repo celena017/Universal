@@ -14,11 +14,10 @@ martLocation = ""
 sorting = "Asc"
 
 -- Settings for Power Leveling weaker pokemon aka ExpShare --
---Turn this off if you want to use advanceCatching / onlyCatch--
-powerLevel = false
-stopAtLevel = 50
-powerLevelingPokemon = "Snorlax"
-powerLevelerIndex = 6
+--Set to 0 if not using powerLevel--
+powerLevel = 5 -- Set between 1-5 depending how many pokemons you are using to powerLevel the weaker pokemon --
+stopAtLevel = 55
+powerLevelingPokemon = "Kadabra"
 
 --Buy features wont work on some maps because the npc is on a different cell / location--
 --Settings for auto purchase--
