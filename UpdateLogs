@@ -15,4 +15,6 @@ Rework random movement
 Rework on $/Exp/Hour log
 Fix Error during the execution of 'onStop': attempt to perform arithmetic on a nil value
 Fix Error during the execution of 'onPause': attempt to perform arithmetic on a nil value
+
+8/30/2016
 Rework powerLevel and supports multi Power Leveler
