@@ -817,7 +817,7 @@ end
 
 function onPathAction()
 get_usingMove = false
-if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= healthToRunAt and isPokemonUsable(ReturnHighestIndexUnderLevel()) then
+if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > healthToRunAt and isPokemonUsable(ReturnHighestIndexUnderLevel()) then
 	
 	if sorting == "Asc" and not onlyCatch and not IsSorted() and powerLevel == 0 and not advanceCatching and not useMoveOnly then
 		sortTeamByLevelAscending()
