@@ -3,9 +3,9 @@ city = "" -- Name of city --
 pokecenter = "" -- Name Of PokeCenter -- 
 stop1 = "" -- Name of First Stop e.g. Cinnabar Mansion 1 --
 stop2 = "" -- Name of Second Stop e.g. Cinnabar Mansion 2 --
-stop3 = ""
-stop4 = ""
-stop5 = ""
+stop3 = "" -- If have Third Stop --
+stop4 = "" -- If have Fourth stop --
+stop5 = "" -- If have Fifth Stop --
 endLocation = "" -- Where are you training @? e.g. Cinnabar Mansion 3 --
 martLocation = ""
 
