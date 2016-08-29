@@ -17,4 +17,5 @@ Fix Error during the execution of 'onStop': attempt to perform arithmetic on a n
 Fix Error during the execution of 'onPause': attempt to perform arithmetic on a nil value
 
 8/30/2016
-Rework powerLevel and supports multi Power Leveler
+Rework powerLevel 
+Supports multi Power Leveler modes(Read config)
