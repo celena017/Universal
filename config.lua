@@ -1,12 +1,12 @@
 --supports up to 5 stops and mart, leave unused stops blank--
-city = ""
-pokecenter = ""
-stop1 = ""
-stop2 = ""
+city = "" -- Name of city --
+pokecenter = "" -- Name Of PokeCenter -- 
+stop1 = "" -- Name of First Stop e.g. Cinnabar Mansion 1 --
+stop2 = "" -- Name of Second Stop e.g. Cinnabar Mansion 2 --
 stop3 = ""
 stop4 = ""
 stop5 = ""
-endLocation = ""
+endLocation = "" -- Where are you training at e.g. Cinnabar Mansion 3 --
 martLocation = ""
 
 -- Settings for Sorting --
