@@ -16,4 +16,4 @@ Rework on $/Exp/Hour log
 Fix Error during the execution of 'onStop': attempt to perform arithmetic on a nil value
 Fix Error during the execution of 'onPause': attempt to perform arithmetic on a nil value
 Rework powerLevel 
-Supports multi Power Leveler modes(Read config)
+Supports multi Power Leveler modes (Read config)
