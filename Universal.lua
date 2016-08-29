@@ -2160,7 +2160,7 @@ function onBattleAction()
 				return run()
 			end
 		else
-			if not trapped and (getPokemonHealthPercent(getTeamSize()) < healthToRunAt or onlyCatch) then
+			if not trapped and (getPokemonHealthPercent(getTeamSize()) <= healthToRunAt or onlyCatch) then
 				return run()
 			elseif trapped == true then
 			   trapped = false
