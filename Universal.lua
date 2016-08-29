@@ -1276,7 +1276,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		                moveToRectangle(rectXE1, rectYE1, rectXE2, rectYE2)
 						elseif Pattern == 6 then
 		                moveToRectangle(rectXF1, rectYF1, rectXF2, rectYF2)
-						 elseif Pattern == 7 then
+						elseif Pattern == 7 then
 		                moveToRectangle(rectXG1, rectYG1, rectXG2, rectYG2)
 		                elseif Pattern == 8 then
 		                moveToRectangle(rectXH1, rectYH1, rectXH2, rectYH2)
@@ -1342,7 +1342,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		                moveToRectangle(rectXE1, rectYE1, rectXE2, rectYE2)
 						elseif Pattern == 6 then
 		                moveToRectangle(rectXF1, rectYF1, rectXF2, rectYF2)
-						 elseif Pattern == 7 then
+						elseif Pattern == 7 then
 		                moveToRectangle(rectXG1, rectYG1, rectXG2, rectYG2)
 		                elseif Pattern == 8 then
 		                moveToRectangle(rectXH1, rectYH1, rectXH2, rectYH2)
@@ -1412,7 +1412,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		                moveToRectangle(rectXE1, rectYE1, rectXE2, rectYE2)
 						elseif Pattern == 6 then
 		                moveToRectangle(rectXF1, rectYF1, rectXF2, rectYF2)
-						 elseif Pattern == 7 then
+						elseif Pattern == 7 then
 		                moveToRectangle(rectXG1, rectYG1, rectXG2, rectYG2)
 		                elseif Pattern == 8 then
 		                moveToRectangle(rectXH1, rectYH1, rectXH2, rectYH2)
@@ -1486,7 +1486,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		                moveToRectangle(rectXE1, rectYE1, rectXE2, rectYE2)
 						elseif Pattern == 6 then
 		                moveToRectangle(rectXF1, rectYF1, rectXF2, rectYF2)
-						 elseif Pattern == 7 then
+						elseif Pattern == 7 then
 		                moveToRectangle(rectXG1, rectYG1, rectXG2, rectYG2)
 		                elseif Pattern == 8 then
 		                moveToRectangle(rectXH1, rectYH1, rectXH2, rectYH2)
@@ -1564,7 +1564,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		                moveToRectangle(rectXE1, rectYE1, rectXE2, rectYE2)
 						elseif Pattern == 6 then
 		                moveToRectangle(rectXF1, rectYF1, rectXF2, rectYF2)
-						 elseif Pattern == 7 then
+						elseif Pattern == 7 then
 		                moveToRectangle(rectXG1, rectYG1, rectXG2, rectYG2)
 		                elseif Pattern == 8 then
 		                moveToRectangle(rectXH1, rectYH1, rectXH2, rectYH2)
@@ -1646,7 +1646,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		                moveToRectangle(rectXE1, rectYE1, rectXE2, rectYE2)
 						elseif Pattern == 6 then
 		                moveToRectangle(rectXF1, rectYF1, rectXF2, rectYF2)
-						 elseif Pattern == 7 then
+					    elseif Pattern == 7 then
 		                moveToRectangle(rectXG1, rectYG1, rectXG2, rectYG2)
 		                elseif Pattern == 8 then
 		                moveToRectangle(rectXH1, rectYH1, rectXH2, rectYH2)
@@ -1732,7 +1732,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		                moveToRectangle(rectXE1, rectYE1, rectXE2, rectYE2)
 						elseif Pattern == 6 then
 		                moveToRectangle(rectXF1, rectYF1, rectXF2, rectYF2)
-						 elseif Pattern == 7 then
+						elseif Pattern == 7 then
 		                moveToRectangle(rectXG1, rectYG1, rectXG2, rectYG2)
 		                elseif Pattern == 8 then
 		                moveToRectangle(rectXH1, rectYH1, rectXH2, rectYH2)
