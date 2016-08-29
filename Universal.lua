@@ -103,7 +103,9 @@ function onStart()
 	log("Info | Bot will catch pokemons that are uncaught")
 	end
 	if buyBalls == true and getMoney() < MinMoney then
+	log("=======================================")
 	log("Info | You got less than the required amount " .. MinMoney .. " Turning off Auto-Buying")
+	log("=======================================")
 	buyBalls = false
 	elseif buyBalls == true then
 	log("Info | Auto-Buy Balls is on!")
@@ -121,12 +123,28 @@ function onStart()
 	if autoRefill then
 	log("Info | AutoRefill Escape Rope is on!")
 	end
-	if powerLevel == true then
+	if powerLevel >= 1 then
 	log("Info | Power Level mode is on!")
 	log("Info | The Pokemon that gets Power Level is: " .. powerLevelingPokemon)
-	log("Info | It will be Power-Leveled by " .. getPokemonName(powerLevelerIndex))
-	log("Info | Until it reaches Level " .. stopAtLevel .. " then it will level on its own")
-	end
+	log("Info | It will be Power-Leveled till level " .. stopAtLevel)
+	if powerLevel == 1 then
+	log("Info | Power Level Mode 1")
+	elseif powerLevel == 2 then
+	log("Info | Power Level Mode 2")
+	elseif powerLevel == 3 then
+	log("Info | Power Level Mode 3")
+	elseif powerLevel == 4 then
+	log("Info | Power Level Mode 4")
+	elseif powerLevel == 5 then
+	log("Info | Power Level Mode 5")
+	else
+	log("=======================================")
+	log("Turning powerLevel off.")
+	log("Please set powerLevel between 0-5")
+	log("=======================================")
+	powerLevel = 0
+	  end
+   end
 end
 
 
@@ -801,18 +819,41 @@ function onPathAction()
 get_usingMove = false
 if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= healthToRunAt and isPokemonUsable(ReturnHighestIndexUnderLevel()) then
 	
-	if sorting == "Asc" and not onlyCatch and not IsSorted() and not powerLevel and not advanceCatching and not useMoveOnly then
+	if sorting == "Asc" and not onlyCatch and not IsSorted() and powerLevel == 0 and not advanceCatching and not useMoveOnly then
 		sortTeamByLevelAscending()
         log("Sorting Pokemon Level Ascendingly in-progress")
 		
-	elseif sorting == "Desc" and not onlyCatch and not IsSortedDesc() and not powerLevel and not advanceCatching and not useMoveOnly then
+	elseif sorting == "Desc" and not onlyCatch and not IsSortedDesc() and powerLevel == 0 and not advanceCatching and not useMoveOnly then
 		sortTeamByLevelDescending()
         log("Sorting Pokemon Level Descendingly in-progress")
 		
-    elseif powerLevel and getPokemonName(1) != powerLevelingPokemon then
+	elseif powerLevel >= 1 and getPokemonName(1) != powerLevelingPokemon then
 	    swapPokemonWithLeader(powerLevelingPokemon)
-	   	log("Swapping " .. powerLevelingPokemon .. " to first index to be Power-Leveled!")      		
-	
+	   	log("Swapping " .. powerLevelingPokemon .. " to first index to be Power-Leveled!")
+	elseif powerLevel >= 1 and getTeamSize() == 1 then
+		powerLevel = 0
+		log("Turning powerLevel off due to no power-levelers available in team")
+	elseif powerLevel >= 1 and getTeamSize() == 2 then
+		log("Don't need any Sorting")
+	elseif powerLevel >= 1 and getTeamSize() == 3 and not isTeamRangeSortedByLevelDescending(2,3) then
+		sortTeamRangeByLevelDescending(2,3)
+		log("Sorting Pokemons for Power Level Mode in-Progress")
+	elseif powerLevel >= 1 and getTeamSize() == 4 and not isTeamRangeSortedByLevelDescending(2,4) then
+		sortTeamRangeByLevelDescending(2,4)
+		log("Sorting Pokemons for Power Level Mode in-Progress")
+	elseif powerLevel >= 1 and getTeamSize() == 5 and not isTeamRangeSortedByLevelDescending(2,5) then
+		sortTeamRangeByLevelDescending(2,5)
+		log("Sorting Pokemons for Power Level Mode in-Progress")
+	elseif powerLevel >= 1 and getTeamSize() == 6 and not isTeamRangeSortedByLevelDescending(2,6) then
+		sortTeamRangeByLevelDescending(2,6)
+		log("Sorting Pokemons for Power Level Mode in-Progress")
+		
+	elseif powerLevel >= 1 and getPokemonLevel(1) >= stopAtLevel then
+	    powerLevel = 0
+		log("==================================")
+		log("Stopping Power-Leveling " .. getPokemonName(1) .. " has reached level " .. stopAtLevel)
+	    log("==================================")
+		
     elseif advanceCatching and getPokemonName(1) != syncName then
 	    swapPokemonWithLeader(syncName)
 		log("Swapping " .. syncName .. " to first index for Synchronize!")
@@ -1091,7 +1132,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		end
 	end
 		
-	elseif powerLevel == true and stops == 0 and pokecenterOnRoute and (not isPokemonUsable(1) or not isPokemonUsable(powerLevelerIndex)) then
+	elseif powerLevel == 1 and stops == 0 and pokecenterOnRoute and (not isPokemonUsable(1) or getPokemonHealthPercent(2) <= healthToRunAt) then
 	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
@@ -1104,7 +1145,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		end
 	end
 	
-	elseif powerLevel == true and stops == 0 and not pokecenterOnRoute and (not isPokemonUsable(1) or not isPokemonUsable(powerLevelerIndex)) then
+	elseif powerLevel == 1 and stops == 0 and not pokecenterOnRoute and (not isPokemonUsable(1) or getPokemonHealthPercent(2) <= healthToRunAt) then
 	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
@@ -1119,7 +1160,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		end
 	end
 	
-	elseif powerLevel == true and stops == 1 and (not isPokemonUsable(1) or not isPokemonUsable(powerLevelerIndex)) then
+	elseif powerLevel == 1 and stops == 1 and (not isPokemonUsable(1) or getPokemonHealthPercent(2) <= healthToRunAt) then
 	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
@@ -1136,7 +1177,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		end
 	end
 		
-	elseif powerLevel == true and stops == 2 and (not isPokemonUsable(1) or not isPokemonUsable(powerLevelerIndex)) then
+	elseif powerLevel == 1 and stops == 2 and (not isPokemonUsable(1) or getPokemonHealthPercent(2) <= healthToRunAt) then
 	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
@@ -1155,7 +1196,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		end
 	end
 		
-	elseif powerLevel == true and stops == 3 and (not isPokemonUsable(1) or not isPokemonUsable(powerLevelerIndex)) then
+	elseif powerLevel == 1 and stops == 3 and (not isPokemonUsable(1) or getPokemonHealthPercent(2) <= healthToRunAt) then
 	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
@@ -1176,7 +1217,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		end
 	end
 		
-	elseif powerLevel == true and stops == 4 and (not isPokemonUsable(1) or not isPokemonUsable(powerLevelerIndex)) then
+	elseif powerLevel == 1 and stops == 4 and (not isPokemonUsable(1) or getPokemonHealthPercent(2) <= healthToRunAt) then
 	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
@@ -1199,11 +1240,111 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) >= he
 		end
 	end
 		
-		elseif powerLevel == true and stops == 5 and (not isPokemonUsable(1) or not isPokemonUsable(powerLevelerIndex)) then
+		elseif powerLevel == 1 and stops == 5 and (not isPokemonUsable(1) or getPokemonHealthPercent(2) <= healthToRunAt) then
 	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
 		moveToMap(stop5)
+		elseif getMapName() == stop5 then
+		moveToMap(stop4)
+		elseif getMapName() == stop4 then
+		moveToMap(stop3)
+		elseif getMapName() == stop3 then
+		moveToMap(stop2)
+		elseif getMapName() == stop2 then
+		moveToMap(stop1)
+		elseif getMapName() == stop1 then
+		moveToMap(city)
+		elseif getMapName() == city then
+		moveToMap(pokecenter)
+		elseif getMapName() == pokecenter then
+		if getMapName() == "Indigo Plateau Center" then
+		talkToNpcOnCell(4, 22)
+		else
+		usePokecenter()
+		end
+	end
+	
+	    elseif powerLevel == 2 and (not isPokemonUsable(1) or getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) <= healthToRunAt) then    
+        if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
+		useItem("Escape Rope")
+		elseif getMapName() == endLocation then
+        return moveToMap(stop1) or moveToMap(stop2) or moveToMap(stop3) or moveToMap(stop4) or moveToMap(stop5) or moveToMap(city) or moveToMap(pokecenter)
+		elseif getMapName() == stop5 then
+		moveToMap(stop4)
+		elseif getMapName() == stop4 then
+		moveToMap(stop3)
+		elseif getMapName() == stop3 then
+		moveToMap(stop2)
+		elseif getMapName() == stop2 then
+		moveToMap(stop1)
+		elseif getMapName() == stop1 then
+		moveToMap(city)
+		elseif getMapName() == city then
+		moveToMap(pokecenter)
+		elseif getMapName() == pokecenter then
+		if getMapName() == "Indigo Plateau Center" then
+		talkToNpcOnCell(4, 22)
+		else
+		usePokecenter()
+		end
+	end
+	
+		elseif powerLevel == 3 and (not isPokemonUsable(1) or getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) <= healthToRunAt and getPokemonHealthPercent(4) <= healthToRunAt) then    
+        if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
+		useItem("Escape Rope")
+		elseif getMapName() == endLocation then
+        return moveToMap(stop1) or moveToMap(stop2) or moveToMap(stop3) or moveToMap(stop4) or moveToMap(stop5) or moveToMap(city) or moveToMap(pokecenter)
+		elseif getMapName() == stop5 then
+		moveToMap(stop4)
+		elseif getMapName() == stop4 then
+		moveToMap(stop3)
+		elseif getMapName() == stop3 then
+		moveToMap(stop2)
+		elseif getMapName() == stop2 then
+		moveToMap(stop1)
+		elseif getMapName() == stop1 then
+		moveToMap(city)
+		elseif getMapName() == city then
+		moveToMap(pokecenter)
+		elseif getMapName() == pokecenter then
+		if getMapName() == "Indigo Plateau Center" then
+		talkToNpcOnCell(4, 22)
+		else
+		usePokecenter()
+		end
+	end
+	
+		elseif powerLevel == 4 and (not isPokemonUsable(1) or getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) <= healthToRunAt and getPokemonHealthPercent(4) <= healthToRunAt and getPokemonHealthPercent(5) <= healthToRunAt) then    
+        if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
+		useItem("Escape Rope")
+		elseif getMapName() == endLocation then
+        return moveToMap(stop1) or moveToMap(stop2) or moveToMap(stop3) or moveToMap(stop4) or moveToMap(stop5) or moveToMap(city) or moveToMap(pokecenter)
+		elseif getMapName() == stop5 then
+		moveToMap(stop4)
+		elseif getMapName() == stop4 then
+		moveToMap(stop3)
+		elseif getMapName() == stop3 then
+		moveToMap(stop2)
+		elseif getMapName() == stop2 then
+		moveToMap(stop1)
+		elseif getMapName() == stop1 then
+		moveToMap(city)
+		elseif getMapName() == city then
+		moveToMap(pokecenter)
+		elseif getMapName() == pokecenter then
+		if getMapName() == "Indigo Plateau Center" then
+		talkToNpcOnCell(4, 22)
+		else
+		usePokecenter()
+		end
+	end
+	
+		elseif powerLevel == 5 and (not isPokemonUsable(1) or getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) <= healthToRunAt and getPokemonHealthPercent(4) <= healthToRunAt and getPokemonHealthPercent(5) <= healthToRunAt and getPokemonHealthPercent(6) <= healthToRunAt) then    
+        if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
+		useItem("Escape Rope")
+		elseif getMapName() == endLocation then
+        return moveToMap(stop1) or moveToMap(stop2) or moveToMap(stop3) or moveToMap(stop4) or moveToMap(stop5) or moveToMap(city) or moveToMap(pokecenter)
 		elseif getMapName() == stop5 then
 		moveToMap(stop4)
 		elseif getMapName() == stop4 then
@@ -1925,8 +2066,44 @@ end --condition--
 end --func--
 
 function onBattleAction()
-    if powerLevel and getActivePokemonNumber() == 1 and isPokemonUsable(powerLevelerIndex) and getPokemonLevel(1) < stopAtLevel then				
-		return sendPokemon(powerLevelerIndex)
+    if powerLevel == 1 and getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then				
+		return sendPokemon(2)
+	elseif powerLevel == 2 then
+		if getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then
+		return sendPokemon(2)
+		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then
+		return sendPokemon(3)
+		end
+	elseif powerLevel == 3 then
+		if getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then
+		return sendPokemon(2)
+		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then
+		return sendPokemon(3)
+		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) <= healthToRunAt and getPokemonHealthPercent(4) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then
+		return sendPokemon(4)
+		end
+	elseif powerLevel == 4 then
+		if getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then
+		return sendPokemon(2)
+		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then
+		return sendPokemon(3)
+		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) <= healthToRunAt and getPokemonHealthPercent(4) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then
+		return sendPokemon(4)
+		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) <= healthToRunAt and getPokemonHealthPercent(4) <= healthToRunAt and getPokemonHealthPercent(5) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then
+		return sendPokemon(5)
+		end
+	elseif powerLevel == 5 then
+		if getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then
+		return sendPokemon(2)
+		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then
+		return sendPokemon(3)
+		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) <= healthToRunAt and getPokemonHealthPercent(4) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then
+		return sendPokemon(4)
+		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) <= healthToRunAt and getPokemonHealthPercent(4) <= healthToRunAt and getPokemonHealthPercent(5) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then
+		return sendPokemon(5)
+		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) <= healthToRunAt and getPokemonHealthPercent(4) <= healthToRunAt and getPokemonHealthPercent(5) <= healthToRunAt and getPokemonHealthPercent(6) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then
+		return sendPokemon(6)
+		end
     end
 	if getActivePokemonNumber() <= getTeamSize() then
 		if isWildBattle() and ((isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught())) or IsPokemonOnCaptureList() then
