@@ -301,6 +301,7 @@ function onBattleMessage(wild)
 		end
 		log("Info | Balls used: " .. startPokeballCount - recentPBall .. " Pokeballs " .. startGreatballCount - recentGBall .. " Great Balls " .. startUltraballCount - recentUBall .. " Ultra Balls")
 	    if evTraining then
+		log("EV Log")
 		log("=======================================")
 		log("Info | ".. getPokemonName(1).." EV STATS")
         log("Info | Attack: "..getPokemonEffortValue(1, "Attack"))
@@ -421,6 +422,7 @@ function onBattleMessage(wild)
 		end
 		log("Info | Balls used: " .. startPokeballCount - recentPBall .. " Pokeballs " .. startGreatballCount - recentGBall .. " Great Balls " .. startUltraballCount - recentUBall .. " Ultra Balls")
 	    if evTraining then
+		log("EV Log")
 		log("=======================================")
 		log("Info | ".. getPokemonName(1).." EV STATS")
         log("Info | Attack: "..getPokemonEffortValue(1, "Attack"))
@@ -544,6 +546,7 @@ function onBattleMessage(wild)
 		end
 		log("Info | Balls used: " .. startPokeballCount - recentPBall .. " Pokeballs " .. startGreatballCount - recentGBall .. " Great Balls " .. startUltraballCount - recentUBall .. " Ultra Balls")
 	    if evTraining then
+		log("EV Log")
 		log("=======================================")
 		log("Info | ".. getPokemonName(1).." EV STATS")
         log("Info | Attack: "..getPokemonEffortValue(1, "Attack"))
@@ -679,6 +682,7 @@ function onPause()
 	log("Info | Your Sixth Pokemon, ".. getPokemonName(6) ..", has gained ".. (getPokemonLevel(6) - startLevel6) .." levels!")
 		end
 	    if evTraining then
+		log("EV Log")
 		log("=======================================")
 		log("Info | ".. getPokemonName(1).." EV STATS")
         log("Info | Attack: "..getPokemonEffortValue(1, "Attack"))
@@ -811,6 +815,7 @@ function onStop()
 	log("Info | Your Sixth Pokemon, ".. getPokemonName(6) ..", has gained ".. (getPokemonLevel(6) - startLevel6) .." levels!")
 		end
 	    if evTraining then
+		log("EV Log")
 		log("=======================================")
 		log("Info | ".. getPokemonName(1).." EV STATS")
         log("Info | Attack: "..getPokemonEffortValue(1, "Attack"))
