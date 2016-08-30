@@ -22,4 +22,5 @@ Supports multi Power Leveler modes (Read config)
 Supports EV Training
 Supports PowerLevel while EV Training
 Supports catching while EV Training
+Supports Equiping and Removing Item while EV Training
 Rework logs for easier reading
