@@ -1,30 +1,39 @@
 --supports up to 5 stops and mart, leave unused stops blank--
-city = "" -- Name of city --
-pokecenter = "" -- Name Of PokeCenter -- 
-stop1 = "" -- Name of First Stop e.g. Cinnabar Mansion 1 --
+city = "Ecruteak City" -- Name of City --
+pokecenter = "Pokecenter Ecruteak" -- Name Of Pokecenter --
+stop1 = "Route 37" -- Name of First Stop e.g. Cinnabar Mansion 1 -- 
 stop2 = "" -- Name of Second Stop e.g. Cinnabar Mansion 2 --
-stop3 = "" -- If have Third Stop --
-stop4 = "" -- If have Fourth stop --
-stop5 = "" -- If have Fifth Stop --
-endLocation = "" -- Where are you training @? e.g. Cinnabar Mansion 3 --
-martLocation = "" -- Name of Mart e.g. Cinnabar Pokemart --
+stop3 = ""
+stop4 = ""
+stop5 = ""
+endLocation = "Route 36" -- Where are you training at? e.g. Cinnabar Mansion 3 --
+martLocation = "Ecruteak Mart"
 
 -- Settings for Sorting --
--- Asc/Desc if unused leave blank --
+-- Asc/Desc leave blank if unused --
 sorting = "Asc"
+
+--EV Training Settings--
+evTraining = false
+trainEv = 0 --1 Atk, 2 Def, 3 Speed, 4 Sp Atk, 5 Sp Def, 6 HP, any other value = unused--
+trainEvOf = "Lapras"
+trainEvTill = 252
+item = "Macho Brace"
+equipItem = false -- Wears the above item if true --
+removeItem = false -- Remove item when ev reached trainEvTill value --
 
 -- Settings for Power Leveling weaker pokemon aka ExpShare --
 --Set to 0 if not using powerLevel--
-powerLevel = 5 -- Set between 1-5 depending how many pokemons you are using to powerLevel the weaker pokemon --
-stopAtLevel = 55
+powerLevel = 0 -- Set between 1-5 depending no. of pokemons you are using to powerLevel the weaker pokemon --
+stopAtLevel = 60
 powerLevelingPokemon = "Kadabra"
 
 --Buy features wont work on some maps because the npc is on a different cell / location--
 --Settings for auto purchase--
 buyBalls = false
-MinMoney = 350000
+MinMoney = 500000
 buyBallType = "Ultra Ball"
-MinBalls = 35
+MinBalls = 30
 buyAmt = 1
 
 -- Settings for escape rope --
@@ -44,11 +53,11 @@ pokecenterOnRoute = false
 
 --Leave this true unless you are not fighting/catching in grass/water/fishing--
 --Please set only one of the below to true if u want to look for in grass or water or fishing then turn the others to false--
-lookForGrass = false
+lookForGrass = true
 lookForWater = false
 lookForFishingSpot = false
 --If lookForFishingSpot = true--
-rod = "Super Rod"
+rod = "Old Rod"
 fishingSpotX = 30
 fishingSpotY = 30
 
@@ -56,60 +65,60 @@ fishingSpotY = 30
 --You can set an infinite number of patterns to walk in, this makes you appear more like an actual human!--
 --just add a set of coordinates, and make sure its name is different from the rest, like the examples below--
 
-rectX1 = 46
-rectX2 = 46
-rectY1 = 14
-rectY2 = 19
+rectX1 = 35
+rectX2 = 40
+rectY1 = 20
+rectY2 = 20
 
-rectXB1 = 45
-rectXB2 = 48
-rectYB1 = 19
-rectYB2 = 19
+rectXB1 = 35
+rectXB2 = 40
+rectYB1 = 18
+rectYB2 = 18
 
-rectXC1 = 46
-rectXC2 = 46
+rectXC1 = 34
+rectXC2 = 40
 rectYC1 = 19
-rectYC2 = 22
+rectYC2 = 19
 
-rectXD1 = 47
-rectXD2 = 47
+rectXD1 = 35
+rectXD2 = 40
 rectYD1 = 19
-rectYD2 = 22
+rectYD2 = 25
 
-rectXE1 = 45
-rectXE2 = 47
-rectYE1 = 15
-rectYE2 = 15
+rectXE1 = 34
+rectXE2 = 42
+rectYE1 = 21
+rectYE2 = 21
 
-rectXF1 = 45
-rectXF2 = 47
-rectYF1 = 15
-rectYF2 = 15
+rectXF1 = 30
+rectXF2 = 40
+rectYF1 = 20
+rectYF2 = 20
 
-rectXG1 = 45
-rectXG2 = 47
-rectYG1 = 15
-rectYG2 = 15
+rectXG1 = 32
+rectXG2 = 38
+rectYG1 = 20
+rectYG2 = 20
 
-rectXH1 = 45
-rectXH2 = 47
-rectYH1 = 15
-rectYH2 = 15
+rectXH1 = 35
+rectXH2 = 40
+rectYH1 = 18
+rectYH2 = 19
 
-rectXI1 = 45
-rectXI2 = 47
-rectYI1 = 15
-rectYI2 = 15
+rectXI1 = 34
+rectXI2 = 36
+rectYI1 = 20
+rectYI2 = 22
 
-rectXJ1 = 45
-rectXJ2 = 47
-rectYJ1 = 15
-rectYJ2 = 15
+rectXJ1 = 40
+rectXJ2 = 44
+rectYJ1 = 20
+rectYJ2 = 20
 
 --Do you want to catch shineys and uncaught pokemon?--
 catchShineys = true
 
-catchNotCaught = false
+catchNotCaught = true
 
 --Do you only want to catch pokemon, and not level?--
 onlyCatch = false
@@ -117,8 +126,8 @@ onlyCatch = false
 --Advance Catching Settings--
 --NOTE: Turn onlyCatch for best experience--
 advanceCatching = false
-syncName = "Kadabra"
-moveUserIndex = 6
+syncName = "Abra"
+moveUserIndex = 2 -- The index of the pokemon that use the move below --
 moveName = "False Swipe"
 
 --Advance Catch without Sync for catching e.g. Abra--
@@ -136,7 +145,7 @@ percentToStartThrowingIfShiny = 25
 --the below is case-sensitive, add more moves by adding commas. ex : onlyCatchThesePokemon = {"Pokemon 1", "Pokemon 2", "Pokemon 3"}--
 --Even if you set all other capture variables to false, we'll still try to catch these/this pokemon--
 --Leave an empty "" here if you aren't using it--
-catchThesePokemon = {"Abra", "Squirtle", "Bulbasaur", "Charmander", "Dratini", "Dragonair"}
+catchThesePokemon = {"Gastly", "Squirtle", "Bulbasaur", "Charmander", "Dratini", "Dragonair"}
 
 
 --the below will be the percentage of your last alive poke's health that we'll stop fighting at--
