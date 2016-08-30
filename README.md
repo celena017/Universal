@@ -16,3 +16,4 @@ Logs for normal mode
 Configure config to your needs
 
 Report any bugs found on forum
+a
