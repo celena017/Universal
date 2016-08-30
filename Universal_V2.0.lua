@@ -1,7 +1,7 @@
 --Start Script--
 dofile "config.lua"
 
-name = "Universal Level-Catch Anywhere"
+name = "Universal V2.0 Level-Catch Anywhere"
 author = "Zymu edited by ToothBrush and Royal for providing the base framework"
 description = "Training at " .. endLocation .. " and healing at " .. pokecenter .. "." .. " Leveling all pokemon in teams to " .. levelPokesTo .. "." .. " Flee @ " .. healthToRunAt.. "% HP."
 stops = 0
