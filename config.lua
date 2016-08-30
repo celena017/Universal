@@ -11,7 +11,7 @@ martLocation = "Ecruteak Mart"
 
 -- Settings for Sorting --
 -- Asc/Desc leave blank if unused --
-sorting = "Asc"
+sorting = ""
 
 --EV Training Settings--
 evTraining = false
