@@ -134,7 +134,7 @@ function onStart()
 	if equipItem then
     equippingItem()
 	end
-	if trainEv == 0 then
+	if trainEv == 0 or trainEv > 6 then
 	fatal("Info | Please Set a number between 1-6")
 	elseif trainEv == 1 then
 	log("Info | Training " .. getPokemonName(1) .. "'s Attack EV till " .. trainEvTill)
