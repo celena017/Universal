@@ -89,8 +89,7 @@ function onStart()
 	stops = stops + 1
 	end
 	if onlyCatch then
-	log("Info | onlyCatch is on!")
-	log("Info | Bot will only catch pokemons")
+	log("Info | onlyCatch is on!... Bot will only catch pokemons")
 	end
 	if advanceCatching then
 	log("Info | AdvanceCatching is on!")
@@ -99,8 +98,7 @@ function onStart()
 	log("Info| AdvanceCatching is on w/o Synchronize!")
 	end
 	if catchNotCaught then
-	log("Info | catchNotCaught is on!")
-	log("Info | Bot will catch pokemons that are uncaught")
+	log("Info | catchNotCaught is on!... Bot will catch pokemons that are uncaught")
 	end
 	if buyBalls == true and getMoney() < MinMoney then
 	log("=======================================")
@@ -113,15 +111,44 @@ function onStart()
 	if useEscapeRope then 
 	log("Info | Use Escape Rope is on!")
 	end
-	if sorting == "Asc" then
+	if sorting == "Asc" and not onlyCatch and powerLevel == 0 and not evTraining and not advanceCatching and not useMoveOnly then
 	log("Info | Sorting Pokemon Ascendingly")
-	elseif sorting == "Desc" then
+	elseif sorting == "Desc" and not onlyCatch and powerLevel == 0 and not evTraining and not advanceCatching and not useMoveOnly then
 	log("Info | Sorting Pokemon Descendingly")
-	else 
-	log("Info | Sorting is off!")
 	end
 	if autoRefill then
 	log("Info | AutoRefill Escape Rope is on!")
+	end
+	if evTraining and getPokemonName(1) != trainEvOf  then
+	swapPokemonWithLeader(trainEvOf)
+    log("Swapping " .. trainEvOf .. " to first index to train EV!")
+	end
+	if evTraining then
+	attackEv = getPokemonEffortValue(1, "Attack")
+    defenseEv = getPokemonEffortValue(1, "Defense")
+    speedEv = getPokemonEffortValue(1, "Speed")
+    spattackEv = getPokemonEffortValue(1, "Spattack")
+    spdefenseEv = getPokemonEffortValue(1, "Spdefense")
+    hpEv = getPokemonEffortValue(1, "HP")
+	log("Info | EV Training is on!")
+	if equipItem then
+    equippingItem()
+	end
+	if trainEv == 0 then
+	fatal("Info | Please Set a number between 1-6")
+	elseif trainEv == 1 then
+	log("Info | Training " .. getPokemonName(1) .. "'s Attack EV till " .. trainEvTill)
+	elseif trainEv == 2 then
+	log("Info | Training " .. getPokemonName(1) .. "'s Defense EV till " .. trainEvTill)
+	elseif trainEv == 3 then
+	log("Info | Training " .. getPokemonName(1) .. "'s Speed EV till " .. trainEvTill)
+	elseif trainEv == 4 then
+	log("Info | Training " .. getPokemonName(1) .. "'s Sp Attack EV till " .. trainEvTill)
+	elseif trainEv == 5 then
+	log("Info | Training " .. getPokemonName(1) .. "'s Sp Defense EV till " .. trainEvTill)
+	elseif trainEv == 6 then
+	log("Info | Training " .. getPokemonName(1) .. "'s HP EV till " .. trainEvTill)
+	end
 	end
 	if powerLevel >= 1 then
 	log("Info | Power Level mode is on!")
@@ -199,6 +226,14 @@ function onBattleMessage(wild)
 		recentExp5 = getPokemonTotalExperience(5)
 		recentExp6 = getPokemonTotalExperience(6)
 		end
+		if evTraining then
+	    attackEv = getPokemonEffortValue(1, "Attack")
+        defenseEv = getPokemonEffortValue(1, "Defense")
+        speedEv = getPokemonEffortValue(1, "Speed")
+        spattackEv = getPokemonEffortValue(1, "Spattack")
+        spdefenseEv = getPokemonEffortValue(1, "Spdefense")
+        hpEv = getPokemonEffortValue(1, "HP")
+		end
 		if randomnizer == 1 then
 		Pattern = 1	
 		elseif randomnizer == 2 then
@@ -265,7 +300,17 @@ function onBattleMessage(wild)
 		log("Info | Escape Ropes Remaining " .. getItemQuantity("Escape Rope"))
 		end
 		log("Info | Balls used: " .. startPokeballCount - recentPBall .. " Pokeballs " .. startGreatballCount - recentGBall .. " Great Balls " .. startUltraballCount - recentUBall .. " Ultra Balls")
-	    log("=======================================")
+	    if evTraining then
+		log("=======================================")
+		log("Info | ".. getPokemonName(1).." EV STATS")
+        log("Info | Attack: "..getPokemonEffortValue(1, "Attack"))
+        log("Info | Defense: "..getPokemonEffortValue(1, "Defense"))
+        log("Info | Speed: "..getPokemonEffortValue(1, "Speed"))
+        log("Info | Special Attack: "..getPokemonEffortValue(1, "Spattack"))
+        log("Info | Special Defense: "..getPokemonEffortValue(1, "Spdefense"))
+        log("Info | Health Points: "..getPokemonEffortValue(1, "HP"))
+		end
+		log("=======================================")
 	elseif stringContains(wild, "A Wild ") then
 		randomnizer = math.random(1,10)
         wildCounter = wildCounter + 1
@@ -300,6 +345,14 @@ function onBattleMessage(wild)
 		recentExp4 = getPokemonTotalExperience(4)
 		recentExp5 = getPokemonTotalExperience(5)
 		recentExp6 = getPokemonTotalExperience(6)
+		end
+		if evTraining then
+	    attackEv = getPokemonEffortValue(1, "Attack")
+        defenseEv = getPokemonEffortValue(1, "Defense")
+        speedEv = getPokemonEffortValue(1, "Speed")
+        spattackEv = getPokemonEffortValue(1, "Spattack")
+        spdefenseEv = getPokemonEffortValue(1, "Spdefense")
+        hpEv = getPokemonEffortValue(1, "HP")
 		end
 		if randomnizer == 1 then
 		Pattern = 1	
@@ -367,7 +420,17 @@ function onBattleMessage(wild)
 		log("Info | Escape Ropes Remaining " .. getItemQuantity("Escape Rope"))
 		end
 		log("Info | Balls used: " .. startPokeballCount - recentPBall .. " Pokeballs " .. startGreatballCount - recentGBall .. " Great Balls " .. startUltraballCount - recentUBall .. " Ultra Balls")
-	    log("=======================================")
+	    if evTraining then
+		log("=======================================")
+		log("Info | ".. getPokemonName(1).." EV STATS")
+        log("Info | Attack: "..getPokemonEffortValue(1, "Attack"))
+        log("Info | Defense: "..getPokemonEffortValue(1, "Defense"))
+        log("Info | Speed: "..getPokemonEffortValue(1, "Speed"))
+        log("Info | Special Attack: "..getPokemonEffortValue(1, "Spattack"))
+        log("Info | Special Defense: "..getPokemonEffortValue(1, "Spdefense"))
+        log("Info | Health Points: "..getPokemonEffortValue(1, "HP"))
+		end
+		log("=======================================")
 	elseif stringContains(wild, "wrapped") or stringContains(wild, "You can not switch this Pokemon!") or stringContains(wild, "You failed to run away!") or stringContains(wild, "You can not run away!")  then
 	trapped = true
 	log("Info | Anti-Trap mode activated")
@@ -405,6 +468,14 @@ function onBattleMessage(wild)
 		recentExp4 = getPokemonTotalExperience(4)
 		recentExp5 = getPokemonTotalExperience(5)
 		recentExp6 = getPokemonTotalExperience(6)
+		end
+		if evTraining then
+	    attackEv = getPokemonEffortValue(1, "Attack")
+        defenseEv = getPokemonEffortValue(1, "Defense")
+        speedEv = getPokemonEffortValue(1, "Speed")
+        spattackEv = getPokemonEffortValue(1, "Spattack")
+        spdefenseEv = getPokemonEffortValue(1, "Spdefense")
+        hpEv = getPokemonEffortValue(1, "HP")
 		end
 		if randomnizer == 1 then
 		Pattern = 1	
@@ -472,7 +543,17 @@ function onBattleMessage(wild)
 		log("Info | Escape Ropes Remaining " .. getItemQuantity("Escape Rope"))
 		end
 		log("Info | Balls used: " .. startPokeballCount - recentPBall .. " Pokeballs " .. startGreatballCount - recentGBall .. " Great Balls " .. startUltraballCount - recentUBall .. " Ultra Balls")
-	    log("=======================================")
+	    if evTraining then
+		log("=======================================")
+		log("Info | ".. getPokemonName(1).." EV STATS")
+        log("Info | Attack: "..getPokemonEffortValue(1, "Attack"))
+        log("Info | Defense: "..getPokemonEffortValue(1, "Defense"))
+        log("Info | Speed: "..getPokemonEffortValue(1, "Speed"))
+        log("Info | Special Attack: "..getPokemonEffortValue(1, "Spattack"))
+        log("Info | Special Defense: "..getPokemonEffortValue(1, "Spdefense"))
+        log("Info | Health Points: "..getPokemonEffortValue(1, "HP"))
+		end
+		log("=======================================")
 	end
 end
 
@@ -563,27 +644,33 @@ function onPause()
 	    end
 	log("Info | Balls used: " .. startPokeballCount - recentPBall .. " Pokeballs " .. startGreatballCount - recentGBall .. " Great Balls " .. startUltraballCount - recentUBall .. " Ultra Balls")
 	log("Info | Bought " .. ballsBought .. " " .. buyBallType  .. "(s).")
-	if getTeamSize() == 1 then
+	if getTeamSize() == 1 and not advanceCatching and not evTraining and not useMoveOnly then
+	log("=======================================")
 	log("Info | Your First Pokemon, ".. getPokemonName(1) ..", has gained ".. (getPokemonLevel(1) - startLevel1) .." levels!")
-	elseif getTeamSize() == 2 then
+	elseif getTeamSize() == 2 and not advanceCatching and not evTraining and not useMoveOnly then
+	log("=======================================")
 	log("Info | Your First Pokemon, ".. getPokemonName(1) ..", has gained ".. (getPokemonLevel(1) - startLevel1) .." levels!")
 	log("Info | Your Second Pokemon, ".. getPokemonName(2) ..", has gained ".. (getPokemonLevel(2) - startLevel2) .." levels!")
-	elseif getTeamSize() == 3 then
+	elseif getTeamSize() == 3 and not advanceCatching and not evTraining and not useMoveOnly then
+	log("=======================================")
 	log("Info | Your First Pokemon, ".. getPokemonName(1) ..", has gained ".. (getPokemonLevel(1) - startLevel1) .." levels!")
 	log("Info | Your Second Pokemon, ".. getPokemonName(2) ..", has gained ".. (getPokemonLevel(2) - startLevel2) .." levels!")
 	log("Info | Your Third Pokemon, ".. getPokemonName(3) ..", has gained ".. (getPokemonLevel(3) - startLevel3) .." levels!")
-	elseif getTeamSize() == 4 then
+	elseif getTeamSize() == 4 and not advanceCatching and not evTraining and not useMoveOnly then
+	log("=======================================")
 	log("Info | Your First Pokemon, ".. getPokemonName(1) ..", has gained ".. (getPokemonLevel(1) - startLevel1) .." levels!")
 	log("Info | Your Second Pokemon, ".. getPokemonName(2) ..", has gained ".. (getPokemonLevel(2) - startLevel2) .." levels!")
 	log("Info | Your Third Pokemon, ".. getPokemonName(3) ..", has gained ".. (getPokemonLevel(3) - startLevel3) .." levels!")
     log("Info | Your Fourth Pokemon, ".. getPokemonName(4) ..", has gained ".. (getPokemonLevel(4) - startLevel4) .." levels!")
-		elseif getTeamSize() == 5 then
+	elseif getTeamSize() == 5 and not advanceCatching and not evTraining and not useMoveOnly then
+	log("=======================================")
 	log("Info | Your First Pokemon, ".. getPokemonName(1) ..", has gained ".. (getPokemonLevel(1) - startLevel1) .." levels!")
 	log("Info | Your Second Pokemon, ".. getPokemonName(2) ..", has gained ".. (getPokemonLevel(2) - startLevel2) .." levels!")
 	log("Info | Your Third Pokemon, ".. getPokemonName(3) ..", has gained ".. (getPokemonLevel(3) - startLevel3) .." levels!")
     log("Info | Your Fourth Pokemon, ".. getPokemonName(4) ..", has gained ".. (getPokemonLevel(4) - startLevel4) .." levels!")
 	log("Info | Your Fifth Pokemon, ".. getPokemonName(5) ..", has gained ".. (getPokemonLevel(5) - startLevel5) .." levels!")
-	elseif getTeamSize() == 6 then
+	elseif getTeamSize() == 6 and not advanceCatching and not evTraining and not useMoveOnly then
+	log("=======================================")
 	log("Info | Your First Pokemon, ".. getPokemonName(1) ..", has gained ".. (getPokemonLevel(1) - startLevel1) .." levels!")
 	log("Info | Your Second Pokemon, ".. getPokemonName(2) ..", has gained ".. (getPokemonLevel(2) - startLevel2) .." levels!")
 	log("Info | Your Third Pokemon, ".. getPokemonName(3) ..", has gained ".. (getPokemonLevel(3) - startLevel3) .." levels!")
@@ -591,8 +678,19 @@ function onPause()
 	log("Info | Your Fifth Pokemon, ".. getPokemonName(5) ..", has gained ".. (getPokemonLevel(5) - startLevel5) .." levels!")
 	log("Info | Your Sixth Pokemon, ".. getPokemonName(6) ..", has gained ".. (getPokemonLevel(6) - startLevel6) .." levels!")
 		end
+	    if evTraining then
+		log("=======================================")
+		log("Info | ".. getPokemonName(1).." EV STATS")
+        log("Info | Attack: "..getPokemonEffortValue(1, "Attack"))
+        log("Info | Defense: "..getPokemonEffortValue(1, "Defense"))
+        log("Info | Speed: "..getPokemonEffortValue(1, "Speed"))
+        log("Info | Special Attack: "..getPokemonEffortValue(1, "Spattack"))
+        log("Info | Special Defense: "..getPokemonEffortValue(1, "Spdefense"))
+        log("Info | Health Points: "..getPokemonEffortValue(1, "HP"))
+		end
+		log("=======================================")
 		RunningTime()
-	log("=======================================")
+	    log("=======================================")
 end
 	
 function onResume()
@@ -678,27 +776,33 @@ function onStop()
 		end
 	log("Info | Balls used: " .. startPokeballCount - recentPBall .. " Pokeballs " .. startGreatballCount - recentGBall .. " Great Balls " .. startUltraballCount - recentUBall .. " Ultra Balls")
 	log("Info | Bought " .. ballsBought .. " " .. buyBallType  .. "(s).")
-		if getTeamSize() == 1 then
+		if getTeamSize() == 1 and not advanceCatching and not evTraining and not useMoveOnly then
+	log("=======================================")
 	log("Info | Your First Pokemon, ".. getPokemonName(1) ..", has gained ".. (getPokemonLevel(1) - startLevel1) .." levels!")
-	elseif getTeamSize() == 2 then
+	elseif getTeamSize() == 2 and not advanceCatching and not evTraining and not useMoveOnly then
+	log("=======================================")
 	log("Info | Your First Pokemon, ".. getPokemonName(1) ..", has gained ".. (getPokemonLevel(1) - startLevel1) .." levels!")
 	log("Info | Your Second Pokemon, ".. getPokemonName(2) ..", has gained ".. (getPokemonLevel(2) - startLevel2) .." levels!")
-	elseif getTeamSize() == 3 then
+	elseif getTeamSize() == 3 and not advanceCatching and not evTraining and not useMoveOnly then
+	log("=======================================")
 	log("Info | Your First Pokemon, ".. getPokemonName(1) ..", has gained ".. (getPokemonLevel(1) - startLevel1) .." levels!")
 	log("Info | Your Second Pokemon, ".. getPokemonName(2) ..", has gained ".. (getPokemonLevel(2) - startLevel2) .." levels!")
 	log("Info | Your Third Pokemon, ".. getPokemonName(3) ..", has gained ".. (getPokemonLevel(3) - startLevel3) .." levels!")
-	elseif getTeamSize() == 4 then
+	elseif getTeamSize() == 4 and not advanceCatching and not evTraining and not useMoveOnly then
+	log("=======================================")
 	log("Info | Your First Pokemon, ".. getPokemonName(1) ..", has gained ".. (getPokemonLevel(1) - startLevel1) .." levels!")
 	log("Info | Your Second Pokemon, ".. getPokemonName(2) ..", has gained ".. (getPokemonLevel(2) - startLevel2) .." levels!")
 	log("Info | Your Third Pokemon, ".. getPokemonName(3) ..", has gained ".. (getPokemonLevel(3) - startLevel3) .." levels!")
     log("Info | Your Fourth Pokemon, ".. getPokemonName(4) ..", has gained ".. (getPokemonLevel(4) - startLevel4) .." levels!")
-		elseif getTeamSize() == 5 then
+	elseif getTeamSize() == 5 and not advanceCatching and not evTraining and not useMoveOnly then
+	log("=======================================")
 	log("Info | Your First Pokemon, ".. getPokemonName(1) ..", has gained ".. (getPokemonLevel(1) - startLevel1) .." levels!")
 	log("Info | Your Second Pokemon, ".. getPokemonName(2) ..", has gained ".. (getPokemonLevel(2) - startLevel2) .." levels!")
 	log("Info | Your Third Pokemon, ".. getPokemonName(3) ..", has gained ".. (getPokemonLevel(3) - startLevel3) .." levels!")
     log("Info | Your Fourth Pokemon, ".. getPokemonName(4) ..", has gained ".. (getPokemonLevel(4) - startLevel4) .." levels!")
 	log("Info | Your Fifth Pokemon, ".. getPokemonName(5) ..", has gained ".. (getPokemonLevel(5) - startLevel5) .." levels!")
-	elseif getTeamSize() == 6 then
+	elseif getTeamSize() == 6 and not advanceCatching and not evTraining and not useMoveOnly then
+	log("=======================================")
 	log("Info | Your First Pokemon, ".. getPokemonName(1) ..", has gained ".. (getPokemonLevel(1) - startLevel1) .." levels!")
 	log("Info | Your Second Pokemon, ".. getPokemonName(2) ..", has gained ".. (getPokemonLevel(2) - startLevel2) .." levels!")
 	log("Info | Your Third Pokemon, ".. getPokemonName(3) ..", has gained ".. (getPokemonLevel(3) - startLevel3) .." levels!")
@@ -706,8 +810,19 @@ function onStop()
 	log("Info | Your Fifth Pokemon, ".. getPokemonName(5) ..", has gained ".. (getPokemonLevel(5) - startLevel5) .." levels!")
 	log("Info | Your Sixth Pokemon, ".. getPokemonName(6) ..", has gained ".. (getPokemonLevel(6) - startLevel6) .." levels!")
 		end
+	    if evTraining then
+		log("=======================================")
+		log("Info | ".. getPokemonName(1).." EV STATS")
+        log("Info | Attack: "..getPokemonEffortValue(1, "Attack"))
+        log("Info | Defense: "..getPokemonEffortValue(1, "Defense"))
+        log("Info | Speed: "..getPokemonEffortValue(1, "Speed"))
+        log("Info | Special Attack: "..getPokemonEffortValue(1, "Spattack"))
+        log("Info | Special Defense: "..getPokemonEffortValue(1, "Spdefense"))
+        log("Info | Health Points: "..getPokemonEffortValue(1, "HP"))
+		end
+		log("=======================================")
 		RunningTime()
-	log("=======================================")
+	    log("=======================================")
 end
 
 function IsSorted()
@@ -811,6 +926,32 @@ function TableLength(T)
   return count
 end
 
+function retrieveItem()
+
+    if removeItem then
+    if getPokemonHeldItem(1) == item then
+            takeItemFromPokemon(1)
+            log("=================================")
+            log("Retrive " .. item .. " from " .. getPokemonName(1))
+            log("=================================")
+    end
+    end
+
+end
+
+function equippingItem()
+
+    if equipItem then
+    if hasItem(item) and getPokemonHeldItem(1) != item then
+            giveItemToPokemon(item, 1)
+            log("=================================")
+            log("Equipping " .. item .. " on " .. getPokemonName(1))
+            log("=================================")
+    end
+    end
+
+end
+
 -- below is the part of code in which you actually move, for how many patterns there are, just add another--
 -- statement for said number! remember, this is just one of code blocks to change, change them all if you add more patterns--
 
@@ -819,11 +960,11 @@ function onPathAction()
 get_usingMove = false
 if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > healthToRunAt and isPokemonUsable(ReturnHighestIndexUnderLevel()) then
 	
-	if sorting == "Asc" and not onlyCatch and not IsSorted() and powerLevel == 0 and not advanceCatching and not useMoveOnly then
+	if sorting == "Asc" and not onlyCatch and not IsSorted() and powerLevel == 0 and not evTraining and not advanceCatching and not useMoveOnly then
 		sortTeamByLevelAscending()
         log("Sorting Pokemon Level Ascendingly in-progress")
 		
-	elseif sorting == "Desc" and not onlyCatch and not IsSortedDesc() and powerLevel == 0 and not advanceCatching and not useMoveOnly then
+	elseif sorting == "Desc" and not onlyCatch and not IsSortedDesc() and powerLevel == 0 and not evTraining and not advanceCatching and not useMoveOnly then
 		sortTeamByLevelDescending()
         log("Sorting Pokemon Level Descendingly in-progress")
 		
@@ -860,12 +1001,50 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > hea
 			
     elseif useMoveOnly and getPokemonName(1) != useMovePokemon then
         swapPokemonWithLeader(useMovePokemon)
-        log("Swapping " .. useMovePokemon .. " to first index for Advance catching w/o Synchronize!")		
+        log("Swapping " .. useMovePokemon .. " to first index for Advance catching w/o Synchronize!")
+		
+	elseif evTraining and trainEv == 1 and attackEv >= trainEvTill then
+        return retrieveItem() or fatal("Atk EV has reached "..attackEv.."... Bot will stop")
+	elseif evTraining and trainEv == 2 and defenseEv >= trainEvTill then
+        return retrieveItem() or fatal("Def EV has reached "..defenseEv.."... Bot will stop")
+	elseif evTraining and trainEv == 3 and speedEv >= trainEvTill then
+        return retrieveItem() or fatal("Speed EV has reached "..speedEv.."... Bot will stop")
+	elseif evTraining and trainEv == 4 and spattackEv >= trainEvTill then
+        return retrieveItem() or fatal("Sp Atk EV has reached "..spattackEv.."... Bot will stop")
+	elseif evTraining and trainEv == 5 and spdefenseEv >= trainEvTill then
+        return retrieveItem() or fatal("Sp Def EV has reached "..spdefenseEv.."... Bot will stop")
+	elseif evTraining and trainEv == 6 and hpEv >= trainEvTill then
+        return retrieveItem() or fatal("HP EV has reached "..hpEv.." Bot will stop")
 	
 	elseif not isMounted() and hasItem(mount) and not isSurfing() and isOutside() and not string.find(getMapName(), "Pokecenter") and not string.find(getMapName(), "Mart") and not string.find(getMapName(), "Center") and not string.find(getMapName(), "Pokemart") and not string.find(getMapName(), "Tunnel") and not string.find(getMapName(), "Stop") and not string.find(getMapName(), "Cave") and not string.find(getMapName(), "Mt") and not string.find(getMapName(), "Tower") and not string.find(getMapName(), "mansion") and not string.find(getMapName(), "Victory") then
 		useItem(mount)
 		log("Getting on " .. mount)
 		
+	elseif evTraining and (getPokemonHealthPercent(1) <= healthToRunAt or not isPokemonUsable(1)) then    
+        if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
+		useItem("Escape Rope")
+		elseif getMapName() == endLocation then
+        return moveToMap(stop1) or moveToMap(stop2) or moveToMap(stop3) or moveToMap(stop4) or moveToMap(stop5) or moveToMap(city) or moveToMap(pokecenter)
+		elseif getMapName() == stop5 then
+		moveToMap(stop4)
+		elseif getMapName() == stop4 then
+		moveToMap(stop3)
+		elseif getMapName() == stop3 then
+		moveToMap(stop2)
+		elseif getMapName() == stop2 then
+		moveToMap(stop1)
+		elseif getMapName() == stop1 then
+		moveToMap(city)
+		elseif getMapName() == city then
+		moveToMap(pokecenter)
+		elseif getMapName() == pokecenter then
+		if getMapName() == "Indigo Plateau Center" then
+		talkToNpcOnCell(4, 22)
+		else
+		usePokecenter()
+		end
+	end
+	
 	elseif advanceCatching and stops == 0 and pokecenterOnRoute and (not isPokemonUsable(1) or not isPokemonUsable(moveUserIndex) or getRemainingPowerPoints(moveUserIndex, moveName) == 0) then
 	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
 		useItem("Escape Rope")
@@ -2064,7 +2243,6 @@ else
 	end
 end --condition--
 end --func--
-
 function onBattleAction()
     if powerLevel == 1 and getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then				
 		return sendPokemon(2)
@@ -2105,6 +2283,19 @@ function onBattleAction()
 		return sendPokemon(6)
 		end
     end
+	if evTraining and trainEv == 1 then
+					   return atk()
+					elseif evTraining and trainEv == 2 then
+					   return def()
+					elseif evTraining and trainEv == 3 then
+					   return spe()
+					elseif evTraining and trainEv == 4 then
+					   return spa()
+					elseif evTraining and trainEv == 5 then
+					   return spd()
+					elseif evTraining and trainEv == 6 then
+					   return hp()		
+end
 	if getActivePokemonNumber() <= getTeamSize() then
 		if isWildBattle() and ((isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught())) or IsPokemonOnCaptureList() then
 			if getPokemonHealthPercent(getTeamSize()) > healthToRunAt then
@@ -2123,7 +2314,7 @@ function onBattleAction()
 					elseif useMoveOnly and not isOpponentShiny() and get_usingMove == true then
 					    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball")
 					elseif useMoveOnly and not isOpponentShiny() and getActivePokemonNumber() == 1 and getRemainingPowerPoints(1, usingMove) == 0 and get_usingMove == false then
-					    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run()
+					    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run()                		
 					elseif not advanceCatching and not useMoveOnly then
 						if useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") then
 							return
@@ -2171,6 +2362,84 @@ function onBattleAction()
 			end
 		end
 	end
+	
+function atk()
+    if isOpponentEffortValue("Attack") and (attackEv < trainEvTill) and not IsPokemonOnCaptureList() and ((not isOpponentShiny() and catchShineys) or (catchNotCaught and isAlreadyCaught())) then
+        return attack() or sendUsablePokemon() or run()  
+    elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or sendAnyPokemon() or attack() or run() 
+        elseif not trapped then
+		return run() or sendUsablePokemon() or sendAnyPokemon()
+		elseif trapped then
+		trapped = false
+		return sendUsablePokemon()
+    end
+end
+
+function spe()
+    if isOpponentEffortValue("Speed") and (speedEv < trainEvTill) and not IsPokemonOnCaptureList() and ((not isOpponentShiny() and catchShineys) or (catchNotCaught and isAlreadyCaught())) then
+        return attack() or sendUsablePokemon() or run()  
+    elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or sendAnyPokemon() or attack() or run() 
+        elseif not trapped then
+		return run() or sendUsablePokemon() or sendAnyPokemon()
+		elseif trapped then
+		trapped = false
+		return sendUsablePokemon()
+    end
+end
+
+function def()
+    if isOpponentEffortValue("Defense") and (defenseEv < trainEvTill) and not IsPokemonOnCaptureList() and ((not isOpponentShiny() and catchShineys) or (catchNotCaught and isAlreadyCaught())) then
+        return attack() or sendUsablePokemon() or run()  
+    elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or sendAnyPokemon() or attack() or run() 
+        elseif not trapped then
+		return run() or sendUsablePokemon() or sendAnyPokemon()
+		elseif trapped then
+		trapped = false
+		return sendUsablePokemon()
+    end
+end
+
+function spa()
+    if isOpponentEffortValue("Spattack") and (spattackEv < trainEvTill) and not IsPokemonOnCaptureList() and ((not isOpponentShiny() and catchShineys) or (catchNotCaught and isAlreadyCaught())) then
+        return attack() or sendUsablePokemon() or run()  
+    elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or sendAnyPokemon() or attack() or run() 
+        elseif not trapped then
+		return run() or sendUsablePokemon() or sendAnyPokemon()
+		elseif trapped then
+		trapped = false
+		return sendUsablePokemon()
+    end
+end
+
+function hp()
+    if isOpponentEffortValue("HP") and (hpEv < trainEvTill) and not IsPokemonOnCaptureList() and ((not isOpponentShiny() and catchShineys) or (catchNotCaught and isAlreadyCaught())) then
+        return attack() or sendUsablePokemon() or run()  
+    elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or sendAnyPokemon() or attack() or run() 
+        elseif not trapped then
+		return run() or sendUsablePokemon() or sendAnyPokemon()
+		elseif trapped then
+		trapped = false
+		return sendUsablePokemon()
+    end
+end
+
+function spd()
+    if isOpponentEffortValue("Spdefense") and (spdefenseEv < trainEvTill) and not IsPokemonOnCaptureList() and ((not isOpponentShiny() and catchShineys) or (catchNotCaught and isAlreadyCaught())) then
+        return attack() or sendUsablePokemon() or run()  
+    elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or sendAnyPokemon() or attack() or run() 
+        elseif not trapped then
+		return run() or sendUsablePokemon() or sendAnyPokemon()
+		elseif trapped then
+		trapped = false
+		return sendUsablePokemon()
+    end
+end
 	
 function onLearningMove(moveName, pokemonIndex)
 	log(getPokemonName(pokemonIndex) .. " is learning a new move " .. moveName)
