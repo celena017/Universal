@@ -27,4 +27,5 @@ Rework logs for easier reading
 
 8/31/2016
 Fixed powerlevel sorting issues
-Added anti-trap for powerleveling
+Added anti-trap for powerleveling that supports catch
+Added log for encounter/hour
