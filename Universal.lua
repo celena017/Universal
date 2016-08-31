@@ -185,7 +185,7 @@ function onStart()
    elseif lookFor == 2 then
    log("Info | Looking for pokemons by Fishing!")
    else
-   log("Info | Training for pokemons by walking in Rectangles!")
+   log("Info | Looking for pokemons by walking in Rectangles!")
    end
 end
 
