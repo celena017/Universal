@@ -29,4 +29,4 @@ Rework logs for easier reading
 Fixed powerlevel sorting issues
 Added anti-trap for powerleveling that supports catch
 Added log for encounter/hour
-Fixed Bot-Stop when capture a Pokemon without fullteam size
+Fixed Bot-Stop when capture a Pokemon issue
