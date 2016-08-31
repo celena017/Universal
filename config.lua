@@ -19,7 +19,7 @@ sorting = "Asc"
 --EV Training Settings--
 evTraining = false
 trainEv = 0 -- 1 Atk, 2 Def, 3 Speed, 4 Sp Atk, 5 Sp Def, 6 HP, any other value = unused --
-trainEvOf = "Machoke"
+trainEvOf = "PokemonName"
 trainEvTill = 252
 item = "Macho Brace"
 equipItem = false -- Wears the above item if true --
@@ -28,8 +28,8 @@ removeItem = false -- Remove item when ev reached trainEvTill value --
 -- Settings for Power Leveling weaker pokemon aka ExpShare --
 --Set to 0 if not using powerLevel--
 powerLevel = 0 -- Set between 1-5 depending no. of pokemons you are using to powerLevel the weaker pokemon --
-stopAtLevel = 60
-powerLevelingPokemon = "Machoke"
+stopAtLevel = 80
+powerLevelingPokemon = "PokemonName"
 
 --Buy features wont work on some maps because the npc is on a different cell / location--
 --Settings for auto purchase--
@@ -48,72 +48,70 @@ minRopeAmt = 5
 buyRopeAmt = 1
 
 --Declare which mount u use / leave blank if no mount--
-mount = "Absol Mount"
+mount = "Shiny Absol Mount"
 surfMount = "Lapras Mount"
 
 --Leave this true unless you are not fighting/catching in grass/water/fishing--
 --Please set only one of the below to true if u want to look for in grass or water or fishing then turn the others to false--
-lookForGrass = true
-lookForWater = false
-lookForFishingSpot = false
---If lookForFishingSpot = true--
+lookFor = 0 -- 0.Grass, 1.Water, 2.Fishing, Other Numbers = Rectangle --
+
+-- Fishing Settings --
 rod = "Old Rod"
 fishingSpotX = 30
 fishingSpotY = 30
 
---If the above is false, what rectangle do you want to walk within at your endLocation?--
+--If is not Grass,Water,Fishing , what rectangle do you want to walk within at your endLocation?--
 --You can set an infinite number of patterns to walk in, this makes you appear more like an actual human!--
 --just add a set of coordinates, and make sure its name is different from the rest, like the examples below--
+rectX1 = 20
+rectX2 = 20
+rectY1 = 21
+rectY2 = 24
 
-rectX1 = 33
-rectX2 = 23
-rectY1 = 35
-rectY2 = 23
+rectXB1 = 22
+rectXB2 = 17
+rectYB1 = 17
+rectYB2 = 22
 
-rectXB1 = 35
-rectXB2 = 40
-rectYB1 = 18
-rectYB2 = 18
+rectXC1 = 20
+rectXC2 = 20
+rectYC1 = 17
+rectYC2 = 21
 
-rectXC1 = 34
-rectXC2 = 40
-rectYC1 = 19
-rectYC2 = 19
+rectXD1 = 18
+rectXD2 = 21
+rectYD1 = 20
+rectYD2 = 20
 
-rectXD1 = 35
-rectXD2 = 40
-rectYD1 = 19
-rectYD2 = 25
-
-rectXE1 = 34
-rectXE2 = 42
+rectXE1 = 18
+rectXE2 = 22
 rectYE1 = 21
 rectYE2 = 21
 
-rectXF1 = 30
-rectXF2 = 40
-rectYF1 = 20
-rectYF2 = 20
+rectXF1 = 20
+rectXF2 = 23
+rectYF1 = 19
+rectYF2 = 19
 
-rectXG1 = 32
-rectXG2 = 38
+rectXG1 = 19
+rectXG2 = 17
 rectYG1 = 20
 rectYG2 = 20
 
-rectXH1 = 35
-rectXH2 = 40
-rectYH1 = 18
-rectYH2 = 19
+rectXH1 = 21
+rectXH2 = 21
+rectYH1 = 19
+rectYH2 = 17
 
-rectXI1 = 34
-rectXI2 = 36
-rectYI1 = 20
-rectYI2 = 22
+rectXI1 = 18
+rectXI2 = 18
+rectYI1 = 22
+rectYI2 = 17
 
-rectXJ1 = 40
-rectXJ2 = 44
+rectXJ1 = 20
+rectXJ2 = 20
 rectYJ1 = 20
-rectYJ2 = 20
+rectYJ2 = 17
 
 --Do you want to catch shineys and uncaught pokemon?--
 catchShineys = true
@@ -126,15 +124,15 @@ onlyCatch = false
 --Advance Catching Settings--
 --NOTE: Turn onlyCatch for best experience--
 advanceCatching = false
-syncName = "Kadabra"
+syncName = "Natu"
 moveUserIndex = 6 -- The index of the pokemon that use the move below --
 moveName = "False Swipe"
 
 --Advance Catch without Sync for catching e.g. Abra--
 --NOTE: Turn onlyCatch on for best experience --
 useMoveOnly = false
-useMovePokemon = "Haunter"
-usingMove = "Mean Look"
+useMovePokemon = "Scizor"
+usingMove = "False Swipe"
 
 --the below will be the percentage of your opponent's health we'll start throwing balls at--
 --DEFAULT: 30--
@@ -145,7 +143,7 @@ percentToStartThrowingIfShiny = 25
 --the below is case-sensitive, add more moves by adding commas. ex : onlyCatchThesePokemon = {"Pokemon 1", "Pokemon 2", "Pokemon 3"}--
 --Even if you set all other capture variables to false, we'll still try to catch these/this pokemon--
 --Leave an empty "" here if you aren't using it--
-catchThesePokemon = {"Larvitar", "Gastly", "Squirtle", "Bulbasaur", "Charmander", "Dratini", "Dragonair"}
+catchThesePokemon = {"Gastly", "Snorlax", "Squirtle", "Bulbasaur", "Charmander", "Dratini", "Dragonair"}
 
 --the below will be the percentage of your last alive poke's health that we'll stop fighting at--
 --DEFAULT: 50--
