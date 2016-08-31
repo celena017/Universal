@@ -26,7 +26,7 @@ Supports Equiping and Removing Item while EV Training
 Rework logs for easier reading
 
 8/31/2016
-Fixed powerlevel sorting issues
+Fixed powerlevel sorting issues that causes (Don't need any Sorting loop)
 Added anti-trap for powerleveling that supports catch
 Added log for encounter/hour
 Fixed Error during the execution of 'onBattleMessage': attempt to perform arithmetic on a nil value that cause bot to stop
