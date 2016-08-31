@@ -51,8 +51,7 @@ buyRopeAmt = 1
 mount = "Shiny Absol Mount"
 surfMount = "Lapras Mount"
 
---Leave this true unless you are not fighting/catching in grass/water/fishing--
---Please set only one of the below to true if u want to look for in grass or water or fishing then turn the others to false--
+--Settings for training spot--
 lookFor = 0 -- 0.Grass, 1.Water, 2.Fishing, Other Numbers = Rectangle --
 
 -- Fishing Settings --
