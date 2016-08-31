@@ -25,11 +25,13 @@ function onStart()
 	if getTeamSize() == 1 then
     startLevel1 = getPokemonLevel(1)
 	startExp1 = getPokemonTotalExperience(1)
+	teamCounter = 1
 	elseif getTeamSize() == 2 then
 	startLevel1 = getPokemonLevel(1)
 	startExp1 = getPokemonTotalExperience(1)
 	startLevel2 = getPokemonLevel(2)
 	startExp2 = getPokemonTotalExperience(2)
+	teamCounter = 2
 	elseif getTeamSize() == 3 then
 	startLevel1 = getPokemonLevel(1)
 	startExp1 = getPokemonTotalExperience(1)
@@ -37,6 +39,7 @@ function onStart()
 	startExp2 = getPokemonTotalExperience(2)
 	startLevel3 = getPokemonLevel(3)
 	startExp3 = getPokemonTotalExperience(3)
+	teamCounter = 3
 	elseif getTeamSize() == 4 then
 	startLevel1 = getPokemonLevel(1)
 	startExp1 = getPokemonTotalExperience(1)
@@ -46,6 +49,7 @@ function onStart()
 	startExp3 = getPokemonTotalExperience(3)
 	startLevel4 = getPokemonLevel(4)
 	startExp4 = getPokemonTotalExperience(4)
+	teamCounter = 4
 	elseif getTeamSize() == 5 then
 	startLevel1 = getPokemonLevel(1)
 	startExp1 = getPokemonTotalExperience(1)
@@ -57,6 +61,7 @@ function onStart()
 	startExp4 = getPokemonTotalExperience(4)
 	startLevel5 = getPokemonLevel(5)
 	startExp5 = getPokemonTotalExperience(5)
+	teamCounter = 5
 	elseif getTeamSize() == 6 then
 	startLevel1 = getPokemonLevel(1)
 	startExp1 = getPokemonTotalExperience(1)
@@ -70,6 +75,7 @@ function onStart()
 	startExp5 = getPokemonTotalExperience(5)
 	startLevel6 = getPokemonLevel(6)
 	startExp6 = getPokemonTotalExperience(6)
+	teamCounter = 6
 	end
 --always leave this on 1! this helps determine which pattern to walk in!-- 
     Pattern = 1
@@ -257,9 +263,9 @@ function onBattleMessage(wild)
 		end
         log("Battle Log")
 		log("=======================================")
-		log("Info | Random Number is " .. randomnizer .. " Moving in Pattern " .. Pattern)
+		log("Info | Random Number is " .. randomnizer .. " Next Pattern will be " .. Pattern)
 		log("Info | Shineys encountered: " .. shinyCounter)
-		log("Info | Pokemon(s) encountered: " .. wildCounter .. " and Catched " ..Catch.. " Pokemon(s).")
+		log("Info | Pokemon(s) encountered: " .. wildCounter .. " and Caught " ..Catch.. " Pokemon(s).")
 	    log("Info | Total Earning: $" .. tostring(recentMoney - startMoney).." (" .. string.format("$%.1f", (recentMoney - startMoney)/wildCounter) .." average)")
 	    if (randTime / 60) < 60 then
 		log("Info | PokeDollars/Hour: " .. string.format("$%.0f", (recentMoney - startMoney)))
@@ -295,6 +301,11 @@ function onBattleMessage(wild)
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4) + (recentExp5 - startExp5) + (recentExp6 - startExp6) / math.floor(os.clock() / 3600))
 		end
 	end
+		if (randTime / 60) < 60 then
+		log("Info | Encounters/Hour: " .. string.format("%.0f", (wildCounter)))
+	    else
+		log("Info | Encounters/Hour: " .. string.format("%.0f", (wildCounter / math.floor(os.clock() / 3600))))
+	    end
 		log("Info | Balls remaining: " .. recentPBall .. " Pokeballs " .. recentGBall .. " Great Balls " .. recentUBall .. " Ultra Balls")
 		if useEscapeRope then
 		log("Info | Escape Ropes Remaining " .. getItemQuantity("Escape Rope"))
@@ -378,9 +389,9 @@ function onBattleMessage(wild)
 		end
 		log("Battle Log")
 		log("=======================================")
-		log("Info | Random Number is " .. randomnizer .. " Moving in Pattern " .. Pattern)
+		log("Info | Random Number is " .. randomnizer .. " Next Pattern will be " .. Pattern)
 		log("Info | Shineys encountered: " .. shinyCounter)
-		log("Info | Pokemon(s) encountered: " .. wildCounter .. " and Catched " ..Catch.. " Pokemon(s).")
+		log("Info | Pokemon(s) encountered: " .. wildCounter .. " and Caught " ..Catch.. " Pokemon(s).")
 	    log("Info | Total Earning: $" .. tostring(recentMoney - startMoney).." (" .. string.format("$%.1f", (recentMoney - startMoney)/wildCounter) .." average)")
 	    if (randTime / 60) < 60 then
 		log("Info | PokeDollars/Hour: " .. string.format("$%.0f", (recentMoney - startMoney)))
@@ -416,6 +427,11 @@ function onBattleMessage(wild)
 		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4) + (recentExp5 - startExp5) + (recentExp6 - startExp6) / math.floor(os.clock() / 3600))
 		end
 	end
+		if (randTime / 60) < 60 then
+		log("Info | Encounters/Hour: " .. string.format("%.0f", (wildCounter)))
+	    else
+		log("Info | Encounters/Hour: " .. string.format("%.0f", (wildCounter / math.floor(os.clock() / 3600))))
+	    end
 		log("Info | Balls remaining: " .. recentPBall .. " Pokeballs " .. recentGBall .. " Great Balls " .. recentUBall .. " Ultra Balls")
 		if useEscapeRope then
 		log("Info | Escape Ropes Remaining " .. getItemQuantity("Escape Rope"))
@@ -436,49 +452,12 @@ function onBattleMessage(wild)
 	elseif stringContains(wild, "wrapped") or stringContains(wild, "You can not switch this Pokemon!") or stringContains(wild, "You failed to run away!") or stringContains(wild, "You can not run away!")  then
 	trapped = true
 	log("Info | Anti-Trap mode activated")
-	elseif stringContains(wild, "caught ") then
+		elseif stringContains(wild, "caught ") then
 		randomnizer = math.random(1,10)
         Catch = Catch + 1
-		recentMoney = getMoney()
 	    recentPBall = getItemQuantity("Pokeball")
 		recentGBall = getItemQuantity("Great Ball")
 		recentUBall = getItemQuantity("Ultra Ball")
-		if getTeamSize() == 1 then
-		recentExp1 = getPokemonTotalExperience(1)
-		elseif getTeamSize() == 2 then
-		recentExp1 = getPokemonTotalExperience(1)
-		recentExp2 = getPokemonTotalExperience(2)
-		elseif getTeamSize() == 3 then
-		recentExp1 = getPokemonTotalExperience(1)
-		recentExp2 = getPokemonTotalExperience(2)
-		recentExp3 = getPokemonTotalExperience(3)
-		elseif getTeamSize() == 4 then
-		recentExp1 = getPokemonTotalExperience(1)
-		recentExp2 = getPokemonTotalExperience(2)
-		recentExp3 = getPokemonTotalExperience(3)
-		recentExp4 = getPokemonTotalExperience(4)
-		elseif getTeamSize() == 5 then
-		recentExp1 = getPokemonTotalExperience(1)
-		recentExp2 = getPokemonTotalExperience(2)
-		recentExp3 = getPokemonTotalExperience(3)
-		recentExp4 = getPokemonTotalExperience(4)
-		recentExp5 = getPokemonTotalExperience(5)
-		elseif getTeamSize() == 6 then
-		recentExp1 = getPokemonTotalExperience(1)
-		recentExp2 = getPokemonTotalExperience(2)
-		recentExp3 = getPokemonTotalExperience(3)
-		recentExp4 = getPokemonTotalExperience(4)
-		recentExp5 = getPokemonTotalExperience(5)
-		recentExp6 = getPokemonTotalExperience(6)
-		end
-		if evTraining then
-	    attackEv = getPokemonEffortValue(1, "Attack")
-        defenseEv = getPokemonEffortValue(1, "Defense")
-        speedEv = getPokemonEffortValue(1, "Speed")
-        spattackEv = getPokemonEffortValue(1, "Spattack")
-        spdefenseEv = getPokemonEffortValue(1, "Spdefense")
-        hpEv = getPokemonEffortValue(1, "HP")
-		end
 		if randomnizer == 1 then
 		Pattern = 1	
 		elseif randomnizer == 2 then
@@ -502,61 +481,16 @@ function onBattleMessage(wild)
 		end
 	    log("Battle Log")
 		log("=======================================")
-		log("Info | Random Number is " .. randomnizer .. " Moving in Pattern " .. Pattern)
+		log("Info | Random Number is " .. randomnizer .. " Next Pattern will be " .. Pattern)
 		log("Info | Shineys encountered: " .. shinyCounter)
-		log("Info | Pokemon(s) encountered: " .. wildCounter .. " and Catched " ..Catch.. " Pokemon(s).")
-	    log("Info | Total Earning: $" .. tostring(recentMoney - startMoney).." (" .. string.format("$%.1f", (recentMoney - startMoney)/wildCounter) .." average)")
-	    if (randTime / 60) < 60 then
-		log("Info | PokeDollars/Hour: " .. string.format("$%.0f", (recentMoney - startMoney)))
+		log("Info | Pokemon(s) encountered: " .. wildCounter .. " and Caught " ..Catch.. " Pokemon(s).")
+		if (randTime / 60) < 60 then
+		log("Info | Encounters/Hour: " .. string.format("%.0f", (wildCounter)))
 	    else
-		log("Info | PokeDollars/Hour: " .. string.format("$%.0f", (recentMoney - startMoney) / math.floor(os.clock() / 3600)))
+		log("Info | Encounters/Hour: " .. string.format("%.0f", (wildCounter / math.floor(os.clock() / 3600))))
 	    end
-	    if (randTime / 60) < 60 then
-	    if getTeamSize() == 1 then
-		log("Info | Exp/Hour " .. (recentExp1 - startExp1))
-		elseif getTeamSize() == 2 then
-		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2))
-		elseif getTeamSize() == 3 then
-		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3))
-		elseif getTeamSize() == 4 then
-		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4))
-		elseif getTeamSize() == 5 then
-		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4) + (recentExp5 - startExp5))
-		elseif getTeamSize() == 6 then
-		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4) + (recentExp5 - startExp5) + (recentExp6 - startExp6))
-		end
-		else
-		if getTeamSize() == 1 then
-		log("Info | Exp/Hour " .. (recentExp1 - startExp1) / math.floor(os.clock() / 3600))
-		elseif getTeamSize() == 2 then
-		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) / math.floor(os.clock() / 3600))
-		elseif getTeamSize() == 3 then
-		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) / math.floor(os.clock() / 3600))
-		elseif getTeamSize() == 4 then
-		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4) / math.floor(os.clock() / 3600))
-		elseif getTeamSize() == 5 then
-		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4) + (recentExp5 - startExp5) / math.floor(os.clock() / 3600))
-		elseif getTeamSize() == 6 then
-		log("Info | Exp/Hour " .. (recentExp1 - startExp1) + (recentExp2 - startExp2) + (recentExp3 - startExp3) + (recentExp4 - startExp4) + (recentExp5 - startExp5) + (recentExp6 - startExp6) / math.floor(os.clock() / 3600))
-		end
-	end
 		log("Info | Balls remaining: " .. recentPBall .. " Pokeballs " .. recentGBall .. " Great Balls " .. recentUBall .. " Ultra Balls")
-		if useEscapeRope then
-		log("Info | Escape Ropes Remaining " .. getItemQuantity("Escape Rope"))
-		end
 		log("Info | Balls used: " .. startPokeballCount - recentPBall .. " Pokeballs " .. startGreatballCount - recentGBall .. " Great Balls " .. startUltraballCount - recentUBall .. " Ultra Balls")
-	    if evTraining then
-		log("EV Log")
-		log("=======================================")
-		log("Info | ".. getPokemonName(1).." EV STATS")
-        log("Info | Attack: "..getPokemonEffortValue(1, "Attack"))
-        log("Info | Defense: "..getPokemonEffortValue(1, "Defense"))
-        log("Info | Speed: "..getPokemonEffortValue(1, "Speed"))
-        log("Info | Special Attack: "..getPokemonEffortValue(1, "Spattack"))
-        log("Info | Special Defense: "..getPokemonEffortValue(1, "Spdefense"))
-        log("Info | Health Points: "..getPokemonEffortValue(1, "HP"))
-		end
-		log("=======================================")
 	end
 end
 
@@ -780,7 +714,7 @@ function onStop()
 		end
 	log("Info | Balls used: " .. startPokeballCount - recentPBall .. " Pokeballs " .. startGreatballCount - recentGBall .. " Great Balls " .. startUltraballCount - recentUBall .. " Ultra Balls")
 	log("Info | Bought " .. ballsBought .. " " .. buyBallType  .. "(s).")
-		if getTeamSize() == 1 and not advanceCatching and not evTraining and not useMoveOnly then
+	if getTeamSize() == 1 and not advanceCatching and not evTraining and not useMoveOnly then
 	log("=======================================")
 	log("Info | Your First Pokemon, ".. getPokemonName(1) ..", has gained ".. (getPokemonLevel(1) - startLevel1) .." levels!")
 	elseif getTeamSize() == 2 and not advanceCatching and not evTraining and not useMoveOnly then
@@ -972,15 +906,34 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > hea
 	elseif sorting == "Desc" and not onlyCatch and not IsSortedDesc() and powerLevel == 0 and not evTraining and not advanceCatching and not useMoveOnly then
 		sortTeamByLevelDescending()
         log("Sorting Pokemon Level Descendingly in-progress")
-		
+	
+    elseif getTeamSize() == 2 and teamCounter == 1 then
+        startLevel2 = getPokemonLevel(2)
+	    startExp2 = getPokemonTotalExperience(2)
+	    teamCounter = 2
+    elseif getTeamSize() == 3 and teamCounter == 2 then
+        startLevel3 = getPokemonLevel(3)
+	    startExp3 = getPokemonTotalExperience(3)
+	    teamCounter = 3
+    elseif getTeamSize() == 4 and teamCounter == 3 then
+        startLevel4 = getPokemonLevel(4)
+	    startExp4 = getPokemonTotalExperience(4)
+	    teamCounter = 4
+	elseif getTeamSize() == 5 and teamCounter == 4 then
+        startLevel5 = getPokemonLevel(5)
+	    startExp5 = getPokemonTotalExperience(5)
+	    teamCounter = 5
+	elseif getTeamSize() == 6 and teamCounter == 5 then
+        startLevel6 = getPokemonLevel(6)
+	    startExp6 = getPokemonTotalExperience(6)
+	    teamCounter = 6
+	
 	elseif powerLevel >= 1 and getPokemonName(1) != powerLevelingPokemon then
 	    swapPokemonWithLeader(powerLevelingPokemon)
 	   	log("Swapping " .. powerLevelingPokemon .. " to first index to be Power-Leveled!")
 	elseif powerLevel >= 1 and getTeamSize() == 1 then
 		powerLevel = 0
 		log("Turning powerLevel off due to no power-levelers available in team")
-	elseif powerLevel >= 1 and getTeamSize() == 2 then
-		log("Don't need any Sorting")
 	elseif powerLevel >= 1 and getTeamSize() == 3 and not isTeamRangeSortedByLevelDescending(2,3) then
 		sortTeamRangeByLevelDescending(2,3)
 		log("Sorting Pokemons for Power Level Mode in-Progress")
@@ -2249,45 +2202,52 @@ else
 end --condition--
 end --func--
 function onBattleAction()
-    if powerLevel == 1 and getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then				
+    if powerLevel == 1 and getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) > healthToRunAt and getPokemonLevel(1) < stopAtLevel and not trapped then				
 		return sendPokemon(2)
 	elseif powerLevel == 2 then
-		if getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then
+		if getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) > healthToRunAt and getPokemonLevel(1) < stopAtLevel and not trapped then
 		return sendPokemon(2)
-		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then
+		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) > healthToRunAt and getPokemonLevel(1) < stopAtLevel and not trapped then
 		return sendPokemon(3)
 		end
 	elseif powerLevel == 3 then
-		if getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then
+		if getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) > healthToRunAt and getPokemonLevel(1) < stopAtLevel and not trapped then
 		return sendPokemon(2)
-		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then
+		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) > healthToRunAt and getPokemonLevel(1) < stopAtLevel and not trapped then
 		return sendPokemon(3)
-		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) <= healthToRunAt and getPokemonHealthPercent(4) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then
+		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) <= healthToRunAt and getPokemonHealthPercent(4) > healthToRunAt and getPokemonLevel(1) < stopAtLevel and not trapped then
 		return sendPokemon(4)
 		end
 	elseif powerLevel == 4 then
-		if getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then
+		if getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) > healthToRunAt and getPokemonLevel(1) < stopAtLevel and not trapped then
 		return sendPokemon(2)
-		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then
+		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) > healthToRunAt and getPokemonLevel(1) < stopAtLevel and not trapped then
 		return sendPokemon(3)
-		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) <= healthToRunAt and getPokemonHealthPercent(4) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then
+		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) <= healthToRunAt and getPokemonHealthPercent(4) > healthToRunAt and getPokemonLevel(1) < stopAtLevel and not trapped then
 		return sendPokemon(4)
-		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) <= healthToRunAt and getPokemonHealthPercent(4) <= healthToRunAt and getPokemonHealthPercent(5) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then
+		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) <= healthToRunAt and getPokemonHealthPercent(4) <= healthToRunAt and getPokemonHealthPercent(5) > healthToRunAt and getPokemonLevel(1) < stopAtLevel and not trapped then
 		return sendPokemon(5)
 		end
 	elseif powerLevel == 5 then
-		if getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then
+		if getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) > healthToRunAt and getPokemonLevel(1) < stopAtLevel and not trapped then
 		return sendPokemon(2)
-		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then
+		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) > healthToRunAt and getPokemonLevel(1) < stopAtLevel and not trapped then
 		return sendPokemon(3)
-		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) <= healthToRunAt and getPokemonHealthPercent(4) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then
+		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) <= healthToRunAt and getPokemonHealthPercent(4) > healthToRunAt and getPokemonLevel(1) < stopAtLevel and not trapped then
 		return sendPokemon(4)
-		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) <= healthToRunAt and getPokemonHealthPercent(4) <= healthToRunAt and getPokemonHealthPercent(5) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then
+		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) <= healthToRunAt and getPokemonHealthPercent(4) <= healthToRunAt and getPokemonHealthPercent(5) > healthToRunAt and getPokemonLevel(1) < stopAtLevel and not trapped then
 		return sendPokemon(5)
-		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) <= healthToRunAt and getPokemonHealthPercent(4) <= healthToRunAt and getPokemonHealthPercent(5) <= healthToRunAt and getPokemonHealthPercent(6) > healthToRunAt and getPokemonLevel(1) < stopAtLevel then
+		elseif getActivePokemonNumber() == 1 and getPokemonHealthPercent(2) <= healthToRunAt and getPokemonHealthPercent(3) <= healthToRunAt and getPokemonHealthPercent(4) <= healthToRunAt and getPokemonHealthPercent(5) <= healthToRunAt and getPokemonHealthPercent(6) > healthToRunAt and getPokemonLevel(1) < stopAtLevel and not trapped then
 		return sendPokemon(6)
 		end
+	elseif trapped then
+		if IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
+		return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or attack()
+	else
+		trapped = false
+		return attack()
     end
+end
 	if evTraining and trainEv == 1 then
 					   return atk()
 					elseif evTraining and trainEv == 2 then
