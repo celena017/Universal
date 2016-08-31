@@ -176,7 +176,16 @@ function onStart()
 	log("Please set powerLevel between 0-5")
 	log("=======================================")
 	powerLevel = 0
-	  end
+   end
+   end
+   if lookFor == 0 then
+   log("Info | Looking for pokemons in Grass!")
+   elseif lookFor == 1 then
+   log("Info | Looking for pokemons in Water!")
+   elseif lookFor == 2 then
+   log("Info | Looking for pokemons by Fishing!")
+   else
+   log("Info | Training for pokemons by walking in Rectangles!")
    end
 end
 
@@ -1531,13 +1540,13 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > hea
 		elseif getItemQuantity(buyBallType) >= MinBalls and getMapName() == martLocation then
 		moveToMap(endLocation)
 		elseif getMapName() == endLocation then
-			if lookForGrass then
+			if lookFor == 0 then
 				moveToGrass()
-			    elseif lookForWater then
+			    elseif lookFor == 1 then
 				return moveToWater() or useItem(surfMount)
-				elseif lookForFishingSpot and (getPlayerX() != fishingSpotX and getPlayerY() != fishingSpotY) then
+				elseif lookFor == 2 and (getPlayerX() != fishingSpotX and getPlayerY() != fishingSpotY) then
 				moveToCell(fishingSpotX, fishingSpotY)
-				elseif lookForFishingSpot and (getPlayerX() == fishingSpotX and getPlayerY() == fishingSpotY) then
+				elseif lookFor == 2 and (getPlayerX() == fishingSpotX and getPlayerY() == fishingSpotY) then
 				useItem(rod)
 				log("Fishing using " .. rod)
 			else
@@ -1597,13 +1606,13 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > hea
 		elseif getMapName() == city then
 			moveToMap(endLocation)
 		elseif getMapName() == endLocation then
-			if lookForGrass then
+			if lookFor == 0 then
 				moveToGrass()
-				elseif lookForWater then
+				elseif lookFor == 1 then
 			    return moveToWater() or useItem(surfMount)
-				elseif lookForFishingSpot and (getPlayerX() != fishingSpotX and getPlayerY() != fishingSpotY) then
+				elseif lookFor == 2 and (getPlayerX() != fishingSpotX and getPlayerY() != fishingSpotY) then
 				moveToCell(fishingSpotX, fishingSpotY)
-				elseif lookForFishingSpot and (getPlayerX() == fishingSpotX and getPlayerY() == fishingSpotY) then
+				elseif lookFor == 2 and (getPlayerX() == fishingSpotX and getPlayerY() == fishingSpotY) then
 				useItem(rod)
 				log("Fishing using " .. rod)
 			else
@@ -1667,13 +1676,13 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > hea
 		elseif getMapName() == stop1 then
 			moveToMap(endLocation)
 		elseif getMapName() == endLocation then
-			if lookForGrass then
+			if lookFor == 0 then
 				moveToGrass()
-				elseif lookForWater then
+				elseif lookFor == 1 then
 				return moveToWater() or useItem(surfMount)
-				elseif lookForFishingSpot and (getPlayerX() != fishingSpotX and getPlayerY() != fishingSpotY) then
+				elseif lookFor == 2 and (getPlayerX() != fishingSpotX and getPlayerY() != fishingSpotY) then
 				moveToCell(fishingSpotX, fishingSpotY)
-				elseif lookForFishingSpot and (getPlayerX() == fishingSpotX and getPlayerY() == fishingSpotY) then
+				elseif lookFor == 2 and (getPlayerX() == fishingSpotX and getPlayerY() == fishingSpotY) then
 				useItem(rod)
 				log("Fishing using " .. rod)
 			else
@@ -1741,13 +1750,13 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > hea
 		elseif getMapName() == stop2 then
 			moveToMap(endLocation)
 		elseif getMapName() == endLocation then
-			if lookForGrass then
+			if lookFor == 0 then
 				moveToGrass()
-				elseif lookForWater then
+				elseif lookFor == 1 then
 				return moveToWater() or useItem(surfMount)
-				elseif lookForFishingSpot and (getPlayerX() != fishingSpotX and getPlayerY() != fishingSpotY) then
+				elseif lookFor == 2 and (getPlayerX() != fishingSpotX and getPlayerY() != fishingSpotY) then
 				moveToCell(fishingSpotX, fishingSpotY)
-				elseif lookForFishingSpot and (getPlayerX() == fishingSpotX and getPlayerY() == fishingSpotY) then
+				elseif lookFor == 2 and (getPlayerX() == fishingSpotX and getPlayerY() == fishingSpotY) then
 				useItem(rod)
 				log("Fishing using " .. rod)				
 			else
@@ -1819,13 +1828,13 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > hea
 		elseif getMapName() == stop3 then
 			moveToMap(endLocation)
 		elseif getMapName() == endLocation then
-			if lookForGrass then
+			if lookFor == 0 then
 				moveToGrass()
-				elseif lookForWater then
+				elseif lookFor == 1 then
 				return moveToWater() or useItem(surfMount)
-				elseif lookForFishingSpot and (getPlayerX() != fishingSpotX and getPlayerY() != fishingSpotY) then
+				elseif lookFor == 2 and (getPlayerX() != fishingSpotX and getPlayerY() != fishingSpotY) then
 				moveToCell(fishingSpotX, fishingSpotY)
-				elseif lookForFishingSpot and (getPlayerX() == fishingSpotX and getPlayerY() == fishingSpotY) then
+				elseif lookFor == 2 and (getPlayerX() == fishingSpotX and getPlayerY() == fishingSpotY) then
 				useItem(rod)
 				log("Fishing using " .. rod)
 			else
@@ -1901,13 +1910,13 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > hea
 		elseif getMapName() == stop4 then
 			moveToMap(endLocation)
 		elseif getMapName() == endLocation then
-			if lookForGrass then
+			if lookFor == 0 then
 				moveToGrass()
-				elseif lookForWater then
+				elseif lookFor == 1 then
 				return moveToWater() or useItem(surfMount)
-				elseif lookForFishingSpot and (getPlayerX() != fishingSpotX and getPlayerY() != fishingSpotY) then
+				elseif lookFor == 2 and (getPlayerX() != fishingSpotX and getPlayerY() != fishingSpotY) then
 				moveToCell(fishingSpotX, fishingSpotY)
-				elseif lookForFishingSpot and (getPlayerX() == fishingSpotX and getPlayerY() == fishingSpotY) then
+				elseif lookFor == 2 and (getPlayerX() == fishingSpotX and getPlayerY() == fishingSpotY) then
 				useItem(rod)
 				log("Fishing using " .. rod)
 			else
@@ -1987,13 +1996,13 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > hea
 		elseif getMapName() == stop5 then
 			moveToMap(endLocation)
 		elseif getMapName() == endLocation then
-			if lookForGrass then
+			if lookFor == 0 then
 				moveToGrass()
-				elseif lookForWater then
+				elseif lookFor == 1 then
 				return moveToWater() or useItem(surfMount)
-				elseif lookForFishingSpot and (getPlayerX() != fishingSpotX and getPlayerY() != fishingSpotY) then
+				elseif lookFor == 2 and (getPlayerX() != fishingSpotX and getPlayerY() != fishingSpotY) then
 				moveToCell(fishingSpotX, fishingSpotY)
-				elseif lookForFishingSpot and (getPlayerX() == fishingSpotX and getPlayerY() == fishingSpotY) then
+			    elseif lookFor == 2 and (getPlayerX() == fishingSpotX and getPlayerY() == fishingSpotY) then
 				useItem(rod)
 				log("Fishing using " .. rod)
 			else
@@ -2243,10 +2252,10 @@ function onBattleAction()
 	elseif trapped then
 		if IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
 		return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or attack()
-	else
+	elseif trapped and not IsPokemonOnCaptureList() and ((not isOpponentShiny() and catchShineys) or (catchNotCaught and isAlreadyCaught())) then
 		trapped = false
 		return attack()
-    end
+	end
 end
 	if evTraining and trainEv == 1 then
 					   return atk()
