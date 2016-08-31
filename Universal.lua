@@ -548,7 +548,7 @@ function onPause()
 		recentUBall = getItemQuantity("Ultra Ball")
 	log("=======================================")
 	log("Info | Shineys encountered: " .. shinyCounter)
-	log("Info | Pokemon(s) encountered: " .. wildCounter .. " and Catched " ..Catch.. " Pokemon(s).")
+	log("Info | Pokemon(s) encountered: " .. wildCounter .. " and Caught " ..Catch.. " Pokemon(s).")
 	log("Info | Total Earning: $" .. tostring(recentMoney - startMoney).." (" .. string.format("$%.1f", (recentMoney - startMoney)/wildCounter) .." average)")
      if (randTime / 60) < 60 then
 		log("Info | PokeDollars/Hour: " .. string.format("$%.0f", (recentMoney - startMoney)))
@@ -681,7 +681,7 @@ function onStop()
 		recentUBall = getItemQuantity("Ultra Ball")
 	log("=======================================")
 	log("Info | Shineys encountered: " .. shinyCounter)
-	log("Info | Pokemon(s) encountered: " .. wildCounter .. " and Catched " ..Catch.. " Pokemon(s).")
+	log("Info | Pokemon(s) encountered: " .. wildCounter .. " and Caught " ..Catch.. " Pokemon(s).")
 	log("Info | Total Earning: $" .. tostring(recentMoney - startMoney).." (" .. string.format("$%.1f", (recentMoney - startMoney)/wildCounter) .." average)")
 	 if (randTime / 60) < 60 then
 		log("Info | PokeDollars/Hour: " .. string.format("$%.0f", (recentMoney - startMoney)))
@@ -2336,6 +2336,11 @@ end
 			end
 		end
 	end
+
+function onLearningMove(moveName, pokemonIndex)
+	log(getPokemonName(pokemonIndex) .. " is learning a new move " .. moveName)
+	return forgetAnyMoveExcept(movesNotToForget)
+end
 	
 function atk()
     if isOpponentEffortValue("Attack") and (attackEv < trainEvTill) and not IsPokemonOnCaptureList() and ((not isOpponentShiny() and catchShineys) or (catchNotCaught and isAlreadyCaught())) then
@@ -2413,9 +2418,4 @@ function spd()
 		trapped = false
 		return sendUsablePokemon()
     end
-end
-	
-function onLearningMove(moveName, pokemonIndex)
-	log(getPokemonName(pokemonIndex) .. " is learning a new move " .. moveName)
-	return forgetAnyMoveExcept(movesNotToForget)
 end
