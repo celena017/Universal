@@ -62,51 +62,52 @@ fishingSpotY = 30
 --If is not Grass,Water,Fishing , what rectangle do you want to walk within at your endLocation?--
 --You can set an infinite number of patterns to walk in, this makes you appear more like an actual human!--
 --just add a set of coordinates, and make sure its name is different from the rest, like the examples below--
+-- Pattern 1 --
 rectX1 = 20
 rectX2 = 20
 rectY1 = 21
 rectY2 = 24
-
+-- Pattern 2 --
 rectXB1 = 22
 rectXB2 = 17
 rectYB1 = 17
 rectYB2 = 22
-
+-- Pattern 3 --
 rectXC1 = 20
 rectXC2 = 20
 rectYC1 = 17
 rectYC2 = 21
-
+-- Pattern 4 --
 rectXD1 = 18
 rectXD2 = 21
 rectYD1 = 20
 rectYD2 = 20
-
+-- Pattern 5 --
 rectXE1 = 18
 rectXE2 = 22
 rectYE1 = 21
 rectYE2 = 21
-
+-- Pattern 6 --
 rectXF1 = 20
 rectXF2 = 23
 rectYF1 = 19
 rectYF2 = 19
-
+-- Pattern 7 --
 rectXG1 = 19
 rectXG2 = 17
 rectYG1 = 20
 rectYG2 = 20
-
+-- Pattern 8 --
 rectXH1 = 21
 rectXH2 = 21
 rectYH1 = 19
 rectYH2 = 17
-
+-- Pattern 9 --
 rectXI1 = 18
 rectXI2 = 18
 rectYI1 = 22
 rectYI2 = 17
-
+-- Pattern 10 --
 rectXJ1 = 20
 rectXJ2 = 20
 rectYJ1 = 20
