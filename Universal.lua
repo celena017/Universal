@@ -906,6 +906,32 @@ end
 
 function onPathAction()
 get_usingMove = false
+    if getTeamSize() == 2 and teamCounter == 1 then
+        startLevel2 = getPokemonLevel(2)
+	    startExp2 = getPokemonTotalExperience(2)
+	    teamCounter = 2
+		log("Increasing Team-Size to " .. teamCounter)
+    elseif getTeamSize() == 3 and teamCounter == 2 then
+        startLevel3 = getPokemonLevel(3)
+	    startExp3 = getPokemonTotalExperience(3)
+	    teamCounter = 3
+		log("Increasing Team-Size to " .. teamCounter)
+    elseif getTeamSize() == 4 and teamCounter == 3 then
+        startLevel4 = getPokemonLevel(4)
+	    startExp4 = getPokemonTotalExperience(4)
+	    teamCounter = 4
+		log("Increasing Team-Size to " .. teamCounter)
+	elseif getTeamSize() == 5 and teamCounter == 4 then
+        startLevel5 = getPokemonLevel(5)
+	    startExp5 = getPokemonTotalExperience(5)
+	    teamCounter = 5
+		log("Increasing Team-Size to " .. teamCounter)
+	elseif getTeamSize() == 6 and teamCounter == 5 then
+        startLevel6 = getPokemonLevel(6)
+	    startExp6 = getPokemonTotalExperience(6)
+	    teamCounter = 6
+		log("Increasing Team-Size to " .. teamCounter)
+	end
 if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > healthToRunAt and isPokemonUsable(ReturnHighestIndexUnderLevel()) then
 	
 	if sorting == "Asc" and not onlyCatch and not IsSorted() and powerLevel == 0 and not evTraining and not advanceCatching and not useMoveOnly then
@@ -915,28 +941,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > hea
 	elseif sorting == "Desc" and not onlyCatch and not IsSortedDesc() and powerLevel == 0 and not evTraining and not advanceCatching and not useMoveOnly then
 		sortTeamByLevelDescending()
         log("Sorting Pokemon Level Descendingly in-progress")
-	
-    elseif getTeamSize() == 2 and teamCounter == 1 then
-        startLevel2 = getPokemonLevel(2)
-	    startExp2 = getPokemonTotalExperience(2)
-	    teamCounter = 2
-    elseif getTeamSize() == 3 and teamCounter == 2 then
-        startLevel3 = getPokemonLevel(3)
-	    startExp3 = getPokemonTotalExperience(3)
-	    teamCounter = 3
-    elseif getTeamSize() == 4 and teamCounter == 3 then
-        startLevel4 = getPokemonLevel(4)
-	    startExp4 = getPokemonTotalExperience(4)
-	    teamCounter = 4
-	elseif getTeamSize() == 5 and teamCounter == 4 then
-        startLevel5 = getPokemonLevel(5)
-	    startExp5 = getPokemonTotalExperience(5)
-	    teamCounter = 5
-	elseif getTeamSize() == 6 and teamCounter == 5 then
-        startLevel6 = getPokemonLevel(6)
-	    startExp6 = getPokemonTotalExperience(6)
-	    teamCounter = 6
-	
+		
 	elseif powerLevel >= 1 and getPokemonName(1) != powerLevelingPokemon then
 	    swapPokemonWithLeader(powerLevelingPokemon)
 	   	log("Swapping " .. powerLevelingPokemon .. " to first index to be Power-Leveled!")
