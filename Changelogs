@@ -37,4 +37,4 @@ Fix some issues that cause bot to stop
 Remove exp and leveling logs due sorting issue that provides wrong informations
 Fix EV Catching issue that pokemon change loop
 Fix Surf Mount
-Multi Train EV
+Train multi EV at once
