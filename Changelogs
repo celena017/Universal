@@ -31,3 +31,6 @@ Added anti-trap for powerleveling that supports catch
 Added log for encounter/hour
 Fixed Error during the execution of 'onBattleMessage': attempt to perform arithmetic on a nil value that cause bot to stop
 Clean-up and rework lookFor Feature in config
+
+9/2/2016
+Fix some issues that cause bot to stop
