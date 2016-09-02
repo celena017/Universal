@@ -34,7 +34,7 @@ Clean-up and rework lookFor Feature in config
 
 9/3/2016
 Fix some issues that cause bot to stop
-Remove exp and gain level logs due sorting issue that provides wrong informations
+Remove exp and gain level logs due to sorting issue that provides wrong informations
 Fix EV Catching issue that pokemon change loop
 
 TODO LIST
