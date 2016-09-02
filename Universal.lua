@@ -906,7 +906,17 @@ end
 
 function onPathAction()
 get_usingMove = false
-    if getTeamSize() == 2 and teamCounter == 1 then
+if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > healthToRunAt and isPokemonUsable(ReturnHighestIndexUnderLevel()) then
+	
+	if sorting == "Asc" and not onlyCatch and not IsSorted() and powerLevel == 0 and not evTraining and not advanceCatching and not useMoveOnly then
+		sortTeamByLevelAscending()
+        log("Sorting Pokemon Level Ascendingly in-progress")
+		
+	elseif sorting == "Desc" and not onlyCatch and not IsSortedDesc() and powerLevel == 0 and not evTraining and not advanceCatching and not useMoveOnly then
+		sortTeamByLevelDescending()
+        log("Sorting Pokemon Level Descendingly in-progress")
+		
+	elseif getTeamSize() == 2 and teamCounter == 1 then
         startLevel2 = getPokemonLevel(2)
 	    startExp2 = getPokemonTotalExperience(2)
 	    teamCounter = 2
@@ -930,17 +940,7 @@ get_usingMove = false
         startLevel6 = getPokemonLevel(6)
 	    startExp6 = getPokemonTotalExperience(6)
 	    teamCounter = 6
-		log("Increasing Team-Size to " .. teamCounter)
-	end
-if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > healthToRunAt and isPokemonUsable(ReturnHighestIndexUnderLevel()) then
-	
-	if sorting == "Asc" and not onlyCatch and not IsSorted() and powerLevel == 0 and not evTraining and not advanceCatching and not useMoveOnly then
-		sortTeamByLevelAscending()
-        log("Sorting Pokemon Level Ascendingly in-progress")
-		
-	elseif sorting == "Desc" and not onlyCatch and not IsSortedDesc() and powerLevel == 0 and not evTraining and not advanceCatching and not useMoveOnly then
-		sortTeamByLevelDescending()
-        log("Sorting Pokemon Level Descendingly in-progress")
+		log("Increasing Team-Size to " .. teamCounter)	
 		
 	elseif powerLevel >= 1 and getPokemonName(1) != powerLevelingPokemon then
 	    swapPokemonWithLeader(powerLevelingPokemon)
