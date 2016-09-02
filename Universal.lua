@@ -124,11 +124,12 @@ function onStart()
    end
    end
    if mount != "" and surfMount == "" then
-   log("Info | Mount List: " .. mount)
+   log("Info | Land Mount: " .. mount)
    elseif mount == "" and surfMount != "" then
-   log("Info | Mount List: " .. surfMount)
+   log("Info | Surf Mount: " .. surfMount)
    elseif mount != "" and surfMount != "" then
-   log("Info | Mount List: " .. mount .. " & " .. surfMount)
+   log("Info | Land Mount: " .. mount)
+   log("Info | Surf Mount: " .. surfMount)
    end
    if lookFor == 0 then
    log("Info | Looking for pokemons in Grass!")
