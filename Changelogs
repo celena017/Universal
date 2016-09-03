@@ -37,7 +37,8 @@ Fix some issues that cause bot to stop
 Remove exp and gain level logs due to sorting issue that provides wrong informations
 Fix EV Catching issue that pokemon change loop
 
-TODO LIST
---------------
-Fix Surf Mount
-Train multiple EV at once
+9/3/2016 V2.3
+Cleanup and Rewritten path code from 2000+ lines to 1000+
+Fix issues that cause bot to stop
+Rework buying features
+Supports Multi training EVs up to 2 at once
