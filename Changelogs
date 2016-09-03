@@ -34,7 +34,7 @@ Clean-up and rework lookFor Feature in config
 
 9/3/2016 V2.2
 Fix some issues that cause bot to stop
-Remove exp and gain level logs due to sorting issue that provides wrong informations
+Remove exp and gain level logs due to sorting does not work well with it that cause it to provide wrong informations
 Fix EV Catching issue that pokemon change loop
 
 9/3/2016 V2.3
@@ -42,5 +42,5 @@ Cleanup and Rewritten codes from 2000+ lines to 1000+
 No longer need PokeCenterOnRoute config
 Fix issues that cause bot to stop
 Rework Auto-Buying feature
-Supports Multi training EVs up to 2 at once
+Supports Multi training EVs up to 2 at once e.g. atk and speed
 Now starts at a random pattern
