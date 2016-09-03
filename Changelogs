@@ -38,7 +38,9 @@ Remove exp and gain level logs due to sorting issue that provides wrong informat
 Fix EV Catching issue that pokemon change loop
 
 9/3/2016 V2.3
-Cleanup and Rewritten path code from 2000+ lines to 1000+
+Cleanup and Rewritten codes from 2000+ lines to 1000+
+No longer need PokeCenterOnRoute config
 Fix issues that cause bot to stop
 Rework buying features
 Supports Multi training EVs up to 2 at once
+Now starts at a random pattern
