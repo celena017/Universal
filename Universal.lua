@@ -797,10 +797,10 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > hea
 		useItem(mount)
 		log("Getting on " .. mount)
 	
-	elseif onlyCatch and not autoRefill and getItemQuantity("Pokeball") == 0 and getItemQuantity("Great Ball") == 0 and getItemQuantity("Ultra Ball") == 10 then
+	elseif onlyCatch and not autoRefill and getItemQuantity("Pokeball") == 0 and getItemQuantity("Great Ball") == 0 and getItemQuantity("Ultra Ball") == 0 then
 		 fatal("Info | Ran out of balls better luck next time! =P")
 	
-	elseif onlyCatch and autoRefill and getItemQuantity("Pokeball") == 0 and getItemQuantity("Great Ball") == 0 and getItemQuantity("Ultra Ball") == 10 and getMapName() == endLocation then 
+	elseif onlyCatch and autoRefill and getItemQuantity("Pokeball") == 0 and getItemQuantity("Great Ball") == 0 and getItemQuantity("Ultra Ball") == 0 and getMapName() == endLocation then 
         return moveToMap(stop1) or moveToMap(stop2) or moveToMap(stop3) or moveToMap(stop4) or moveToMap(stop5) or moveToMap(city)
 		elseif getMapName() == stop5 then
 		moveToMap(stop4)
