@@ -41,6 +41,6 @@ Fix EV Catching issue that pokemon change loop
 Cleanup and Rewritten codes from 2000+ lines to 1000+
 No longer need PokeCenterOnRoute config
 Fix issues that cause bot to stop
-Rework buying features
+Rework Auto-Buying feature
 Supports Multi training EVs up to 2 at once
 Now starts at a random pattern
