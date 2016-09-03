@@ -1,15 +1,15 @@
-8/27/2016
+8/27/2016 V1
 Fix some sorting glitch
 Change buyBalls feature with catchOnly on to refill balls when below the minBalls
 
-8/28/2016
+8/28/2016 V1.1
 Fix issues with advance catching (not throwing Ball or when active Pokemon is dead)
 Added log when a pokemon learns a new move
 Fix Catching Shiny Pokemon issue
 Add configuration for Sorting (Asc/Desc)
 Shows $/Exp/Hour only after an hour
 
-8/29/2016
+8/29/2016 V1.2
 Supports fishing
 Rework random movement
 Rework on $/Exp/Hour log
@@ -18,21 +18,21 @@ Fix Error during the execution of 'onPause': attempt to perform arithmetic on a 
 Rework powerLevel 
 Supports multi Power Leveler modes (Read config)
 
-8/30/2016
+8/30/2016 V2.0
 Supports EV Training
 Supports PowerLevel while EV Training
 Supports catching while EV Training
 Supports Equiping and Removing Item while EV Training
 Rework logs for easier log reading
 
-8/31/2016
+8/31/2016 V2.1
 Fixed powerlevel sorting issues that causes (Don't need any Sorting) loop
 Added anti-trap for powerleveling that supports catch
 Added log for encounter/hour
 Fixed Error during the execution of 'onBattleMessage': attempt to perform arithmetic on a nil value that cause bot to stop
 Clean-up and rework lookFor Feature in config
 
-9/3/2016
+9/3/2016 V2.2
 Fix some issues that cause bot to stop
 Remove exp and gain level logs due to sorting issue that provides wrong informations
 Fix EV Catching issue that pokemon change loop
