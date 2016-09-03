@@ -1,7 +1,7 @@
 --Start Script--
 dofile "config.lua"
 
-name = "Universal V2.2 Level/Catch Anywhere"
+name = "Universal V2.3 Level/Catch Anywhere"
 author = "Zymu continued by ToothBrush and Royal for providing the base framework"
 description = "Training at " .. endLocation .. " and healing at " .. pokecenter .. "." .. " Leveling all pokemon in teams to " .. levelPokesTo .. "." .. " Flee @ " .. healthToRunAt.. "% HP."
 stops = 0
@@ -13,8 +13,7 @@ function onStart()
 	wildCounter = 0
 	pokecenterCounter = 0
 	martvisitCounter = 0
-	ballsBought = 0
-	ropeBought = 0
+	itemsBought = 0
 	startMoney = getMoney()
 	startPokeballCount = getItemQuantity("Pokeball")
 	startGreatballCount = getItemQuantity("Great Ball")
@@ -22,8 +21,28 @@ function onStart()
 	Catch = 0
 	trapped = false
 	get_usingMove = false
---always leave this on 1! this helps determine which pattern to walk in!-- 
-    Pattern = 1
+--Determine which pattern to walk in!-- 
+    if randomnizer == 1 then
+		Pattern = 1	
+		elseif randomnizer == 2 then
+		Pattern = 2	
+		elseif randomnizer == 3 then
+		Pattern = 3	
+		elseif randomnizer == 4 then
+		Pattern = 4
+		elseif randomnizer == 5 then
+		Pattern = 5
+		elseif randomnizer == 6 then
+		Pattern = 6	
+		elseif randomnizer == 7 then
+		Pattern = 7
+		elseif randomnizer == 8 then
+		Pattern = 8
+		elseif randomnizer == 9 then
+		Pattern = 9
+		elseif randomnizer == 10 then
+		Pattern = 10
+		end
 	if stop1 ~= "" then
 	stops = stops + 1
 	end
@@ -51,30 +70,27 @@ function onStart()
 	if catchNotCaught then
 	log("Info | catchNotCaught is on!... Bot will catch pokemons that are uncaught")
 	end
-	if buyBalls == true and getMoney() < MinMoney then
+	if autoRefill and getMoney() < MinMoney then
 	log("=======================================")
-	log("Info | You got less than the required amount " .. MinMoney .. " Turning off Auto-Buying")
+	log("Info | You got only $" .. MinMoney .. " which is less than the MinMoney Turning off Auto-Refilling")
 	log("=======================================")
-	buyBalls = false
-	elseif buyBalls == true then
-	log("Info | Auto-Buy Balls is on!")
+	autoRefill = false
+	elseif autoRefill then
+	log("Info | Auto-Refill is on!")
 	end
 	if useEscapeRope then 
 	log("Info | Use Escape Rope is on!")
 	end
-	if sorting == "Asc" and not onlyCatch and powerLevel == 0 and not evTraining and not advanceCatching and not useMoveOnly then
+	if sorting == "Asc" and not onlyCatch and powerLevel == 0 and evTraining == 0 and not advanceCatching and not useMoveOnly then
 	log("Info | Sorting Pokemon Ascendingly")
-	elseif sorting == "Desc" and not onlyCatch and powerLevel == 0 and not evTraining and not advanceCatching and not useMoveOnly then
+	elseif sorting == "Desc" and not onlyCatch and powerLevel == 0 and evTraining == 0 and not advanceCatching and not useMoveOnly then
 	log("Info | Sorting Pokemon Descendingly")
 	end
-	if autoRefill then
-	log("Info | AutoRefill Escape Rope is on!")
-	end
-	if evTraining and getPokemonName(1) != trainEvOf  then
+	if evTraining >= 1 and getPokemonName(1) != trainEvOf  then
 	swapPokemonWithLeader(trainEvOf)
     log("Swapping " .. trainEvOf .. " to first index to train EV!")
 	end
-	if evTraining then
+	if evTraining >= 1 then
 	attackEv = getPokemonEffortValue(1, "Attack")
     defenseEv = getPokemonEffortValue(1, "Defense")
     speedEv = getPokemonEffortValue(1, "Speed")
@@ -85,20 +101,52 @@ function onStart()
 	if equipItem then
     equippingItem()
 	end
-	if trainEv == 0 or trainEv > 6 then
+	if evTraining == 1 and trainEv == 0 or trainEv > 6 then
 	fatal("Info | Please Set a number between 1-6")
-	elseif trainEv == 1 then
-	log("Info | Training " .. getPokemonName(1) .. "'s Attack EV till " .. trainEvTill)
-	elseif trainEv == 2 then
-	log("Info | Training " .. getPokemonName(1) .. "'s Defense EV till " .. trainEvTill)
-	elseif trainEv == 3 then
-	log("Info | Training " .. getPokemonName(1) .. "'s Speed EV till " .. trainEvTill)
-	elseif trainEv == 4 then
-	log("Info | Training " .. getPokemonName(1) .. "'s Sp Attack EV till " .. trainEvTill)
-	elseif trainEv == 5 then
-	log("Info | Training " .. getPokemonName(1) .. "'s Sp Defense EV till " .. trainEvTill)
-	elseif trainEv == 6 then
-	log("Info | Training " .. getPokemonName(1) .. "'s HP EV till " .. trainEvTill)
+	elseif evTraining >= 2 and trainEv == 0 or trainEv2 == 0 or trainEv > 6 or trainEv2 > 6 then
+    fatal("Info | Please Set a number between 1-6")
+	elseif evTraining == 1 and trainEv == 1 then
+	log("Info | Training " .. trainEvOf .. "'s Attack EV till " .. trainEvTill)
+	elseif evTraining == 1 and trainEv == 2 then
+	log("Info | Training " .. trainEvOf .. "'s Defense EV till " .. trainEvTill)
+	elseif evTraining == 1 and trainEv == 3 then
+	log("Info | Training " .. trainEvOf .. "'s Speed EV till " .. trainEvTill)
+	elseif evTraining == 1 and trainEv == 4 then
+	log("Info | Training " .. trainEvOf .. "'s Sp Attack EV till " .. trainEvTill)
+	elseif evTraining == 1 and trainEv == 5 then
+	log("Info | Training " .. trainEvOf .. "'s Sp Defense EV till " .. trainEvTill)
+	elseif evTraining == 1 and trainEv == 6 then
+	log("Info | Training " .. trainEvOf .. "'s HP EV till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 1 and trainEv2 == 2 or trainEv == 2 and trainEv2 == 1)  then
+	log("Info | Training " .. trainEvOf .. "'s Attack & Defense EV till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 1 and trainEv2 == 3 or trainEv == 3 and trainEv2 == 1) then
+	log("Info | Training " .. trainEvOf .. "'s Attack & Speed EV till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 1 and trainEv2 == 4 or trainEv == 4 and trainEv2 == 1) then
+	log("Info | Training " .. trainEvOf .. "'s Attack & Sp Attack EV till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 1 and trainEv2 == 5 or trainEv == 5 and trainEv2 == 1) then
+	log("Info | Training " .. trainEvOf .. "'s Attack & Sp Defense EV till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 1 and trainEv2 == 6 or trainEv == 6 and trainEv2 == 1) then
+	log("Info | Training " .. trainEvOf .. "'s Attack & HP till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 2 and trainEv2 == 3 or trainEv == 3 and trainEv2 == 2) then
+	log("Info | Training " .. trainEvOf .. "'s Defense & Speed till " .. trainEvTill)
+    elseif evTraining >= 2 and (trainEv == 2 and trainEv2 == 4 or trainEv == 4 and trainEv2 == 2) then
+	log("Info | Training " .. trainEvOf .. "'s Defense & Sp Attack till " .. trainEvTill)
+    elseif evTraining >= 2 and (trainEv == 2 and trainEv2 == 5 or trainEv == 5 and trainEv2 == 2) then
+	log("Info | Training " .. trainEvOf .. "'s Defense & Sp Defense till " .. trainEvTill)
+    elseif evTraining >= 2 and (trainEv == 2 and trainEv2 == 6 or trainEv == 6 and trainEv2 == 2) then
+	log("Info | Training " .. trainEvOf .. "'s Defense & HP till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 3 and trainEv2 == 4 or trainEv == 4 and trainEv2 == 3) then
+	log("Info | Training " .. trainEvOf .. "'s Speed & Sp Attack till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 3 and trainEv2 == 5 or trainEv == 5 and trainEv2 == 3) then
+	log("Info | Training " .. trainEvOf .. "'s Speed & Sp Defense till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 3 and trainEv2 == 6 or trainEv == 6 and trainEv2 == 3) then
+	log("Info | Training " .. trainEvOf .. "'s Speed & HP till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 4 and trainEv2 == 5 or trainEv == 5 and trainEv2 == 4) then
+	log("Info | Training " .. trainEvOf .. "'s Sp Attack & Sp Defense till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 4 and trainEv2 == 6 or trainEv == 6 and trainEv2 == 4) then
+	log("Info | Training " .. trainEvOf .. "'s Sp Attack & HP till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 5 and trainEv2 == 6 or trainEv == 6 and trainEv2 == 5) then
+	log("Info | Training " .. trainEvOf .. "'s Sp Defense & HP till " .. trainEvTill)
 	end
 	end
 	if powerLevel >= 1 then
@@ -139,6 +187,7 @@ function onStart()
    log("Info | Looking for pokemons by Fishing!")
    else
    log("Info | Looking for pokemons by walking in Rectangles!")
+   log("Info | Random Number is " .. randomnizer .. " Starting Pattern will be " .. Pattern)
    end
 end
 
@@ -166,7 +215,7 @@ function onBattleMessage(wild)
 		recentPBall = getItemQuantity("Pokeball")
 		recentGBall = getItemQuantity("Great Ball")
 		recentUBall = getItemQuantity("Ultra Ball")
-		if evTraining then
+		if evTraining >= 1 then
 	    attackEv = getPokemonEffortValue(1, "Attack")
         defenseEv = getPokemonEffortValue(1, "Defense")
         speedEv = getPokemonEffortValue(1, "Speed")
@@ -216,22 +265,52 @@ function onBattleMessage(wild)
 		log("Info | Escape Ropes Remaining " .. getItemQuantity("Escape Rope"))
 		end
 		log("Info | Balls used: " .. startPokeballCount - recentPBall .. " Pokeballs " .. startGreatballCount - recentGBall .. " Great Balls " .. startUltraballCount - recentUBall .. " Ultra Balls")
-	    if evTraining then
+	    if evTraining >= 1 then
 		log("=======================================")
 		log("EV Log")
 		log("=======================================")
-		if trainEv == 1 then
-	    log("Info | Training " .. getPokemonName(1) .. "'s Attack EV till " .. trainEvTill)
-	    elseif trainEv == 2 then
-	    log("Info | Training " .. getPokemonName(1) .. "'s Defense EV till " .. trainEvTill)
-	    elseif trainEv == 3 then
-	    log("Info | Training " .. getPokemonName(1) .. "'s Speed EV till " .. trainEvTill)
-	    elseif trainEv == 4 then
-	    log("Info | Training " .. getPokemonName(1) .. "'s Sp Attack EV till " .. trainEvTill)
-	    elseif trainEv == 5 then
-	    log("Info | Training " .. getPokemonName(1) .. "'s Sp Defense EV till " .. trainEvTill)
-	    elseif trainEv == 6 then
-	    log("Info | Training " .. getPokemonName(1) .. "'s HP EV till " .. trainEvTill)
+		if evTraining == 1 and trainEv == 1 then
+	log("Info | Training " .. trainEvOf .. "'s Attack EV till " .. trainEvTill)
+	elseif evTraining == 1 and trainEv == 2 then
+	log("Info | Training " .. trainEvOf .. "'s Defense EV till " .. trainEvTill)
+	elseif evTraining == 1 and trainEv == 3 then
+	log("Info | Training " .. trainEvOf .. "'s Speed EV till " .. trainEvTill)
+	elseif evTraining == 1 and trainEv == 4 then
+	log("Info | Training " .. trainEvOf .. "'s Sp Attack EV till " .. trainEvTill)
+	elseif evTraining == 1 and trainEv == 5 then
+	log("Info | Training " .. trainEvOf .. "'s Sp Defense EV till " .. trainEvTill)
+	elseif evTraining == 1 and trainEv == 6 then
+	log("Info | Training " .. trainEvOf .. "'s HP EV till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 1 and trainEv2 == 2) or (trainEv == 2 and trainEv2 == 1)  then
+	log("Info | Training " .. trainEvOf .. "'s Attack & Defense EV till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 1 and trainEv2 == 3) or (trainEv == 3 and trainEv2 == 1) then
+	log("Info | Training " .. trainEvOf .. "'s Attack & Speed EV till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 1 and trainEv2 == 4) or (trainEv == 4 and trainEv2 == 1) then
+	log("Info | Training " .. trainEvOf .. "'s Attack & Sp Attack EV till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 1 and trainEv2 == 5) or (trainEv == 5 and trainEv2 == 1) then
+	log("Info | Training " .. trainEvOf .. "'s Attack & Sp Defense EV till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 1 and trainEv2 == 6) or (trainEv == 6 and trainEv2 == 1) then
+	log("Info | Training " .. trainEvOf .. "'s Attack & HP till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 2 and trainEv2 == 3) or (trainEv == 3 and trainEv2 == 2) then
+	log("Info | Training " .. trainEvOf .. "'s Defense & Speed till " .. trainEvTill)
+    elseif evTraining >= 2 and (trainEv == 2 and trainEv2 == 4) or (trainEv == 4 and trainEv2 == 2) then
+	log("Info | Training " .. trainEvOf .. "'s Defense & Sp Attack till " .. trainEvTill)
+    elseif evTraining >= 2 and (trainEv == 2 and trainEv2 == 5) or (trainEv == 5 and trainEv2 == 2) then
+	log("Info | Training " .. trainEvOf .. "'s Defense & Sp Defense till " .. trainEvTill)
+    elseif evTraining >= 2 and (trainEv == 2 and trainEv2 == 6) (trainEv == 6 and trainEv2 == 2) then
+	log("Info | Training " .. trainEvOf .. "'s Defense & HP till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 3 and trainEv2 == 4) or (trainEv == 4 and trainEv2 == 3) then
+	log("Info | Training " .. trainEvOf .. "'s Speed & Sp Attack till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 3 and trainEv2 == 5) or (trainEv == 5 and trainEv2 == 3) then
+	log("Info | Training " .. trainEvOf .. "'s Speed & Sp Defense till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 3 and trainEv2 == 6) or (trainEv == 6 and trainEv2 == 3) then
+	log("Info | Training " .. trainEvOf .. "'s Speed & HP till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 4 and trainEv2 == 5) (trainEv == 5 and trainEv2 == 4) then
+	log("Info | Training " .. trainEvOf .. "'s Sp Attack & Sp Defense till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 4 and trainEv2 == 6) or (trainEv == 6 and trainEv2 == 4) then
+	log("Info | Training " .. trainEvOf .. "'s Sp Attack & HP till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 5 and trainEv2 == 6) or (trainEv == 6 and trainEv2 == 5) then
+	log("Info | Training " .. trainEvOf .. "'s Sp Defense & HP till " .. trainEvTill)
 		end
 		log("Info | ".. getPokemonName(1).." EV STATS")
         log("Info | Attack: "..getPokemonEffortValue(1, "Attack"))
@@ -249,7 +328,7 @@ function onBattleMessage(wild)
 		recentPBall = getItemQuantity("Pokeball")
 		recentGBall = getItemQuantity("Great Ball")
 		recentUBall = getItemQuantity("Ultra Ball")
-		if evTraining then
+		if evTraining >= 1 then
 	    attackEv = getPokemonEffortValue(1, "Attack")
         defenseEv = getPokemonEffortValue(1, "Defense")
         speedEv = getPokemonEffortValue(1, "Speed")
@@ -299,22 +378,52 @@ function onBattleMessage(wild)
 		log("Info | Escape Ropes Remaining " .. getItemQuantity("Escape Rope"))
 		end
 		log("Info | Balls used: " .. startPokeballCount - recentPBall .. " Pokeballs " .. startGreatballCount - recentGBall .. " Great Balls " .. startUltraballCount - recentUBall .. " Ultra Balls")
-	    if evTraining then
+	    if evTraining >= 1 then
 		log("=======================================")
 		log("EV Log")
 		log("=======================================")
-		if trainEv == 1 then
-	    log("Info | Training " .. getPokemonName(1) .. "'s Attack EV till " .. trainEvTill)
-	    elseif trainEv == 2 then
-	    log("Info | Training " .. getPokemonName(1) .. "'s Defense EV till " .. trainEvTill)
-	    elseif trainEv == 3 then
-	    log("Info | Training " .. getPokemonName(1) .. "'s Speed EV till " .. trainEvTill)
-	    elseif trainEv == 4 then
-	    log("Info | Training " .. getPokemonName(1) .. "'s Sp Attack EV till " .. trainEvTill)
-	    elseif trainEv == 5 then
-	    log("Info | Training " .. getPokemonName(1) .. "'s Sp Defense EV till " .. trainEvTill)
-	    elseif trainEv == 6 then
-	    log("Info | Training " .. getPokemonName(1) .. "'s HP EV till " .. trainEvTill)
+		if evTraining == 1 and trainEv == 1 then
+	log("Info | Training " .. trainEvOf .. "'s Attack EV till " .. trainEvTill)
+	elseif evTraining == 1 and trainEv == 2 then
+	log("Info | Training " .. trainEvOf .. "'s Defense EV till " .. trainEvTill)
+	elseif evTraining == 1 and trainEv == 3 then
+	log("Info | Training " .. trainEvOf .. "'s Speed EV till " .. trainEvTill)
+	elseif evTraining == 1 and trainEv == 4 then
+	log("Info | Training " .. trainEvOf .. "'s Sp Attack EV till " .. trainEvTill)
+	elseif evTraining == 1 and trainEv == 5 then
+	log("Info | Training " .. trainEvOf .. "'s Sp Defense EV till " .. trainEvTill)
+	elseif evTraining == 1 and trainEv == 6 then
+	log("Info | Training " .. trainEvOf .. "'s HP EV till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 1 and trainEv2 == 2) or (trainEv == 2 and trainEv2 == 1)  then
+	log("Info | Training " .. trainEvOf .. "'s Attack & Defense EV till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 1 and trainEv2 == 3) or (trainEv == 3 and trainEv2 == 1) then
+	log("Info | Training " .. trainEvOf .. "'s Attack & Speed EV till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 1 and trainEv2 == 4) or (trainEv == 4 and trainEv2 == 1) then
+	log("Info | Training " .. trainEvOf .. "'s Attack & Sp Attack EV till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 1 and trainEv2 == 5) or (trainEv == 5 and trainEv2 == 1) then
+	log("Info | Training " .. trainEvOf .. "'s Attack & Sp Defense EV till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 1 and trainEv2 == 6) or (trainEv == 6 and trainEv2 == 1) then
+	log("Info | Training " .. trainEvOf .. "'s Attack & HP till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 2 and trainEv2 == 3) or (trainEv == 3 and trainEv2 == 2) then
+	log("Info | Training " .. trainEvOf .. "'s Defense & Speed till " .. trainEvTill)
+    elseif evTraining >= 2 and (trainEv == 2 and trainEv2 == 4) or (trainEv == 4 and trainEv2 == 2) then
+	log("Info | Training " .. trainEvOf .. "'s Defense & Sp Attack till " .. trainEvTill)
+    elseif evTraining >= 2 and (trainEv == 2 and trainEv2 == 5) or (trainEv == 5 and trainEv2 == 2) then
+	log("Info | Training " .. trainEvOf .. "'s Defense & Sp Defense till " .. trainEvTill)
+    elseif evTraining >= 2 and (trainEv == 2 and trainEv2 == 6) (trainEv == 6 and trainEv2 == 2) then
+	log("Info | Training " .. trainEvOf .. "'s Defense & HP till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 3 and trainEv2 == 4) or (trainEv == 4 and trainEv2 == 3) then
+	log("Info | Training " .. trainEvOf .. "'s Speed & Sp Attack till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 3 and trainEv2 == 5) or (trainEv == 5 and trainEv2 == 3) then
+	log("Info | Training " .. trainEvOf .. "'s Speed & Sp Defense till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 3 and trainEv2 == 6) or (trainEv == 6 and trainEv2 == 3) then
+	log("Info | Training " .. trainEvOf .. "'s Speed & HP till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 4 and trainEv2 == 5) (trainEv == 5 and trainEv2 == 4) then
+	log("Info | Training " .. trainEvOf .. "'s Sp Attack & Sp Defense till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 4 and trainEv2 == 6) or (trainEv == 6 and trainEv2 == 4) then
+	log("Info | Training " .. trainEvOf .. "'s Sp Attack & HP till " .. trainEvTill)
+	elseif evTraining >= 2 and (trainEv == 5 and trainEv2 == 6) or (trainEv == 6 and trainEv2 == 5) then
+	log("Info | Training " .. trainEvOf .. "'s Sp Defense & HP till " .. trainEvTill)
 		end
 		log("Info | ".. getPokemonName(1).." EV STATS")
         log("Info | Attack: "..getPokemonEffortValue(1, "Attack"))
@@ -374,7 +483,7 @@ function onDialogMessage(pokecenter)
     if stringContains(pokecenter, "Would you like me to heal your Pokemon?") then
         pokecenterCounter = pokecenterCounter + 1
 		log("Info | Times in Pokecenter: " .. pokecenterCounter)
-	elseif stringContains(pokecenter, "What would you like to buy today?") or stringContains(pokecenter, "What are you intrested in buying today?") then
+	elseif stringContains(pokecenter, "Hello! What would you be interested in buying today?") or stringContains(pokecenter, "Hello! What are you intrested in buying today?") then
 		martvisitCounter = martvisitCounter + 1
 		log("Info | Times in Pokemart: " .. martvisitCounter)
     end
@@ -399,24 +508,13 @@ function onPause()
 	    log("Info | Escape Ropes Remaining " .. getItemQuantity("Escape Rope"))
 	    end
 	log("Info | Balls used: " .. startPokeballCount - recentPBall .. " Pokeballs " .. startGreatballCount - recentGBall .. " Great Balls " .. startUltraballCount - recentUBall .. " Ultra Balls")
-	log("Info | Bought " .. ballsBought .. " " .. buyBallType  .. "(s).")
-	    if evTraining then
+	log("Info | Bought " .. itemsBought .. " " .. refillItem  .. "(s).")
+	log("Info | Times in Pokecenter: " .. pokecenterCounter)
+    log("Info | Times in Pokemart: " .. martvisitCounter)
+		if evTraining >= 1 then
 		log("=======================================")
 		log("EV Log")
 		log("=======================================")
-		if trainEv == 1 then
-	    log("Info | Training " .. getPokemonName(1) .. "'s Attack EV till " .. trainEvTill)
-	    elseif trainEv == 2 then
-	    log("Info | Training " .. getPokemonName(1) .. "'s Defense EV till " .. trainEvTill)
-	    elseif trainEv == 3 then
-	    log("Info | Training " .. getPokemonName(1) .. "'s Speed EV till " .. trainEvTill)
-	    elseif trainEv == 4 then
-	    log("Info | Training " .. getPokemonName(1) .. "'s Sp Attack EV till " .. trainEvTill)
-	    elseif trainEv == 5 then
-	    log("Info | Training " .. getPokemonName(1) .. "'s Sp Defense EV till " .. trainEvTill)
-	    elseif trainEv == 6 then
-	    log("Info | Training " .. getPokemonName(1) .. "'s HP EV till " .. trainEvTill)
-		end
 		log("Info | ".. getPokemonName(1).." EV STATS")
         log("Info | Attack: "..getPokemonEffortValue(1, "Attack"))
         log("Info | Defense: "..getPokemonEffortValue(1, "Defense"))
@@ -455,24 +553,13 @@ function onStop()
 		log("Info | Escape Ropes Remaining " .. getItemQuantity("Escape Rope"))
 		end
 	log("Info | Balls used: " .. startPokeballCount - recentPBall .. " Pokeballs " .. startGreatballCount - recentGBall .. " Great Balls " .. startUltraballCount - recentUBall .. " Ultra Balls")
-	log("Info | Bought " .. ballsBought .. " " .. buyBallType  .. "(s).")
-	    if evTraining then
+	log("Info | Bought " .. itemsBought .. " " .. refillItem  .. "(s).")
+	log("Info | Times in Pokecenter: " .. pokecenterCounter)
+	log("Info | Times in Pokemart: " .. martvisitCounter)
+		if evTraining >= 1 then
 		log("=======================================")
 		log("EV Log")
 		log("=======================================")
-		if trainEv == 1 then
-	    log("Info | Training " .. getPokemonName(1) .. "'s Attack EV till " .. trainEvTill)
-	    elseif trainEv == 2 then
-	    log("Info | Training " .. getPokemonName(1) .. "'s Defense EV till " .. trainEvTill)
-	    elseif trainEv == 3 then
-	    log("Info | Training " .. getPokemonName(1) .. "'s Speed EV till " .. trainEvTill)
-	    elseif trainEv == 4 then
-	    log("Info | Training " .. getPokemonName(1) .. "'s Sp Attack EV till " .. trainEvTill)
-	    elseif trainEv == 5 then
-	    log("Info | Training " .. getPokemonName(1) .. "'s Sp Defense EV till " .. trainEvTill)
-	    elseif trainEv == 6 then
-	    log("Info | Training " .. getPokemonName(1) .. "'s HP EV till " .. trainEvTill)
-		end
 		log("Info | ".. getPokemonName(1).." EV STATS")
         log("Info | Attack: "..getPokemonEffortValue(1, "Attack"))
         log("Info | Defense: "..getPokemonEffortValue(1, "Defense"))
@@ -622,11 +709,11 @@ get_usingMove = false
 trapped = false
 if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > healthToRunAt and isPokemonUsable(ReturnHighestIndexUnderLevel()) then
 	
-	if sorting == "Asc" and not onlyCatch and not IsSorted() and powerLevel == 0 and not evTraining and not advanceCatching and not useMoveOnly then
+	if sorting == "Asc" and not onlyCatch and not IsSorted() and powerLevel == 0 and evTraining == 0 and not advanceCatching and not useMoveOnly then
 		sortTeamByLevelAscending()
         log("Sorting Pokemon Level Ascendingly in-progress")
 		
-	elseif sorting == "Desc" and not onlyCatch and not IsSortedDesc() and powerLevel == 0 and not evTraining and not advanceCatching and not useMoveOnly then
+	elseif sorting == "Desc" and not onlyCatch and not IsSortedDesc() and powerLevel == 0 and evTraining == 0 and not advanceCatching and not useMoveOnly then
 		sortTeamByLevelDescending()
         log("Sorting Pokemon Level Descendingly in-progress")
 				
@@ -663,24 +750,76 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > hea
         swapPokemonWithLeader(useMovePokemon)
         log("Swapping " .. useMovePokemon .. " to first index for Advance catching w/o Synchronize!")
 		
-	elseif evTraining and trainEv == 1 and attackEv >= trainEvTill then
+	elseif evTraining == 1 and trainEv == 1 and attackEv >= trainEvTill then
         return retrieveItem() or fatal("Atk EV has reached "..attackEv.."... Bot will stop")
-	elseif evTraining and trainEv == 2 and defenseEv >= trainEvTill then
+	elseif evTraining == 1 and trainEv == 2 and defenseEv >= trainEvTill then
         return retrieveItem() or fatal("Def EV has reached "..defenseEv.."... Bot will stop")
-	elseif evTraining and trainEv == 3 and speedEv >= trainEvTill then
+	elseif evTraining == 1 and trainEv == 3 and speedEv >= trainEvTill then
         return retrieveItem() or fatal("Speed EV has reached "..speedEv.."... Bot will stop")
-	elseif evTraining and trainEv == 4 and spattackEv >= trainEvTill then
+	elseif evTraining == 1 and trainEv == 4 and spattackEv >= trainEvTill then
         return retrieveItem() or fatal("Sp Atk EV has reached "..spattackEv.."... Bot will stop")
-	elseif evTraining and trainEv == 5 and spdefenseEv >= trainEvTill then
+	elseif evTraining == 1 and trainEv == 5 and spdefenseEv >= trainEvTill then
         return retrieveItem() or fatal("Sp Def EV has reached "..spdefenseEv.."... Bot will stop")
-	elseif evTraining and trainEv == 6 and hpEv >= trainEvTill then
-        return retrieveItem() or fatal("HP EV has reached "..hpEv.." Bot will stop")
+	elseif evTraining == 1 and trainEv == 6 and hpEv >= trainEvTill then
+        return retrieveItem() or fatal("HP EV has reached "..hpEv.." Bot will stop")		
+	elseif evTraining >= 2 and ((trainEv == 1 and trainEv2 == 2) or (trainEv == 2 and trainEv2 == 1)) and attackEv >= trainEvTill and defenseEv >= trainEvTill then
+        return retrieveItem() or fatal("Atk & Def EV has reached "..trainEvTill.."... Bot will stop")
+	elseif evTraining >= 2 and ((trainEv == 1 and trainEv2 == 3) or (trainEv == 3 and trainEv2 == 1)) and attackEv >= trainEvTill and speedEv >= trainEvTill then
+        return retrieveItem() or fatal("Atk & Speed EV has reached "..trainEvTill.."... Bot will stop")
+	elseif evTraining >= 2 and ((trainEv == 1 and trainEv2 == 4) or (trainEv == 4 and trainEv2 == 1)) and attackEv >= trainEvTill and spattackEv >= trainEvTill then
+        return retrieveItem() or fatal("Atk & Sp Atk EV has reached "..trainEvTill.."... Bot will stop")
+	elseif evTraining >= 2 and ((trainEv == 1 and trainEv2 == 5) or (trainEv == 5 and trainEv2 == 1)) and attackEv >= trainEvTill and spdefenseEv >= trainEvTill then
+        return retrieveItem() or fatal("Atk & Sp Def has reached "..trainEvTill.."... Bot will stop")
+    elseif evTraining >= 2 and ((trainEv == 1 and trainEv2 == 6) or (trainEv == 6 and trainEv2 == 1)) and attackEv >= trainEvTill and HP >= trainEvTill then
+        return retrieveItem() or fatal("Atk & HP EV has reached "..trainEvTill.."... Bot will stop")	 
+	elseif evTraining >= 2 and ((trainEv == 2 and trainEv2 == 3) or (trainEv == 3 and trainEv2 == 2)) and defenseEv >= trainEvTill and speedEv >= trainEvTill then
+        return retrieveItem() or fatal("Def & Speed EV has reached "..trainEvTill.."... Bot will stop")
+	elseif evTraining >= 2 and ((trainEv == 2 and trainEv2 == 4) or (trainEv == 4 and trainEv2 == 2)) and defenseEv >= trainEvTill and spattackEv >= trainEvTill then
+        return retrieveItem() or fatal("Def & Sp Atk EV has reached "..trainEvTill.."... Bot will stop")
+	elseif evTraining >= 2 and ((trainEv == 2 and trainEv2 == 5) or (trainEv == 5 and trainEv2 == 2)) and defenseEv >= trainEvTill and spdefenseEv >= trainEvTill then
+        return retrieveItem() or fatal("Def & Sp Def EV has reached "..trainEvTill.."... Bot will stop")
+	elseif evTraining >= 2 and ((trainEv == 2 and trainEv2 == 6) or (trainEv == 6 and trainEv2 == 2)) and defenseEv >= trainEvTill and HP >= trainEvTill then
+        return retrieveItem() or fatal("Def & HP has reached "..trainEvTill.."... Bot will stop")
+	elseif evTraining >= 2 and ((trainEv == 3 and trainEv2 == 4) or (trainEv == 4 and trainEv2 == 3)) and speedEv >= trainEvTill and spattackEv >= trainEvTill then
+        return retrieveItem() or fatal("Speed & Sp Atk EV has reached "..trainEvTill.."... Bot will stop")
+	elseif evTraining >= 2 and ((trainEv == 3 and trainEv2 == 5) or (trainEv == 5 and trainEv2 == 3)) and speedEv >= trainEvTill and spdefenseEv >= trainEvTill then
+        return retrieveItem() or fatal("Speed & Sp Def EV has reached "..trainEvTill.."... Bot will stop")
+	elseif evTraining >= 2 and ((trainEv == 3 and trainEv2 == 6) or (trainEv == 6 and trainEv2 == 3)) and speedEv >= trainEvTill and hpEv >= trainEvTill then
+        return retrieveItem() or fatal("Speed & HP EV has reached "..trainEvTill.."... Bot will stop")	
+	elseif evTraining >= 2 and ((trainEv == 4 and trainEv2 == 5) or (trainEv == 5 and trainEv2 == 4)) and spattackEv >= trainEvTill and spdefenseEv >= trainEvTill then
+        return retrieveItem() or fatal("Sp Atk & Sp Def EV has reached "..trainEvTill.."... Bot will stop")
+	elseif evTraining >= 2 and ((trainEv == 4 and trainEv2 == 6) or (trainEv == 6 and trainEv2 == 4)) and spattackEv >= trainEvTill and hpEv >= trainEvTill then
+        return retrieveItem() or fatal("Sp Atk & HP EV has reached "..trainEvTill.."... Bot will stop")	
+	elseif evTraining >= 2 and ((trainEv == 5 and trainEv2 == 6) or (trainEv == 6 and trainEv2 == 5)) and spdefenseEv >= trainEvTill and hpEv >= trainEvTill then
+        return retrieveItem() or fatal("Sp Def & HP EV has reached "..trainEvTill.."... Bot will stop")
 	
 	elseif not isMounted() and hasItem(mount) and not isSurfing() and isOutside() and not string.find(getMapName(), "Pokecenter") and not string.find(getMapName(), "Mart") and not string.find(getMapName(), "Center") and not string.find(getMapName(), "Pokemart") and not string.find(getMapName(), "Tunnel") and not string.find(getMapName(), "Stop") and not string.find(getMapName(), "Cave") and not string.find(getMapName(), "Mt") and not string.find(getMapName(), "Tower") and not string.find(getMapName(), "mansion") and not string.find(getMapName(), "Victory") then
 		useItem(mount)
 		log("Getting on " .. mount)
-		
-	elseif evTraining and (getPokemonHealthPercent(1) <= healthToRunAt or not isPokemonUsable(1)) then    
+	
+    elseif autoRefill and getMapName() == city and getItemQuantity(refillItem) < MinAmt and getMoney()>= MinMoney then
+        moveToMap(martLocation)
+		elseif autoRefill == true and getMapName() == "Indigo Plateau Center" and not isShopOpen() then
+		talkToNpcOnCell(16, 22)
+		elseif autoRefill == true and getMapName() == "Blackthorn City Pokemart" and not isShopOpen() then
+		talkToNpcOnCell(3, 4)
+		elseif autoRefill == true and getMapName() == martLocation and (getMapName() != "Indigo Plateau Center" or getMapName() != "Blackthorn City Pokemart") and not isShopOpen() then
+		talkToNpcOnCell(3, 5)
+		elseif autoRefill and isShopOpen() and getItemQuantity(refillItem) < MinAmt then
+		buyItem(refillItem, buyAmt)
+		itemsBought = itemsBought + buyAmt
+		if refillItem == "Pokeball" then
+		startPokeballCount = startPokeballCount + buyAmt
+		elseif refillItem == "Great Ball" then
+		startGreatballCount = startGreatballCount + buyAmt
+		elseif refillItem == "Ultra Ball" then
+		startUltraballCount = startUltraballCount + buyAmt
+		end
+		log("Info | Bought " .. itemsBought .. " " .. refillItem  .. "(s).")
+		elseif autoRefill and getItemQuantity(refillItem) >= MinAmt and getMapName() == martLocation then
+		moveToMap(city)
+	
+	elseif evTraining >= 1 and (getPokemonHealthPercent(1) <= healthToRunAt or not isPokemonUsable(1)) then    
         if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
@@ -705,119 +844,11 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > hea
 		end
 	end
 	
-	elseif advanceCatching and stops == 0 and pokecenterOnRoute and (not isPokemonUsable(1) or not isPokemonUsable(moveUserIndex) or getRemainingPowerPoints(moveUserIndex, moveName) == 0) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
-		useItem("Escape Rope")
-		elseif getMapName() == endLocation then
-		moveToMap(pokecenter)
-		elseif getMapName() == pokecenter then
-		if getMapName() == "Indigo Plateau Center" then
-		talkToNpcOnCell(4, 22)
-		else
-		usePokecenter()
-		end
-	end
-	
-	elseif advanceCatching and stops == 0 and not pokecenterOnRoute and (not isPokemonUsable(1) or not isPokemonUsable(moveUserIndex) or getRemainingPowerPoints(moveUserIndex, moveName) == 0) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
-		useItem("Escape Rope")
-		elseif getMapName() == endLocation then
-		moveToMap(city)
-		elseif getMapName() == city then
-		moveToMap(pokecenter)
-		elseif getMapName() == pokecenter then
-		if getMapName() == "Indigo Plateau Center" then
-		talkToNpcOnCell(4, 22)
-		else
-		usePokecenter()
-		end
-	end
-	
-	elseif advanceCatching and stops == 1 and (not isPokemonUsable(1) or not isPokemonUsable(moveUserIndex) or getRemainingPowerPoints(moveUserIndex, moveName) == 0) then
+	elseif advanceCatching and (not isPokemonUsable(1) or not isPokemonUsable(moveUserIndex) or getRemainingPowerPoints(moveUserIndex, moveName) == 0) then
         if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
-		moveToMap(stop1)
-		elseif getMapName() == stop1 then
-		moveToMap(city)
-		elseif getMapName() == city then
-		moveToMap(pokecenter)
-		elseif getMapName() == pokecenter then
-		if getMapName() == "Indigo Plateau Center" then
-		talkToNpcOnCell(4, 22)
-		else
-		usePokecenter()
-		end
-	end
-	
-	elseif advanceCatching and stops == 2 and (not isPokemonUsable(1) or not isPokemonUsable(moveUserIndex) or getRemainingPowerPoints(moveUserIndex, moveName) == 0) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
-		useItem("Escape Rope")
-		elseif getMapName() == endLocation then
-		moveToMap(stop2)
-		elseif getMapName() == stop2 then
-		moveToMap(stop1)
-		elseif getMapName() == stop1 then
-		moveToMap(city)
-		elseif getMapName() == city then
-		moveToMap(pokecenter)
-		elseif getMapName() == pokecenter then
-		if getMapName() == "Indigo Plateau Center" then
-		talkToNpcOnCell(4, 22)
-		else
-		usePokecenter()
-		end
-	end
-	
-	elseif advanceCatching and stops == 3 and (not isPokemonUsable(1) or not isPokemonUsable(moveUserIndex) or getRemainingPowerPoints(moveUserIndex, moveName) == 0) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
-		useItem("Escape Rope")
-		elseif getMapName() == endLocation then
-		moveToMap(stop3)
-		elseif getMapName() == stop3 then
-		moveToMap(stop2)
-		elseif getMapName() == stop2 then
-		moveToMap(stop1)
-		elseif getMapName() == stop1 then
-		moveToMap(city)
-		elseif getMapName() == city then
-		moveToMap(pokecenter)
-		elseif getMapName() == pokecenter then
-		if getMapName() == "Indigo Plateau Center" then
-		talkToNpcOnCell(4, 22)
-		else
-		usePokecenter()
-		end
-	end
-	
-	elseif advanceCatching and stops == 4 and (not isPokemonUsable(1) or not isPokemonUsable(moveUserIndex) or getRemainingPowerPoints(moveUserIndex, moveName) == 0) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
-		useItem("Escape Rope")
-		elseif getMapName() == endLocation then
-		moveToMap(stop4)
-		elseif getMapName() == stop4 then
-		moveToMap(stop3)
-		elseif getMapName() == stop3 then
-		moveToMap(stop2)
-		elseif getMapName() == stop2 then
-		moveToMap(stop1)
-		elseif getMapName() == stop1 then
-		moveToMap(city)
-		elseif getMapName() == city then
-		moveToMap(pokecenter)
-		elseif getMapName() == pokecenter then
-		if getMapName() == "Indigo Plateau Center" then
-		talkToNpcOnCell(4, 22)
-		else
-		usePokecenter()
-		end
-	end
-	
-	elseif advanceCatching and stops == 5 and (not isPokemonUsable(1) or not isPokemonUsable(moveUserIndex) or getRemainingPowerPoints(moveUserIndex, moveName) == 0) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
-		useItem("Escape Rope")
-		elseif getMapName() == endLocation then
-		moveToMap(stop5)
+        return moveToMap(stop1) or moveToMap(stop2) or moveToMap(stop3) or moveToMap(stop4) or moveToMap(stop5) or moveToMap(city) or moveToMap(pokecenter)
 		elseif getMapName() == stop5 then
 		moveToMap(stop4)
 		elseif getMapName() == stop4 then
@@ -838,119 +869,11 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > hea
 		end
 	end
 	
-	elseif useMoveOnly and stops == 0 and pokecenterOnRoute and (not isPokemonUsable(1) or getRemainingPowerPoints(1, usingMove) == 0) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
+	elseif useMoveOnly and (not isPokemonUsable(1) or getRemainingPowerPoints(1, usingMove) == 0) then
+        if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
-		moveToMap(pokecenter)
-		elseif getMapName() == pokecenter then
-		if getMapName() == "Indigo Plateau Center" then
-		talkToNpcOnCell(4, 22)
-		else
-		usePokecenter()
-		end
-	end
-	
-	elseif useMoveOnly and stops == 0 and not pokecenterOnRoute and (not isPokemonUsable(1) or getRemainingPowerPoints(1, usingMove) == 0) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
-		useItem("Escape Rope")
-		elseif getMapName() == endLocation then
-		moveToMap(city)
-		elseif getMapName() == city then
-		moveToMap(pokecenter)
-		elseif getMapName() == pokecenter then
-		if getMapName() == "Indigo Plateau Center" then
-		talkToNpcOnCell(4, 22)
-		else
-		usePokecenter()
-		end
-	end
-	
-	elseif useMoveOnly and stops == 1 and (not isPokemonUsable(1) or getRemainingPowerPoints(1, usingMove) == 0) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
-		useItem("Escape Rope")
-		elseif getMapName() == endLocation then
-		moveToMap(stop1)
-		elseif getMapName() == stop1 then
-		moveToMap(city)
-		elseif getMapName() == city then
-		moveToMap(pokecenter)
-		elseif getMapName() == pokecenter then
-		if getMapName() == "Indigo Plateau Center" then
-		talkToNpcOnCell(4, 22)
-		else
-		usePokecenter()
-		end
-	end
-	
-	elseif useMoveOnly and stops == 2 and (not isPokemonUsable(1) or getRemainingPowerPoints(1, usingMove) == 0) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
-		useItem("Escape Rope")
-		elseif getMapName() == endLocation then
-		moveToMap(stop2)
-		elseif getMapName() == stop2 then
-		moveToMap(stop1)
-		elseif getMapName() == stop1 then
-		moveToMap(city)
-		elseif getMapName() == city then
-		moveToMap(pokecenter)
-		elseif getMapName() == pokecenter then
-		if getMapName() == "Indigo Plateau Center" then
-		talkToNpcOnCell(4, 22)
-		else
-		usePokecenter()
-		end
-	end
-	
-	elseif useMoveOnly and stops == 3 and (not isPokemonUsable(1) or getRemainingPowerPoints(1, usingMove) == 0) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
-		useItem("Escape Rope")
-		elseif getMapName() == endLocation then
-		moveToMap(stop3)
-		elseif getMapName() == stop3 then
-		moveToMap(stop2)
-		elseif getMapName() == stop2 then
-		moveToMap(stop1)
-		elseif getMapName() == stop1 then
-		moveToMap(city)
-		elseif getMapName() == city then
-		moveToMap(pokecenter)
-		elseif getMapName() == pokecenter then
-		if getMapName() == "Indigo Plateau Center" then
-		talkToNpcOnCell(4, 22)
-		else
-		usePokecenter()
-		end
-	end
-	
-	elseif useMoveOnly and stops == 4 and (not isPokemonUsable(1) or getRemainingPowerPoints(1, usingMove) == 0) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
-		useItem("Escape Rope")
-		elseif getMapName() == endLocation then
-		moveToMap(stop4)
-		elseif getMapName() == stop4 then
-		moveToMap(stop3)
-		elseif getMapName() == stop3 then
-		moveToMap(stop2)
-		elseif getMapName() == stop2 then
-		moveToMap(stop1)
-		elseif getMapName() == stop1 then
-		moveToMap(city)
-		elseif getMapName() == city then
-		moveToMap(pokecenter)
-		elseif getMapName() == pokecenter then
-		if getMapName() == "Indigo Plateau Center" then
-		talkToNpcOnCell(4, 22)
-		else
-		usePokecenter()
-		end
-	end
-	
-	elseif useMoveOnly and stops == 5 and (not isPokemonUsable(1) or getRemainingPowerPoints(1, usingMove) == 0) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
-		useItem("Escape Rope")
-		elseif getMapName() == endLocation then
-		moveToMap(stop5)
+        return moveToMap(stop1) or moveToMap(stop2) or moveToMap(stop3) or moveToMap(stop4) or moveToMap(stop5) or moveToMap(city) or moveToMap(pokecenter)
 		elseif getMapName() == stop5 then
 		moveToMap(stop4)
 		elseif getMapName() == stop4 then
@@ -970,120 +893,13 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > hea
 		usePokecenter()
 		end
 	end
-		
-	elseif powerLevel == 1 and stops == 0 and pokecenterOnRoute and (not isPokemonUsable(1) or getPokemonHealthPercent(2) <= healthToRunAt) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
-		useItem("Escape Rope")
-		elseif getMapName() == endLocation then
-		moveToMap(pokecenter)
-		elseif getMapName() == pokecenter then
-		if getMapName() == "Indigo Plateau Center" then
-		talkToNpcOnCell(4, 22)
-		else
-		usePokecenter()
-		end
-	end
 	
-	elseif powerLevel == 1 and stops == 0 and not pokecenterOnRoute and (not isPokemonUsable(1) or getPokemonHealthPercent(2) <= healthToRunAt) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
-		useItem("Escape Rope")
-		elseif getMapName() == endLocation then
-		moveToMap(city)
-		elseif getMapName() == city then
-		moveToMap(pokecenter)
-		elseif getMapName() == pokecenter then
-		if getMapName() == "Indigo Plateau Center" then
-		talkToNpcOnCell(4, 22)
-		else
-		usePokecenter()
-		end
-	end
-	
-	elseif powerLevel == 1 and stops == 1 and (not isPokemonUsable(1) or getPokemonHealthPercent(2) <= healthToRunAt) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
-		useItem("Escape Rope")
-		elseif getMapName() == endLocation then
-		moveToMap(stop1)
-		elseif getMapName() == stop1 then
-		moveToMap(city)
-		elseif getMapName() == city then
-		moveToMap(pokecenter)
-		elseif getMapName() == pokecenter then
-		if getMapName() == "Indigo Plateau Center" then
-		talkToNpcOnCell(4, 22)
-		else
-		usePokecenter()
-		end
-	end
 		
-	elseif powerLevel == 1 and stops == 2 and (not isPokemonUsable(1) or getPokemonHealthPercent(2) <= healthToRunAt) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
+	elseif powerLevel == 1 and (not isPokemonUsable(1) or getPokemonHealthPercent(2) <= healthToRunAt) then
+        if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
-		moveToMap(stop2)
-		elseif getMapName() == stop2 then
-		moveToMap(stop1)
-		elseif getMapName() == stop1 then
-		moveToMap(city)
-		elseif getMapName() == city then
-		moveToMap(pokecenter)
-		elseif getMapName() == pokecenter then
-		if getMapName() == "Indigo Plateau Center" then
-		talkToNpcOnCell(4, 22)
-		else
-		usePokecenter()
-		end
-	end
-		
-	elseif powerLevel == 1 and stops == 3 and (not isPokemonUsable(1) or getPokemonHealthPercent(2) <= healthToRunAt) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
-		useItem("Escape Rope")
-		elseif getMapName() == endLocation then
-		moveToMap(stop3)
-		elseif getMapName() == stop3 then
-		moveToMap(stop2)
-		elseif getMapName() == stop2 then
-		moveToMap(stop1)
-		elseif getMapName() == stop1 then
-		moveToMap(city)
-		elseif getMapName() == city then
-		moveToMap(pokecenter)
-		elseif getMapName() == pokecenter then
-		if getMapName() == "Indigo Plateau Center" then
-		talkToNpcOnCell(4, 22)
-		else
-		usePokecenter()
-		end
-	end
-		
-	elseif powerLevel == 1 and stops == 4 and (not isPokemonUsable(1) or getPokemonHealthPercent(2) <= healthToRunAt) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
-		useItem("Escape Rope")
-		elseif getMapName() == endLocation then
-		moveToMap(stop4)
-		elseif getMapName() == stop4 then
-		moveToMap(stop3)
-		elseif getMapName() == stop3 then
-		moveToMap(stop2)
-		elseif getMapName() == stop2 then
-		moveToMap(stop1)
-		elseif getMapName() == stop1 then
-		moveToMap(city)
-		elseif getMapName() == city then
-		moveToMap(pokecenter)
-		elseif getMapName() == pokecenter then
-		if getMapName() == "Indigo Plateau Center" then
-		talkToNpcOnCell(4, 22)
-		else
-		usePokecenter()
-		end
-	end
-		
-		elseif powerLevel == 1 and stops == 5 and (not isPokemonUsable(1) or getPokemonHealthPercent(2) <= healthToRunAt) then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
-		useItem("Escape Rope")
-		elseif getMapName() == endLocation then
-		moveToMap(stop5)
+        return moveToMap(stop1) or moveToMap(stop2) or moveToMap(stop3) or moveToMap(stop4) or moveToMap(stop5) or moveToMap(city) or moveToMap(pokecenter)
 		elseif getMapName() == stop5 then
 		moveToMap(stop4)
 		elseif getMapName() == stop4 then
@@ -1204,490 +1020,21 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > hea
 		end
 	end
 	
-	elseif stops == 0 and pokecenterOnRoute then
-		if getMapName() == pokecenter then
-		moveToMap(endLocation)	
-		elseif buyBalls == true and onlyCatch == true and getMoney() < MinMoney then
-		log("You got less than the required amount $"..MinMoney .. " Turning off Auto-Buying ")
-		buyBalls = false
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == endLocation then
-		moveToMap(martLocation)				
-		elseif buyBalls == true and getMapName() == martLocation and getMapName() != "Indigo Plateau Center" and not isShopOpen() then
-		elseif buyBalls == true and getMapName() == "Indigo Plateau Center" and not isShopOpen() then
-		talkToNpcOnCell(16, 22)
-		elseif buyBalls == true and getMapName() == "Blackthorn City Pokemart" and not isShopOpen() then
-		talkToNpcOnCell(3, 4)
-		elseif buyBalls == true and getMapName() == martLocation and (getMapName() != "Indigo Plateau Center" or getMapName() != "Blackthorn City Pokemart") and not isShopOpen() then
-		talkToNpcOnCell(3, 5)
-		elseif buyBalls and isShopOpen() and getItemQuantity(buyBallType) < MinBalls then
-		buyItem(buyBallType, buyAmt)
-		ballsBought = ballsBought + buyAmt
-		if buyBallType == "Pokeball" then
-		startPokeballCount = startPokeballCount + buyAmt
-		elseif buyBallType == "Great Ball" then
-		startGreatballCount = startGreatballCount + buyAmt
-		elseif buyBallType == "Ultra Ball" then
-		startUltraballCount = startUltraballCount + buyAmt
-		end
-		log("Info | Bought " .. ballsBought .. " " .. buyBallType  .. "(s).")
-		elseif getItemQuantity(buyBallType) >= MinBalls and getMapName() == martLocation then
-		moveToMap(endLocation)
-		elseif getMapName() == endLocation then
-			if lookFor == 0 then
-				moveToGrass()
-				elseif lookFor == 1 then
-                moveToWater()
-				elseif lookFor == 2 and (getPlayerX() != fishingSpotX and getPlayerY() != fishingSpotY) then
-				moveToCell(fishingSpotX, fishingSpotY)
-				elseif lookFor == 2 and (getPlayerX() == fishingSpotX and getPlayerY() == fishingSpotY) then
-				useItem(rod)
-				log("Fishing using " .. rod)
-			else
-				if Pattern == 1 then
-		                moveToRectangle(rectX1, rectY1, rectX2, rectY2)
-		                elseif Pattern == 2 then
-		                moveToRectangle(rectXB1, rectYB1, rectXB2, rectYB2)
-		                elseif Pattern == 3 then
-		                moveToRectangle(rectXC1, rectYC1, rectXC2, rectYC2)
-		                elseif Pattern == 4 then
-		                moveToRectangle(rectXD1, rectYD1, rectXD2, rectYD2)
-		                elseif Pattern == 5 then
-		                moveToRectangle(rectXE1, rectYE1, rectXE2, rectYE2)
-						elseif Pattern == 6 then
-		                moveToRectangle(rectXF1, rectYF1, rectXF2, rectYF2)
-						elseif Pattern == 7 then
-		                moveToRectangle(rectXG1, rectYG1, rectXG2, rectYG2)
-		                elseif Pattern == 8 then
-		                moveToRectangle(rectXH1, rectYH1, rectXH2, rectYH2)
-		                elseif Pattern == 9 then
-		                moveToRectangle(rectXI1, rectYI1, rectXI2, rectYI2)
-		                elseif Pattern == 10 then
-		                moveToRectangle(rectXJ1, rectYJ1, rectXJ2, rectYJ2)
-                                end
-			end
-		end
-	
-	elseif stops == 0 and not pokecenterOnRoute then
+	elseif stops >= 0 then
 	if getMapName() == pokecenter then
-		moveToMap(city)	
-		elseif buyBalls == true and onlyCatch == true and getMoney() < MinMoney then
-		log("You got less than the required amount $"..MinMoney .. " Turning off Auto-Buying ")
-		buyBalls = false
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == endLocation then
-		moveToMap(city)				
-		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == city then
-        moveToMap(martLocation)
-		elseif buyBalls == true and getMapName() == "Indigo Plateau Center" and not isShopOpen() then
-		talkToNpcOnCell(16, 22)
-		elseif buyBalls == true and getMapName() == "Blackthorn City Pokemart" and not isShopOpen() then
-		talkToNpcOnCell(3, 4)
-		elseif buyBalls == true and getMapName() == martLocation and (getMapName() != "Indigo Plateau Center" or getMapName() != "Blackthorn City Pokemart") and not isShopOpen() then
-		talkToNpcOnCell(3, 5)
-		elseif buyBalls and isShopOpen() and getItemQuantity(buyBallType) < MinBalls then
-		buyItem(buyBallType, buyAmt)
-		ballsBought = ballsBought + buyAmt
-		if buyBallType == "Pokeball" then
-		startPokeballCount = startPokeballCount + buyAmt
-		elseif buyBallType == "Great Ball" then
-		startGreatballCount = startGreatballCount + buyAmt
-		elseif buyBallType == "Ultra Ball" then
-		startUltraballCount = startUltraballCount + buyAmt
-		end
-		log("Info | Bought " .. ballsBought .. " " .. buyBallType  .. "(s).")
-		elseif getItemQuantity(buyBallType) >= MinBalls and getMapName() == martLocation then
-		moveToMap(city)
+		return moveToMap(city) or moveToMap(endLocation)
 		elseif getMapName() == city then
-			moveToMap(endLocation)
-		elseif getMapName() == endLocation then
-			if lookFor == 0 then
-				moveToGrass()
-				elseif lookFor == 1 then
-                moveToWater()
-				elseif lookFor == 2 and (getPlayerX() != fishingSpotX and getPlayerY() != fishingSpotY) then
-				moveToCell(fishingSpotX, fishingSpotY)
-				elseif lookFor == 2 and (getPlayerX() == fishingSpotX and getPlayerY() == fishingSpotY) then
-				useItem(rod)
-				log("Fishing using " .. rod)
-			else
-				if Pattern == 1 then
-		                moveToRectangle(rectX1, rectY1, rectX2, rectY2)
-		                elseif Pattern == 2 then
-		                moveToRectangle(rectXB1, rectYB1, rectXB2, rectYB2)
-		                elseif Pattern == 3 then
-		                moveToRectangle(rectXC1, rectYC1, rectXC2, rectYC2)
-		                elseif Pattern == 4 then
-		                moveToRectangle(rectXD1, rectYD1, rectXD2, rectYD2)
-		                elseif Pattern == 5 then
-		                moveToRectangle(rectXE1, rectYE1, rectXE2, rectYE2)
-						elseif Pattern == 6 then
-		                moveToRectangle(rectXF1, rectYF1, rectXF2, rectYF2)
-						elseif Pattern == 7 then
-		                moveToRectangle(rectXG1, rectYG1, rectXG2, rectYG2)
-		                elseif Pattern == 8 then
-		                moveToRectangle(rectXH1, rectYH1, rectXH2, rectYH2)
-		                elseif Pattern == 9 then
-		                moveToRectangle(rectXI1, rectYI1, rectXI2, rectYI2)
-		                elseif Pattern == 10 then
-		                moveToRectangle(rectXJ1, rectYJ1, rectXJ2, rectYJ2)
-                                end
-			end
-		end
-	
-	elseif stops == 1 then
-		if getMapName() == pokecenter then
-		moveToMap(city)	
-		elseif buyBalls == true and onlyCatch == true and getMoney() < MinMoney then
-		log("You got less than the required amount $"..MinMoney .. " Turning off Auto-Buying ")
-		buyBalls = false
-		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == endLocation then
-		moveToMap(stop1)
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop1 then
-		moveToMap(city)				
-		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == city then
-        moveToMap(martLocation)
-		elseif buyBalls == true and getMapName() == "Indigo Plateau Center" and not isShopOpen() then
-		talkToNpcOnCell(16, 22)
-		elseif buyBalls == true and getMapName() == "Blackthorn City Pokemart" and not isShopOpen() then
-		talkToNpcOnCell(3, 4)
-		elseif buyBalls == true and getMapName() == martLocation and (getMapName() != "Indigo Plateau Center" or getMapName() != "Blackthorn City Pokemart") and not isShopOpen() then
-		talkToNpcOnCell(3, 5)
-		elseif buyBalls and isShopOpen() and getItemQuantity(buyBallType) < MinBalls then
-		buyItem(buyBallType, buyAmt)
-		ballsBought = ballsBought + buyAmt
-		if buyBallType == "Pokeball" then
-		startPokeballCount = startPokeballCount + buyAmt
-		elseif buyBallType == "Great Ball" then
-		startGreatballCount = startGreatballCount + buyAmt
-		elseif buyBallType == "Ultra Ball" then
-		startUltraballCount = startUltraballCount + buyAmt
-		end
-		log("Info | Bought " .. ballsBought .. " " .. buyBallType  .. "(s).")
-		elseif getItemQuantity(buyBallType) >= MinBalls and getMapName() == martLocation then
-		moveToMap(city)
-		elseif getMapName() == city then
-			moveToMap(stop1)
+			return moveToMap(stop1) or moveToMap(endLocation)
 		elseif getMapName() == stop1 then
-			moveToMap(endLocation)
-		elseif getMapName() == endLocation then
-			if lookFor == 0 then
-				moveToGrass()
-				elseif lookFor == 1 then
-                moveToWater()
-				elseif lookFor == 2 and (getPlayerX() != fishingSpotX and getPlayerY() != fishingSpotY) then
-				moveToCell(fishingSpotX, fishingSpotY)
-				elseif lookFor == 2 and (getPlayerX() == fishingSpotX and getPlayerY() == fishingSpotY) then
-				useItem(rod)
-				log("Fishing using " .. rod)
-			else
-				if Pattern == 1 then
-		                moveToRectangle(rectX1, rectY1, rectX2, rectY2)
-		                elseif Pattern == 2 then
-		                moveToRectangle(rectXB1, rectYB1, rectXB2, rectYB2)
-		                elseif Pattern == 3 then
-		                moveToRectangle(rectXC1, rectYC1, rectXC2, rectYC2)
-		                elseif Pattern == 4 then
-		                moveToRectangle(rectXD1, rectYD1, rectXD2, rectYD2)
-		                elseif Pattern == 5 then
-		                moveToRectangle(rectXE1, rectYE1, rectXE2, rectYE2)
-						elseif Pattern == 6 then
-		                moveToRectangle(rectXF1, rectYF1, rectXF2, rectYF2)
-						elseif Pattern == 7 then
-		                moveToRectangle(rectXG1, rectYG1, rectXG2, rectYG2)
-		                elseif Pattern == 8 then
-		                moveToRectangle(rectXH1, rectYH1, rectXH2, rectYH2)
-		                elseif Pattern == 9 then
-		                moveToRectangle(rectXI1, rectYI1, rectXI2, rectYI2)
-		                elseif Pattern == 10 then
-		                moveToRectangle(rectXJ1, rectYJ1, rectXJ2, rectYJ2)
-                                end
-			end
-		end
-		
-	elseif stops == 2 then	
-		if getMapName() == pokecenter then
-		moveToMap(city)	
-		elseif buyBalls == true and onlyCatch == true and getMoney() < MinMoney then
-		log("You got less than the required amount $"..MinMoney .. " Turning off Auto-Buying ")
-		buyBalls = false
-		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == endLocation then
-		moveToMap(stop2)
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop2 then
-		moveToMap(stop1)
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop1 then
-		moveToMap(city)				
-		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == city then
-        moveToMap(martLocation)
-		elseif buyBalls == true and getMapName() == "Indigo Plateau Center" and not isShopOpen() then
-		talkToNpcOnCell(16, 22)
-		elseif buyBalls == true and getMapName() == "Blackthorn City Pokemart" and not isShopOpen() then
-		talkToNpcOnCell(3, 4)
-		elseif buyBalls == true and getMapName() == martLocation and (getMapName() != "Indigo Plateau Center" or getMapName() != "Blackthorn City Pokemart") and not isShopOpen() then
-		talkToNpcOnCell(3, 5)
-		elseif buyBalls and isShopOpen() and getItemQuantity(buyBallType) < MinBalls then
-		buyItem(buyBallType, buyAmt)
-		ballsBought = ballsBought + buyAmt
-		if buyBallType == "Pokeball" then
-		startPokeballCount = startPokeballCount + buyAmt
-		elseif buyBallType == "Great Ball" then
-		startGreatballCount = startGreatballCount + buyAmt
-		elseif buyBallType == "Ultra Ball" then
-		startUltraballCount = startUltraballCount + buyAmt
-		end
-		log("Info | Bought " .. ballsBought .. " " .. buyBallType  .. "(s).")
-		elseif getItemQuantity(buyBallType) >= MinBalls and getMapName() == martLocation then
-		moveToMap(city)
-		elseif getMapName() == city then
-			moveToMap(stop1)
-		elseif getMapName() == stop1 then
-			moveToMap(stop2)
+		    return moveToMap(stop2) or moveToMap(endLocation)
 		elseif getMapName() == stop2 then
-			moveToMap(endLocation)
-		elseif getMapName() == endLocation then
-			if lookFor == 0 then
-				moveToGrass()
-				elseif lookFor == 1 then
-                moveToWater()
-				elseif lookFor == 2 and (getPlayerX() != fishingSpotX and getPlayerY() != fishingSpotY) then
-				moveToCell(fishingSpotX, fishingSpotY)
-				elseif lookFor == 2 and (getPlayerX() == fishingSpotX and getPlayerY() == fishingSpotY) then
-				useItem(rod)
-				log("Fishing using " .. rod)			
-			else
-				if Pattern == 1 then
-		                moveToRectangle(rectX1, rectY1, rectX2, rectY2)
-		                elseif Pattern == 2 then
-		                moveToRectangle(rectXB1, rectYB1, rectXB2, rectYB2)
-		                elseif Pattern == 3 then
-		                moveToRectangle(rectXC1, rectYC1, rectXC2, rectYC2)
-		                elseif Pattern == 4 then
-		                moveToRectangle(rectXD1, rectYD1, rectXD2, rectYD2)
-		                elseif Pattern == 5 then
-		                moveToRectangle(rectXE1, rectYE1, rectXE2, rectYE2)
-						elseif Pattern == 6 then
-		                moveToRectangle(rectXF1, rectYF1, rectXF2, rectYF2)
-						elseif Pattern == 7 then
-		                moveToRectangle(rectXG1, rectYG1, rectXG2, rectYG2)
-		                elseif Pattern == 8 then
-		                moveToRectangle(rectXH1, rectYH1, rectXH2, rectYH2)
-		                elseif Pattern == 9 then
-		                moveToRectangle(rectXI1, rectYI1, rectXI2, rectYI2)
-		                elseif Pattern == 10 then
-		                moveToRectangle(rectXJ1, rectYJ1, rectXJ2, rectYJ2)
-                                end
-			end
-		end
-	
-	elseif stops == 3 then
-		if getMapName() == pokecenter then
-		moveToMap(city)	
-		elseif buyBalls == true and onlyCatch == true and getMoney() < MinMoney then
-		log("You got less than the required amount $"..MinMoney .. " Turning off Auto-Buying ")
-		buyBalls = false
-		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == endLocation then
-		moveToMap(stop3)
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop3 then
-		moveToMap(stop2)
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop2 then
-		moveToMap(stop1)
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop1 then
-		moveToMap(city)				
-		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == city then
-        moveToMap(martLocation)
-		elseif buyBalls == true and getMapName() == "Indigo Plateau Center" and not isShopOpen() then
-		talkToNpcOnCell(16, 22)
-		elseif buyBalls == true and getMapName() == "Blackthorn City Pokemart" and not isShopOpen() then
-		talkToNpcOnCell(3, 4)
-		elseif buyBalls == true and getMapName() == martLocation and (getMapName() != "Indigo Plateau Center" or getMapName() != "Blackthorn City Pokemart") and not isShopOpen() then
-		talkToNpcOnCell(3, 5)
-		elseif buyBalls and isShopOpen() and getItemQuantity(buyBallType) < MinBalls then
-		buyItem(buyBallType, buyAmt)
-		ballsBought = ballsBought + buyAmt
-		if buyBallType == "Pokeball" then
-		startPokeballCount = startPokeballCount + buyAmt
-		elseif buyBallType == "Great Ball" then
-		startGreatballCount = startGreatballCount + buyAmt
-		elseif buyBallType == "Ultra Ball" then
-		startUltraballCount = startUltraballCount + buyAmt
-		end
-		log("Info | Bought " .. ballsBought .. " " .. buyBallType  .. "(s).")
-		elseif getItemQuantity(buyBallType) >= MinBalls and getMapName() == martLocation then
-		moveToMap(city)
-		elseif getMapName() == city then
-			moveToMap(stop1)
-		elseif getMapName() == stop1 then
-			moveToMap(stop2)
-		elseif getMapName() == stop2 then
-			moveToMap(stop3)
+		    return moveToMap(stop3) or moveToMap(endLocation)
 		elseif getMapName() == stop3 then
-			moveToMap(endLocation)
-		elseif getMapName() == endLocation then
-			if lookFor == 0 then
-				moveToGrass()
-				elseif lookFor == 1 then
-                moveToWater()
-				elseif lookFor == 2 and (getPlayerX() != fishingSpotX and getPlayerY() != fishingSpotY) then
-				moveToCell(fishingSpotX, fishingSpotY)
-				elseif lookFor == 2 and (getPlayerX() == fishingSpotX and getPlayerY() == fishingSpotY) then
-				useItem(rod)
-				log("Fishing using " .. rod)
-			else
-				if Pattern == 1 then
-		                moveToRectangle(rectX1, rectY1, rectX2, rectY2)
-		                elseif Pattern == 2 then
-		                moveToRectangle(rectXB1, rectYB1, rectXB2, rectYB2)
-		                elseif Pattern == 3 then
-		                moveToRectangle(rectXC1, rectYC1, rectXC2, rectYC2)
-		                elseif Pattern == 4 then
-		                moveToRectangle(rectXD1, rectYD1, rectXD2, rectYD2)
-		                elseif Pattern == 5 then
-		                moveToRectangle(rectXE1, rectYE1, rectXE2, rectYE2)
-						elseif Pattern == 6 then
-		                moveToRectangle(rectXF1, rectYF1, rectXF2, rectYF2)
-						elseif Pattern == 7 then
-		                moveToRectangle(rectXG1, rectYG1, rectXG2, rectYG2)
-		                elseif Pattern == 8 then
-		                moveToRectangle(rectXH1, rectYH1, rectXH2, rectYH2)
-		                elseif Pattern == 9 then
-		                moveToRectangle(rectXI1, rectYI1, rectXI2, rectYI2)
-		                elseif Pattern == 10 then
-		                moveToRectangle(rectXJ1, rectYJ1, rectXJ2, rectYJ2)
-                                end
-			end
-		end
-	
-	elseif stops == 4 then
-		if getMapName() == pokecenter then
-		moveToMap(city)	
-		elseif buyBalls == true and onlyCatch == true and getMoney() < MinMoney then
-		log("You got less than the required amount $"..MinMoney .. " Turning off Auto-Buying ")
-		buyBalls = false
-		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == endLocation then
-		moveToMap(stop4)
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop4 then
-		moveToMap(stop3)
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop3 then
-		moveToMap(stop2)
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop2 then
-		moveToMap(stop1)
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop1 then
-		moveToMap(city)				
-		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == city then
-        moveToMap(martLocation)
-		elseif buyBalls == true and getMapName() == "Indigo Plateau Center" and not isShopOpen() then
-		talkToNpcOnCell(16, 22)
-		elseif buyBalls == true and getMapName() == "Blackthorn City Pokemart" and not isShopOpen() then
-		talkToNpcOnCell(3, 4)
-		elseif buyBalls == true and getMapName() == martLocation and (getMapName() != "Indigo Plateau Center" or getMapName() != "Blackthorn City Pokemart") and not isShopOpen() then
-		talkToNpcOnCell(3, 5)
-		elseif buyBalls and isShopOpen() and getItemQuantity(buyBallType) < MinBalls then
-		buyItem(buyBallType, buyAmt)
-		ballsBought = ballsBought + buyAmt
-		if buyBallType == "Pokeball" then
-		startPokeballCount = startPokeballCount + buyAmt
-		elseif buyBallType == "Great Ball" then
-		startGreatballCount = startGreatballCount + buyAmt
-		elseif buyBallType == "Ultra Ball" then
-		startUltraballCount = startUltraballCount + buyAmt
-		end
-		log("Info | Bought " .. ballsBought .. " " .. buyBallType  .. "(s).")
-		elseif getItemQuantity(buyBallType) >= MinBalls and getMapName() == martLocation then
-		moveToMap(city)
-		elseif getMapName() == city then
-			moveToMap(stop1)
-		elseif getMapName() == stop1 then
-			moveToMap(stop2)
-		elseif getMapName() == stop2 then
-			moveToMap(stop3)
-		elseif getMapName() == stop3 then
-			moveToMap(stop4)
+		    return moveToMap(stop4) or moveToMap(endLocation)
 		elseif getMapName() == stop4 then
-			moveToMap(endLocation)
-		elseif getMapName() == endLocation then
-			if lookFor == 0 then
-				moveToGrass()
-				elseif lookFor == 1 then
-                moveToWater()
-				elseif lookFor == 2 and (getPlayerX() != fishingSpotX and getPlayerY() != fishingSpotY) then
-				moveToCell(fishingSpotX, fishingSpotY)
-				elseif lookFor == 2 and (getPlayerX() == fishingSpotX and getPlayerY() == fishingSpotY) then
-				useItem(rod)
-				log("Fishing using " .. rod)
-			else
-				if Pattern == 1 then
-		                moveToRectangle(rectX1, rectY1, rectX2, rectY2)
-		                elseif Pattern == 2 then
-		                moveToRectangle(rectXB1, rectYB1, rectXB2, rectYB2)
-		                elseif Pattern == 3 then
-		                moveToRectangle(rectXC1, rectYC1, rectXC2, rectYC2)
-		                elseif Pattern == 4 then
-		                moveToRectangle(rectXD1, rectYD1, rectXD2, rectYD2)
-		                elseif Pattern == 5 then
-		                moveToRectangle(rectXE1, rectYE1, rectXE2, rectYE2)
-						elseif Pattern == 6 then
-		                moveToRectangle(rectXF1, rectYF1, rectXF2, rectYF2)
-					    elseif Pattern == 7 then
-		                moveToRectangle(rectXG1, rectYG1, rectXG2, rectYG2)
-		                elseif Pattern == 8 then
-		                moveToRectangle(rectXH1, rectYH1, rectXH2, rectYH2)
-		                elseif Pattern == 9 then
-		                moveToRectangle(rectXI1, rectYI1, rectXI2, rectYI2)
-		                elseif Pattern == 10 then
-		                moveToRectangle(rectXJ1, rectYJ1, rectXJ2, rectYJ2)
-                                end
-			end
-		end
-		
-	elseif stops == 5 then
-		if getMapName() == pokecenter then
-		moveToMap(city)	
-		elseif buyBalls == true and onlyCatch == true and getMoney() < MinMoney then
-		log("You got less than the required amount $"..MinMoney .. " Turning off Auto-Buying ")
-		buyBalls = false
-		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == endLocation then
-		moveToMap(stop5)
-		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop5 then
-		moveToMap(stop4)
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop4 then
-		moveToMap(stop3)
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop3 then
-		moveToMap(stop2)
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop2 then
-		moveToMap(stop1)
-	    elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == stop1 then
-		moveToMap(city)				
-		elseif buyBalls == true and onlyCatch == true and getItemQuantity(buyBallType) < MinBalls and getMoney() >= MinMoney and getMapName() == city then
-        moveToMap(martLocation)
-		elseif buyBalls == true and getMapName() == "Indigo Plateau Center" and not isShopOpen() then
-		talkToNpcOnCell(16, 22)
-		elseif buyBalls == true and getMapName() == "Blackthorn City Pokemart" and not isShopOpen() then
-		talkToNpcOnCell(3, 4)
-		elseif buyBalls == true and getMapName() == martLocation and (getMapName() != "Indigo Plateau Center" or getMapName() != "Blackthorn City Pokemart") and not isShopOpen() then
-		talkToNpcOnCell(3, 5)
-		elseif buyBalls and isShopOpen() and getItemQuantity(buyBallType) < MinBalls then
-		buyItem(buyBallType, buyAmt)
-		ballsBought = ballsBought + buyAmt
-		if buyBallType == "Pokeball" then
-		startPokeballCount = startPokeballCount + buyAmt
-		elseif buyBallType == "Great Ball" then
-		startGreatballCount = startGreatballCount + buyAmt
-		elseif buyBallType == "Ultra Ball" then
-		startUltraballCount = startUltraballCount + buyAmt
-		end
-		log("Info | Bought " .. ballsBought .. " " .. buyBallType  .. "(s).")
-		elseif getItemQuantity(buyBallType) >= MinBalls and getMapName() == martLocation then
-		moveToMap(city)
-		elseif getMapName() == city then
-			moveToMap(stop1)
-		elseif getMapName() == stop1 then
-			moveToMap(stop2)
-		elseif getMapName() == stop2 then
-			moveToMap(stop3)
-		elseif getMapName() == stop3 then
-			moveToMap(stop4)
-		elseif getMapName() == stop4 then
-			moveToMap(stop5)
+		    return moveToMap(stop5) or moveToMap(endLocation)
 		elseif getMapName() == stop5 then
-			moveToMap(endLocation)
+		    return moveToMap(endLocation)
 		elseif getMapName() == endLocation then
 			if lookFor == 0 then
 				moveToGrass()
@@ -1697,7 +1044,7 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > hea
 				moveToCell(fishingSpotX, fishingSpotY)
 				elseif lookFor == 2 and (getPlayerX() == fishingSpotX and getPlayerY() == fishingSpotY) then
 				useItem(rod)
-				log("Fishing using " .. rod)
+				log("Fishing with " .. rod)
 			else
 				if Pattern == 1 then
 		                moveToRectangle(rectX1, rectY1, rectX2, rectY2)
@@ -1726,49 +1073,28 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > hea
 		
 		
 else
-		
-	if buyBalls == true and getMapName() == city and getItemQuantity(buyBallType) < MinBalls and getMoney()>= MinMoney then
-        moveToMap(martLocation)
-		elseif buyBalls == true and getMapName() == "Indigo Plateau Center" and not isShopOpen() then
-		talkToNpcOnCell(16, 22)
-		elseif buyBalls == true and getMapName() == "Blackthorn City Pokemart" and not isShopOpen() then
-		talkToNpcOnCell(3, 4)
-		elseif buyBalls == true and getMapName() == martLocation and (getMapName() != "Indigo Plateau Center" or getMapName() != "Blackthorn City Pokemart") and not isShopOpen() then
-		talkToNpcOnCell(3, 5)
-		elseif buyBalls and isShopOpen() and getItemQuantity(buyBallType) < MinBalls then
-		buyItem(buyBallType, buyAmt)
-		ballsBought = ballsBought + buyAmt
-		if buyBallType == "Pokeball" then
-		startPokeballCount = startPokeballCount + buyAmt
-		elseif buyBallType == "Great Ball" then
-		startGreatballCount = startGreatballCount + buyAmt
-		elseif buyBallType == "Ultra Ball" then
-		startUltraballCount = startUltraballCount + buyAmt
-		end
-		log("Info | Bought " .. ballsBought .. " " .. buyBallType  .. "(s).")
-		elseif buyBalls and getItemQuantity(buyBallType) >= MinBalls and getMapName() == martLocation then
-		moveToMap(city)
-		
-	elseif autoRefill and getMapName() == city and getItemQuantity("Escape Rope") < minRopeAmt and getMoney()>= MinMoney then
-        moveToMap(martLocation)
-		elseif autoRefill and getMapName() == "Indigo Plateau Center" and not isShopOpen() then
-		talkToNpcOnCell(16, 22)
-		elseif autoRefill and getMapName() == "Blackthorn City Pokemart" and not isShopOpen() then
-		talkToNpcOnCell(3, 4)
-		elseif autoRefill and getMapName() == martLocation and (getMapName() != "Blackthorn City Pokemart" or getMapName() != "Indigo Plateau Center") and not isShopOpen() then
-		talkToNpcOnCell(3, 5)
-		elseif isShopOpen() and getItemQuantity("Escape Rope") < minRopeAmt then
-		buyItem("Escape Rope", buyRopeAmt)
-		ropeBought = ropeBought + buyRopeAmt
-		log("Info | Bought " .. ropeBought .. " Escape Rope(s).")
-		elseif autoRefill and getItemQuantity("Escape Rope") >= minRopeAmt and getMapName() == martLocation then
-		moveToMap(city)
-			
-	elseif stops == 0 and pokecenterOnRoute then
+	
+	if not isMounted() and hasItem(mount) and not isSurfing() and isOutside() and not string.find(getMapName(), "Pokecenter") and not string.find(getMapName(), "Mart") and not string.find(getMapName(), "Center") and not string.find(getMapName(), "Pokemart") and not string.find(getMapName(), "Tunnel") and not string.find(getMapName(), "Stop") and not string.find(getMapName(), "Cave") and not string.find(getMapName(), "Mt") and not string.find(getMapName(), "Tower") and not string.find(getMapName(), "mansion") and not string.find(getMapName(), "Victory") then
+		useItem(mount)
+		log("Getting on " .. mount)
+	
+	elseif stops >= 0 then
 	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
 		useItem("Escape Rope")
 		elseif getMapName() == endLocation then
-			moveToMap(pokecenter)
+        return moveToMap(stop1) or moveToMap(stop2) or moveToMap(stop3) or moveToMap(stop4) or moveToMap(stop5) or moveToMap(city) or moveToMap(pokecenter)
+		elseif getMapName() == stop5 then
+		moveToMap(stop4)
+		elseif getMapName() == stop4 then
+		moveToMap(stop3)
+		elseif getMapName() == stop3 then
+		moveToMap(stop2)
+		elseif getMapName() == stop2 then
+		moveToMap(stop1)
+		elseif getMapName() == stop1 then
+		moveToMap(city)
+		elseif getMapName() == city then
+		moveToMap(pokecenter)
 		elseif getMapName() == pokecenter then
 		if getMapName() == "Indigo Plateau Center" then
 		talkToNpcOnCell(4, 22)
@@ -1776,130 +1102,6 @@ else
 		usePokecenter()
 		end
 	end	
-			
-		elseif not isMounted() and hasItem(mount) and not isSurfing() and isOutside() and not string.find(getMapName(), "Pokecenter") and not string.find(getMapName(), "Mart") and not string.find(getMapName(), "Center") and not string.find(getMapName(), "Pokemart") and not string.find(getMapName(), "Tunnel") and not string.find(getMapName(), "Stop") and not string.find(getMapName(), "Cave") and not string.find(getMapName(), "Mt") and not string.find(getMapName(), "Tower") and not string.find(getMapName(), "mansion") and not string.find(getMapName(), "Victory") then
-		useItem(mount)
-		log("Getting on " .. mount)
-	   							
-	    elseif stops == 0 and not pokecenterOnRoute then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
-		useItem("Escape Rope")
-		elseif getMapName() == endLocation then
-			moveToMap(city)
-		elseif getMapName() == city then
-			moveToMap(pokecenter)
-		elseif getMapName() == pokecenter then
-		if getMapName() == "Indigo Plateau Center" then
-		talkToNpcOnCell(4, 22)
-		else
-		usePokecenter()
-		end
-	end
-	
-	elseif stops == 1 then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
-		useItem("Escape Rope")
-		elseif getMapName() == endLocation then
-			moveToMap(stop1)
-		elseif getMapName() == stop1 then
-			moveToMap(city)
-		elseif getMapName() == city then
-			moveToMap(pokecenter)
-		elseif getMapName() == pokecenter then
-		if getMapName() == "Indigo Plateau Center" then
-		talkToNpcOnCell(4, 22)
-		else
-		usePokecenter()
-		end
-	end
-		
-	elseif stops == 2 then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
-		useItem("Escape Rope")
-		elseif getMapName() == endLocation then
-			moveToMap(stop2)
-		elseif getMapName() == stop2 then
-			moveToMap(stop1)
-		elseif getMapName() == stop1 then
-			moveToMap(city)
-		elseif getMapName() == city then
-			moveToMap(pokecenter)
-		elseif getMapName() == pokecenter then
-		if getMapName() == "Indigo Plateau Center" then
-		talkToNpcOnCell(4, 22)
-		else
-		usePokecenter()
-		end
-	end
-	
-	elseif stops == 3 then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
-		useItem("Escape Rope")
-		elseif getMapName() == endLocation then
-			moveToMap(stop3)
-		elseif getMapName() == stop3 then
-			moveToMap(stop2)
-		elseif getMapName() == stop2 then
-			moveToMap(stop1)
-		elseif getMapName() == stop1 then
-			moveToMap(city)
-		elseif getMapName() == city then
-			moveToMap(pokecenter)
-		elseif getMapName() == pokecenter then
-		if getMapName() == "Indigo Plateau Center" then
-		talkToNpcOnCell(4, 22)
-		else
-		usePokecenter()
-		end
-	end
-	
-	elseif stops == 4 then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
-		useItem("Escape Rope")
-		elseif getMapName() == endLocation then
-			moveToMap(stop4)
-		elseif getMapName() == stop4 then
-			moveToMap(stop3)
-		elseif getMapName() == stop3 then
-			moveToMap(stop2)
-		elseif getMapName() == stop2 then
-			moveToMap(stop1)
-		elseif getMapName() == stop1 then
-			moveToMap(city)
-		elseif getMapName() == city then
-			moveToMap(pokecenter)
-		elseif getMapName() == pokecenter then
-		if getMapName() == "Indigo Plateau Center" then
-		talkToNpcOnCell(4, 22)
-		else
-		usePokecenter()
-		end
-	end
-		
-	elseif stops == 5 then
-	    if getMapName() == endLocation and useEscapeRope and hasItem("Escape Rope") and getItemQuantity("Escape Rope") >= 1 then
-		useItem("Escape Rope")
-		elseif getMapName() == endLocation then
-			moveToMap(stop5)
-		elseif getMapName() == stop5 then
-			moveToMap(stop4)
-		elseif getMapName() == stop4 then
-			moveToMap(stop3)
-		elseif getMapName() == stop3 then
-			moveToMap(stop2)
-		elseif getMapName() == stop2 then
-			moveToMap(stop1)
-		elseif getMapName() == stop1 then
-			moveToMap(city)
-		elseif getMapName() == city then
-			moveToMap(pokecenter)
-		elseif getMapName() == pokecenter then
-		if getMapName() == "Indigo Plateau Center" then
-		talkToNpcOnCell(4, 22)
-		else
-		usePokecenter()
-		end
-	end
 	end
 end --condition--
 end --func--
@@ -1950,18 +1152,48 @@ function onBattleAction()
 		return attack()
 	end
 end
-	if evTraining and trainEv == 1 then
+	if evTraining == 1 and trainEv == 1 then
 					   return atk()
-					elseif evTraining and trainEv == 2 then
+					elseif evTraining == 1 and trainEv == 2 then
 					   return def()
-					elseif evTraining and trainEv == 3 then
+					elseif evTraining == 1 and trainEv == 3 then
 					   return spe()
-					elseif evTraining and trainEv == 4 then
+					elseif evTraining == 1 and trainEv == 4 then
 					   return spa()
-					elseif evTraining and trainEv == 5 then
+					elseif evTraining == 1 and trainEv == 5 then
 					   return spd()
-					elseif evTraining and trainEv == 6 then
+					elseif evTraining == 1 and trainEv == 6 then
 					   return hp()
+					elseif evTraining >= 2 and ((trainEv == 1 and trainEv2 == 2) or (trainEv == 2 and trainEv2 == 1)) then
+					   return atkdef()
+					elseif evTraining >= 2 and ((trainEv == 1 and trainEv2 == 3) or (trainEv == 3 and trainEv2 == 1)) then
+					   return atkspe()
+					elseif evTraining >= 2 and ((trainEv == 1 and trainEv2 == 4) or (trainEv == 4 and trainEv2 == 1)) then
+					   return atkspa()
+					elseif evTraining >= 2 and ((trainEv == 1 and trainEv2 == 5) or (trainEv == 5 and trainEv2 == 1)) then
+					   return atkspd()
+					elseif evTraining >= 2 and ((trainEv == 1 and trainEv2 == 6) or (trainEv == 6 and trainEv2 == 1)) then
+					   return atkhp()				   
+					elseif evTraining >= 2 and ((trainEv == 2 and trainEv2 == 3) or (trainEv == 3 and trainEv2 == 2)) then
+					   return defspe()
+					elseif evTraining >= 2 and ((trainEv == 2 and trainEv2 == 4) or (trainEv == 4 and trainEv2 == 2)) then
+					   return defspa()
+					elseif evTraining >= 2 and ((trainEv == 2 and trainEv2 == 5) or (trainEv == 5 and trainEv2 == 2)) then
+					   return defspd()
+					elseif evTraining >= 2 and ((trainEv == 2 and trainEv2 == 6) or (trainEv == 6 and trainEv2 == 2)) then
+					   return defhp()			   
+					elseif evTraining >= 2 and ((trainEv == 3 and trainEv2 == 4) or (trainEv == 4 and trainEv2 == 3)) then
+					   return spespa()
+					elseif evTraining >= 2 and ((trainEv == 3 and trainEv2 == 5) or (trainEv == 5 and trainEv2 == 3)) then
+					   return spespd()
+					elseif evTraining >= 2 and ((trainEv == 3 and trainEv2 == 6) or (trainEv == 6 and trainEv2 == 3)) then
+					   return spehp()				 
+					elseif evTraining >= 2 and ((trainEv == 4 and trainEv2 == 5) or (trainEv == 5 and trainEv2 == 4)) then
+					   return spaspd()
+					elseif evTraining >= 2 and ((trainEv == 4 and trainEv2 == 6) or (trainEv == 6 and trainEv2 == 4)) then
+					   return spahp()
+				    elseif evTraining >= 2 and ((trainEv == 5 and trainEv2 == 6) or (trainEv == 6 and trainEv2 == 5)) then
+					   return spdhp()
 end
 	if getActivePokemonNumber() <= getTeamSize() then
 		if isWildBattle() and ((isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught())) or IsPokemonOnCaptureList() then
@@ -2102,6 +1334,201 @@ end
 
 function spd()
     if isOpponentEffortValue("Spdefense") and (spdefenseEv < trainEvTill) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
+        return attack() or sendUsablePokemon() or run()  
+    elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+        elseif not trapped then
+		return run() or sendUsablePokemon() or sendAnyPokemon()
+		elseif trapped then
+		trapped = false
+		return sendUsablePokemon()
+    end
+end
+
+function atkspe()
+    if (isOpponentEffortValue("Attack") and (attackEv < trainEvTill) or isOpponentEffortValue("Speed") and (speedEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
+        return attack() or sendUsablePokemon() or run()
+    elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+        elseif not trapped then
+		return run() or sendUsablePokemon() or sendAnyPokemon()
+		elseif trapped then
+		trapped = false
+		return sendUsablePokemon()
+    end
+end
+
+function atkdef()
+    if (isOpponentEffortValue("Attack") and (attackEv < trainEvTill) or isOpponentEffortValue("Defense") and (defenseEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
+        return attack() or sendUsablePokemon() or run()  
+    elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+        elseif not trapped then
+		return run() or sendUsablePokemon() or sendAnyPokemon()
+		elseif trapped then
+		trapped = false
+		return sendUsablePokemon()
+    end
+end
+
+function atkspa()
+    if (isOpponentEffortValue("Attack") and (attackEv < trainEvTill) or isOpponentEffortValue("Spattack") and (spattackEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
+        return attack() or sendUsablePokemon() or run()  
+    elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+        elseif not trapped then
+		return run() or sendUsablePokemon() or sendAnyPokemon()
+		elseif trapped then
+		trapped = false
+		return sendUsablePokemon()
+    end
+end
+
+function atkspd()
+    if (isOpponentEffortValue("Attack") and (attackEv < trainEvTill) or isOpponentEffortValue("Spdefense") and (spdefenseEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
+        return attack() or sendUsablePokemon() or run()  
+    elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+        elseif not trapped then
+		return run() or sendUsablePokemon() or sendAnyPokemon()
+		elseif trapped then
+		trapped = false
+		return sendUsablePokemon()
+    end
+end
+
+function atkhp()
+    if (isOpponentEffortValue("Attack") and (attackEv < trainEvTill) or isOpponentEffortValue("HP") and (hpEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
+        return attack() or sendUsablePokemon() or run()  
+    elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+        elseif not trapped then
+		return run() or sendUsablePokemon() or sendAnyPokemon()
+		elseif trapped then
+		trapped = false
+		return sendUsablePokemon()
+    end
+end
+
+function defspe()
+    if (isOpponentEffortValue("Defense") and (defenseEv < trainEvTill) or isOpponentEffortValue("Speed") and (speedEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
+        return attack() or sendUsablePokemon() or run()  
+    elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+        elseif not trapped then
+		return run() or sendUsablePokemon() or sendAnyPokemon()
+		elseif trapped then
+		trapped = false
+		return sendUsablePokemon()
+    end
+end
+
+function defspa()
+    if (isOpponentEffortValue("Defense") and (defenseEv < trainEvTill) or isOpponentEffortValue("Spattack") and (spattackEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
+        return attack() or sendUsablePokemon() or run()  
+    elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+        elseif not trapped then
+		return run() or sendUsablePokemon() or sendAnyPokemon()
+		elseif trapped then
+		trapped = false
+		return sendUsablePokemon()
+    end
+end
+
+function defspd()
+    if (isOpponentEffortValue("Defense") and (defenseEv < trainEvTill) or isOpponentEffortValue("Spdefense") and (spdefenseEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
+        return attack() or sendUsablePokemon() or run()  
+    elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+        elseif not trapped then
+		return run() or sendUsablePokemon() or sendAnyPokemon()
+		elseif trapped then
+		trapped = false
+		return sendUsablePokemon()
+    end
+end
+
+function defhp()
+    if (isOpponentEffortValue("Defense") and (defenseEv < trainEvTill) or isOpponentEffortValue("HP") and (hpEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
+        return attack() or sendUsablePokemon() or run()  
+    elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+        elseif not trapped then
+		return run() or sendUsablePokemon() or sendAnyPokemon()
+		elseif trapped then
+		trapped = false
+		return sendUsablePokemon()
+    end
+end
+
+function spespa()
+    if (isOpponentEffortValue("Speed") and (speedEv < trainEvTill) or isOpponentEffortValue("Spattack") and (spattackEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
+        return attack() or sendUsablePokemon() or run()  
+    elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+        elseif not trapped then
+		return run() or sendUsablePokemon() or sendAnyPokemon()
+		elseif trapped then
+		trapped = false
+		return sendUsablePokemon()
+    end
+end
+
+function spespd()
+    if (isOpponentEffortValue("Speed") and (speedEv < trainEvTill) or isOpponentEffortValue("Spdefense") and (spdefenseEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
+        return attack() or sendUsablePokemon() or run()  
+    elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+        elseif not trapped then
+		return run() or sendUsablePokemon() or sendAnyPokemon()
+		elseif trapped then
+		trapped = false
+		return sendUsablePokemon()
+    end
+end
+
+function spehp()
+    if (isOpponentEffortValue("Speed") and (speedEv < trainEvTill) or isOpponentEffortValue("HP") and (hpEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
+        return attack() or sendUsablePokemon() or run()  
+    elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+        elseif not trapped then
+		return run() or sendUsablePokemon() or sendAnyPokemon()
+		elseif trapped then
+		trapped = false
+		return sendUsablePokemon()
+    end
+end
+
+function spaspd()
+    if (isOpponentEffortValue("Spattack") and (spattackEv < trainEvTill) or isOpponentEffortValue("Spdefense") and (spdefenseEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
+        return attack() or sendUsablePokemon() or run()  
+    elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+        elseif not trapped then
+		return run() or sendUsablePokemon() or sendAnyPokemon()
+		elseif trapped then
+		trapped = false
+		return sendUsablePokemon()
+    end
+end
+
+function spahp()
+    if (isOpponentEffortValue("Spattack") and (hpEv < trainEvTill) or isOpponentEffortValue("HP") and (hpEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
+        return attack() or sendUsablePokemon() or run()  
+    elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+        elseif not trapped then
+		return run() or sendUsablePokemon() or sendAnyPokemon()
+		elseif trapped then
+		trapped = false
+		return sendUsablePokemon()
+    end
+end
+
+function spdhp()
+    if (isOpponentEffortValue("Spdefense") and (spdefenseEv < trainEvTill) or isOpponentEffortValue("HP") and (hpEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
         return attack() or sendUsablePokemon() or run()  
     elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
 	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
