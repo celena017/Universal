@@ -44,3 +44,6 @@ Fix issues that cause bot to stop
 Rework Auto-Buying feature
 Supports Multi training EVs up to 2 at once e.g. atk and speed
 Now starts at a random pattern
+
+9/3/2016 V2.3.2
+Change some logs
