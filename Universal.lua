@@ -797,6 +797,22 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > hea
 		useItem(mount)
 		log("Getting on " .. mount)
 	
+	elseif onlyCatch and not autoRefill and getItemQuantity("Pokeball") == 0 and getItemQuantity("Great Ball") == 0 and getItemQuantity("Ultra Ball") == 10 then
+		 fatal("Info | Ran out of balls better luck next time! =P")
+	
+	elseif onlyCatch and autoRefill and getItemQuantity("Pokeball") == 0 and getItemQuantity("Great Ball") == 0 and getItemQuantity("Ultra Ball") == 10 and getMapName() == endLocation then 
+        return moveToMap(stop1) or moveToMap(stop2) or moveToMap(stop3) or moveToMap(stop4) or moveToMap(stop5) or moveToMap(city)
+		elseif getMapName() == stop5 then
+		moveToMap(stop4)
+		elseif getMapName() == stop4 then
+		moveToMap(stop3)
+		elseif getMapName() == stop3 then
+		moveToMap(stop2)
+		elseif getMapName() == stop2 then
+		moveToMap(stop1)
+		elseif getMapName() == stop1 then
+		moveToMap(city)
+	
     elseif autoRefill and getMapName() == city and getItemQuantity(refillItem) < MinAmt and getMoney()>= MinMoney then
         moveToMap(martLocation)
 		elseif autoRefill == true and getMapName() == "Indigo Plateau Center" and not isShopOpen() then
