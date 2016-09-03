@@ -15,8 +15,8 @@ sorting = "Asc"
 
 --EV Training Settings--
 evTraining = 0 --0. Off, 1. Training Single EV, Other value. Training Multi EV --
-trainEv = 3 -- 1 Atk, 2 Def, 3 Speed, 4 Sp Atk, 5 Sp Def, 6 HP, any other value = Off --
-trainEv2 = 1 -- 1 Atk, 2 Def, 3 Speed, 4 Sp Atk, 5 Sp Def, 6 HP, any other value = unused --
+trainEv = 0 -- 1 Atk, 2 Def, 3 Speed, 4 Sp Atk, 5 Sp Def, 6 HP, any other value = Off --
+trainEv2 = 0 -- 1 Atk, 2 Def, 3 Speed, 4 Sp Atk, 5 Sp Def, 6 HP, any other value = Off --
 trainEvOf = "Gengar"
 trainEvTill = 252
 item = "Macho Brace"
