@@ -17,7 +17,7 @@ sorting = "Asc"
 evTraining = 0 --0. Off, 1. Training Single EV, Other value. Training Multi EV --
 trainEv = 0 -- 1 Atk, 2 Def, 3 Speed, 4 Sp Atk, 5 Sp Def, 6 HP, any other value = Off --
 trainEv2 = 0 -- 1 Atk, 2 Def, 3 Speed, 4 Sp Atk, 5 Sp Def, 6 HP, any other value = Off --
-trainEvOf = "Dragonite"
+trainEvOf = "Skarmory"
 trainEvTill = 252
 item = "Macho Brace"
 equipItem = false -- Wears the above item if true --
