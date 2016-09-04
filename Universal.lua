@@ -71,9 +71,7 @@ function onStart()
 	log("Info | catchNotCaught is on!... Bot will catch pokemons that are uncaught")
 	end
 	if autoRefill and getMoney() < MinMoney then
-	log("=======================================")
 	log("Info | You got only $" .. MinMoney .. " which is less than the MinMoney Turning off Auto-Refilling")
-	log("=======================================")
 	autoRefill = false
 	elseif autoRefill then
 	log("Info | Auto-Refill is on!")
@@ -101,9 +99,9 @@ function onStart()
 	if equipItem then
     equippingItem()
 	end
-	if evTraining == 1 and trainEv == 0 or trainEv > 6 then
+	if evTraining == 1 and (trainEv == 0 or trainEv > 6) then
 	fatal("Info | Please Set a number between 1-6")
-	elseif evTraining >= 2 and trainEv == 0 or trainEv2 == 0 or trainEv > 6 or trainEv2 > 6 then
+	elseif evTraining >= 2 and (trainEv == 0 or trainEv2 == 0 or trainEv > 6 or trainEv2 > 6) then
     fatal("Info | Please Set a number between 1-6")
 	elseif evTraining == 1 and trainEv == 1 then
 	log("Info | Training " .. trainEvOf .. "'s Attack EV till " .. trainEvTill)
@@ -1287,7 +1285,7 @@ function atk()
     if isOpponentEffortValue("Attack") and (attackEv < trainEvTill) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
         return attack() or sendUsablePokemon() or run()  
     elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
-	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() or sendUsablePokemon()
         elseif not trapped then
 		return run() or sendUsablePokemon() or sendAnyPokemon()
 		elseif trapped then
@@ -1300,7 +1298,7 @@ function spe()
     if isOpponentEffortValue("Speed") and (speedEv < trainEvTill) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
         return attack() or sendUsablePokemon() or run()  
     elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
-	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() or sendUsablePokemon()
         elseif not trapped then
 		return run() or sendUsablePokemon() or sendAnyPokemon()
 		elseif trapped then
@@ -1313,7 +1311,7 @@ function def()
     if isOpponentEffortValue("Defense") and (defenseEv < trainEvTill) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
         return attack() or sendUsablePokemon() or run()  
     elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
-	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() or sendUsablePokemon()
         elseif not trapped then
 		return run() or sendUsablePokemon() or sendAnyPokemon()
 		elseif trapped then
@@ -1326,7 +1324,7 @@ function spa()
     if isOpponentEffortValue("Spattack") and (spattackEv < trainEvTill) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
         return attack() or sendUsablePokemon() or run()  
     elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
-	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() or sendUsablePokemon()
         elseif not trapped then
 		return run() or sendUsablePokemon() or sendAnyPokemon()
 		elseif trapped then
@@ -1339,7 +1337,7 @@ function hp()
     if isOpponentEffortValue("HP") and (hpEv < trainEvTill) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
         return attack() or sendUsablePokemon() or run()  
     elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
-	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() or sendUsablePokemon() 
         elseif not trapped then
 		return run() or sendUsablePokemon() or sendAnyPokemon()
 		elseif trapped then
@@ -1352,7 +1350,7 @@ function spd()
     if isOpponentEffortValue("Spdefense") and (spdefenseEv < trainEvTill) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
         return attack() or sendUsablePokemon() or run()  
     elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
-	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() or sendUsablePokemon()
         elseif not trapped then
 		return run() or sendUsablePokemon() or sendAnyPokemon()
 		elseif trapped then
@@ -1365,7 +1363,7 @@ function atkspe()
     if (isOpponentEffortValue("Attack") and (attackEv < trainEvTill) or isOpponentEffortValue("Speed") and (speedEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
         return attack() or sendUsablePokemon() or run()
     elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
-	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() or sendUsablePokemon()
         elseif not trapped then
 		return run() or sendUsablePokemon() or sendAnyPokemon()
 		elseif trapped then
@@ -1378,7 +1376,7 @@ function atkdef()
     if (isOpponentEffortValue("Attack") and (attackEv < trainEvTill) or isOpponentEffortValue("Defense") and (defenseEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
         return attack() or sendUsablePokemon() or run()  
     elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
-	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() or sendUsablePokemon()
         elseif not trapped then
 		return run() or sendUsablePokemon() or sendAnyPokemon()
 		elseif trapped then
@@ -1391,7 +1389,7 @@ function atkspa()
     if (isOpponentEffortValue("Attack") and (attackEv < trainEvTill) or isOpponentEffortValue("Spattack") and (spattackEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
         return attack() or sendUsablePokemon() or run()  
     elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
-	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() or sendUsablePokemon()
         elseif not trapped then
 		return run() or sendUsablePokemon() or sendAnyPokemon()
 		elseif trapped then
@@ -1404,7 +1402,7 @@ function atkspd()
     if (isOpponentEffortValue("Attack") and (attackEv < trainEvTill) or isOpponentEffortValue("Spdefense") and (spdefenseEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
         return attack() or sendUsablePokemon() or run()  
     elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
-	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() or sendUsablePokemon()
         elseif not trapped then
 		return run() or sendUsablePokemon() or sendAnyPokemon()
 		elseif trapped then
@@ -1417,7 +1415,7 @@ function atkhp()
     if (isOpponentEffortValue("Attack") and (attackEv < trainEvTill) or isOpponentEffortValue("HP") and (hpEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
         return attack() or sendUsablePokemon() or run()  
     elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
-	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() or sendUsablePokemon()
         elseif not trapped then
 		return run() or sendUsablePokemon() or sendAnyPokemon()
 		elseif trapped then
@@ -1430,7 +1428,7 @@ function defspe()
     if (isOpponentEffortValue("Defense") and (defenseEv < trainEvTill) or isOpponentEffortValue("Speed") and (speedEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
         return attack() or sendUsablePokemon() or run()  
     elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
-	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() or sendUsablePokemon()
         elseif not trapped then
 		return run() or sendUsablePokemon() or sendAnyPokemon()
 		elseif trapped then
@@ -1443,7 +1441,7 @@ function defspa()
     if (isOpponentEffortValue("Defense") and (defenseEv < trainEvTill) or isOpponentEffortValue("Spattack") and (spattackEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
         return attack() or sendUsablePokemon() or run()  
     elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
-	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() or sendUsablePokemon()
         elseif not trapped then
 		return run() or sendUsablePokemon() or sendAnyPokemon()
 		elseif trapped then
@@ -1456,7 +1454,7 @@ function defspd()
     if (isOpponentEffortValue("Defense") and (defenseEv < trainEvTill) or isOpponentEffortValue("Spdefense") and (spdefenseEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
         return attack() or sendUsablePokemon() or run()  
     elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
-	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() or sendUsablePokemon()
         elseif not trapped then
 		return run() or sendUsablePokemon() or sendAnyPokemon()
 		elseif trapped then
@@ -1469,7 +1467,7 @@ function defhp()
     if (isOpponentEffortValue("Defense") and (defenseEv < trainEvTill) or isOpponentEffortValue("HP") and (hpEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
         return attack() or sendUsablePokemon() or run()  
     elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
-	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() or sendUsablePokemon()
         elseif not trapped then
 		return run() or sendUsablePokemon() or sendAnyPokemon()
 		elseif trapped then
@@ -1482,7 +1480,7 @@ function spespa()
     if (isOpponentEffortValue("Speed") and (speedEv < trainEvTill) or isOpponentEffortValue("Spattack") and (spattackEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
         return attack() or sendUsablePokemon() or run()  
     elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
-	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() or sendUsablePokemon()
         elseif not trapped then
 		return run() or sendUsablePokemon() or sendAnyPokemon()
 		elseif trapped then
@@ -1495,7 +1493,7 @@ function spespd()
     if (isOpponentEffortValue("Speed") and (speedEv < trainEvTill) or isOpponentEffortValue("Spdefense") and (spdefenseEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
         return attack() or sendUsablePokemon() or run()  
     elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
-	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() or sendUsablePokemon()
         elseif not trapped then
 		return run() or sendUsablePokemon() or sendAnyPokemon()
 		elseif trapped then
@@ -1508,7 +1506,7 @@ function spehp()
     if (isOpponentEffortValue("Speed") and (speedEv < trainEvTill) or isOpponentEffortValue("HP") and (hpEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
         return attack() or sendUsablePokemon() or run()  
     elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
-	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() or sendUsablePokemon()
         elseif not trapped then
 		return run() or sendUsablePokemon() or sendAnyPokemon()
 		elseif trapped then
@@ -1521,7 +1519,7 @@ function spaspd()
     if (isOpponentEffortValue("Spattack") and (spattackEv < trainEvTill) or isOpponentEffortValue("Spdefense") and (spdefenseEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
         return attack() or sendUsablePokemon() or run()  
     elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
-	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() or sendUsablePokemon()
         elseif not trapped then
 		return run() or sendUsablePokemon() or sendAnyPokemon()
 		elseif trapped then
@@ -1534,7 +1532,7 @@ function spahp()
     if (isOpponentEffortValue("Spattack") and (hpEv < trainEvTill) or isOpponentEffortValue("HP") and (hpEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
         return attack() or sendUsablePokemon() or run()  
     elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
-	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() or sendUsablePokemon()
         elseif not trapped then
 		return run() or sendUsablePokemon() or sendAnyPokemon()
 		elseif trapped then
@@ -1547,7 +1545,7 @@ function spdhp()
     if (isOpponentEffortValue("Spdefense") and (spdefenseEv < trainEvTill) or isOpponentEffortValue("HP") and (hpEv < trainEvTill)) and not IsPokemonOnCaptureList() and (not isOpponentShiny() and catchShineys) and (catchNotCaught and isAlreadyCaught()) then
         return attack() or sendUsablePokemon() or run()  
     elseif IsPokemonOnCaptureList() or (isOpponentShiny() and catchShineys) or (catchNotCaught and not isAlreadyCaught()) then
-	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() 
+	    return useItem("Pokeball") or useItem("Great Ball") or useItem("Ultra Ball") or run() or sendUsablePokemon()
         elseif not trapped then
 		return run() or sendUsablePokemon() or sendAnyPokemon()
 		elseif trapped then
