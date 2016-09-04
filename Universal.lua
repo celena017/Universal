@@ -1,7 +1,7 @@
 --Start Script--
 dofile "config.lua"
 
-name = "Universal V2.3.2 Level/Catch Anywhere"
+name = "Universal V2.3.3 Level/Catch Anywhere"
 author = "Zymu continued by ToothBrush and Royal for providing the base framework"
 description = "Training at " .. endLocation .. " and healing at " .. pokecenter .. "." .. " Leveling all pokemon in teams to " .. levelPokesTo .. "." .. " Flee @ " .. healthToRunAt.. "% HP."
 stops = 0
@@ -45,18 +45,23 @@ function onStart()
 		end
 	if stop1 ~= "" then
 	stops = stops + 1
+	log("Info | No. of stops " .. stops)
 	end
 	if stop2 ~= "" then
 	stops = stops + 1
+	log("Info | No. of stops " .. stops)
 	end
 	if stop3 ~= "" then
 	stops = stops + 1
+	log("Info | No. of stops " .. stops)
 	end
 	if stop4 ~= "" then
 	stops = stops + 1
+	log("Info | No. of stops " .. stops)
 	end
 	if stop5 ~= "" then
 	stops = stops + 1
+	log("Info | No. of stops " .. stops)
 	end
 	if onlyCatch then
 	log("Info | onlyCatch is on!... Bot will only catch pokemons")
@@ -523,13 +528,10 @@ function onPause()
 		end
 		log("=======================================")
 		RunningTime()
-	    log("=======================================")
 end
 	
 function onResume()
-	log("=======================================")
 	RunningTime()
-	log("=======================================")
 end
 
 function onStop()
@@ -568,7 +570,6 @@ function onStop()
 		end
 		log("=======================================")
 		RunningTime()
-	    log("=======================================")
 end
 
 function IsSorted()
