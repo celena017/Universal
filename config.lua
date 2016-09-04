@@ -131,9 +131,9 @@ usingMove = "Mean Look"
 
 --the below will be the percentage of your opponent's health we'll start throwing balls at--
 --DEFAULT: 30--
-percentToStartThrowing = 1
+percentToStartThrowing = 30
 --DEFAULT: 50--
-percentToStartThrowingIfShiny = 25
+percentToStartThrowingIfShiny = 50
 
 --the below is case-sensitive, add more moves by adding commas. ex : onlyCatchThesePokemon = {"Pokemon 1", "Pokemon 2", "Pokemon 3"}--
 --Even if you set all other capture variables to false, we'll still try to catch these/this pokemon--
