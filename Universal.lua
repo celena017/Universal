@@ -45,23 +45,23 @@ function onStart()
 		end
 	if stop1 ~= "" then
 	stops = stops + 1
-	log("Info | No. of stops " .. stops)
+	log("Info | No. of stops: " .. stops)
 	end
 	if stop2 ~= "" then
 	stops = stops + 1
-	log("Info | No. of stops " .. stops)
+	log("Info | No. of stops: " .. stops)
 	end
 	if stop3 ~= "" then
 	stops = stops + 1
-	log("Info | No. of stops " .. stops)
+	log("Info | No. of stops: " .. stops)
 	end
 	if stop4 ~= "" then
 	stops = stops + 1
-	log("Info | No. of stops " .. stops)
+	log("Info | No. of stops: " .. stops)
 	end
 	if stop5 ~= "" then
 	stops = stops + 1
-	log("Info | No. of stops " .. stops)
+	log("Info | No. of stops: " .. stops)
 	end
 	if onlyCatch then
 	log("Info | onlyCatch is on!... Bot will only catch pokemons")
