@@ -45,7 +45,7 @@ function onStart()
 		end
 	if stop1 ~= "" then
 	stops = stops + 1
-	log("Info | No. of stops: " .. stops)
+	log("Info | No. of stop: " .. stops)
 	end
 	if stop2 ~= "" then
 	stops = stops + 1
