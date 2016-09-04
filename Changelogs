@@ -51,4 +51,4 @@ Fix loop issue when onlyCatch is turn on
 
 9/4/2016 V2.3.3
 Rework on some logs to make it easier to read
-Fix minor problems that cause bot to stop
+Log to show number of stops
