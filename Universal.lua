@@ -1,7 +1,7 @@
 --Start Script--
 dofile "config.lua"
 
-name = "Universal V2.3.3 Level/Catch Anywhere"
+name = "Universal V2.3.4 Level/Catch Anywhere"
 author = "Zymu continued by ToothBrush and Royal for providing the base framework"
 description = "Training at " .. endLocation .. " and healing at " .. pokecenter .. "." .. " Leveling all pokemon in teams to " .. levelPokesTo .. "." .. " Flee @ " .. healthToRunAt.. "% HP."
 stops = 0
@@ -45,7 +45,7 @@ function onStart()
 		end
 	if stop1 ~= "" then
 	stops = stops + 1
-	log("Info | No. of stop: " .. stops)
+	log("Info | No. of stops: " .. stops)
 	end
 	if stop2 ~= "" then
 	stops = stops + 1
@@ -192,8 +192,13 @@ function onStart()
    log("Info | Looking for pokemons by walking in Rectangles!")
    log("Info | Random Number is " .. randomnizer .. " Starting Pattern will be " .. Pattern)
    end
+   if stopBotByTime then
+   log("Info | Bot will stop after running for " .. stopTime .. " Hours")
+   end
+   if stopBotByEnc then
+   log("Info | Bot will stop after encountering " .. stopCount .. " Pokemons")
+   end
 end
-
 
 --Show bot running time--
 function RunningTime()
@@ -715,7 +720,15 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > hea
 	elseif sorting == "Desc" and not onlyCatch and not IsSortedDesc() and powerLevel == 0 and evTraining == 0 and not advanceCatching and not useMoveOnly then
 		sortTeamByLevelDescending()
         log("Sorting Pokemon Level Descendingly in-progress")
-				
+	
+    elseif stopBotByTime and ((randTime / 60) / 60) >= stopTime then
+		log("Bot Run-Time Reached " .. stopTime .. " hours")
+		fatal("Stopping the Bot!")
+	
+	elseif stopBotByEnc and wildCounter >= stopCount then
+		log("Bot Have Encountered " .. stopCount .. " Pokemons")
+		fatal("Stopping the Bot!")
+	
 	elseif powerLevel >= 1 and getPokemonName(1) != powerLevelingPokemon then
 	    swapPokemonWithLeader(powerLevelingPokemon)
 	   	log("Swapping " .. powerLevelingPokemon .. " to first index to be Power-Leveled!")
