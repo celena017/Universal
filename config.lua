@@ -9,6 +9,14 @@ stop5 = ""
 endLocation = "Route 120" -- Where are you training at? e.g. Cinnabar Mansion 3 --
 martLocation = "Fortree Mart"
 
+-- Bot stop timer --
+stopBotByTime = true
+stopTime = 2
+
+-- Bot stop encounter --
+stopBotByEnc = false
+stopCount = 0
+
 -- Settings for Sorting --
 -- Asc/Desc leave blank if unused --
 sorting = "Asc"
