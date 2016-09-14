@@ -55,3 +55,8 @@ Log to show number of stops
 
 9/7/2016 V2.3.4
 Added config to stop bot by timer/encounters
+
+9/14/2016 V2.4
+Supports up 5 random fishing spot
+Settings to choose how many patterns to be used
+Settings to choose how many fishing spots to be used
