@@ -1,14 +1,15 @@
 --Start Script--
 dofile "config.lua"
 
-name = "Universal V2.3.4 Level/Catch Anywhere"
+name = "Universal V2.4 Level/Catch Anywhere"
 author = "Zymu continued by ToothBrush and Royal for providing the base framework"
 description = "Training at " .. endLocation .. " and healing at " .. pokecenter .. "." .. " Leveling all pokemon in teams to " .. levelPokesTo .. "." .. " Flee @ " .. healthToRunAt.. "% HP."
 stops = 0
 
 function onStart()
 	randTime = math.floor(os.clock())
-	randomnizer = math.random(1,10)
+	randomnizer = math.random(1,usePattern)
+	randomFishSpot = math.random(1,noOfFishingSpot)
 	shinyCounter = 0
 	wildCounter = 0
 	pokecenterCounter = 0
@@ -43,6 +44,17 @@ function onStart()
 		elseif randomnizer == 10 then
 		Pattern = 10
 		end
+	if randomFishSpot == 1 then
+		FishPattern = 1	
+		elseif randomFishSpot == 2 then
+		FishPattern = 2	
+		elseif randomFishSpot == 3 then
+		FishPattern= 3	
+		elseif randomFishSpot == 4 then
+		FishPattern = 4
+		elseif randomFishSpot == 5 then
+		FishPattern = 5
+	end
 	if stop1 ~= "" then
 	stops = stops + 1
 	log("Info | No. of stops: " .. stops)
@@ -188,9 +200,11 @@ function onStart()
    log("Info | Looking for pokemons in Water!")
    elseif lookFor == 2 then
    log("Info | Looking for pokemons by Fishing!")
+   log("Info | No of fishing pattern(s) used : " .. noOfFishingSpot)
    else
    log("Info | Looking for pokemons by walking in Rectangles!")
    log("Info | Random Number is " .. randomnizer .. " Starting Pattern will be " .. Pattern)
+   log("Info | No of pattern(s) used : " .. usePattern)
    end
    if stopBotByTime then
    log("Info | Bot will stop after running for " .. stopTime .. " Hours")
@@ -216,7 +230,8 @@ end
 
 function onBattleMessage(wild)
     if stringContains(wild, "A Wild SHINY ") then
-		randomnizer = math.random(1,10)
+		randomnizer = math.random(1,usePattern)
+		randomFishSpot = math.random(1,noOfFishingSpot)
         shinyCounter = shinyCounter + 1
 		wildCounter = wildCounter + 1
 		recentMoney = getMoney()
@@ -252,6 +267,17 @@ function onBattleMessage(wild)
 		elseif randomnizer == 10 then
 		Pattern = 10
 		end
+		if randomFishSpot == 1 then
+		FishPattern = 1	
+		elseif randomFishSpot == 2 then
+		FishPattern = 2	
+		elseif randomFishSpot == 3 then
+		FishPattern= 3	
+		elseif randomFishSpot == 4 then
+		FishPattern = 4
+		elseif randomFishSpot == 5 then
+		FishPattern = 5
+	    end
         log("Battle Log")
 		log("=======================================")
 		log("Info | Random Number is " .. randomnizer .. " Next Pattern will be " .. Pattern)
@@ -330,7 +356,8 @@ function onBattleMessage(wild)
 		end
 		log("=======================================")
 	elseif stringContains(wild, "A Wild ") then
-		randomnizer = math.random(1,10)
+		randomnizer = math.random(1,usePattern)
+		randomFishSpot = math.random(1,noOfFishingSpot)
         wildCounter = wildCounter + 1
 		recentMoney = getMoney()
 		recentPBall = getItemQuantity("Pokeball")
@@ -365,6 +392,17 @@ function onBattleMessage(wild)
 		elseif randomnizer == 10 then
 		Pattern = 10
 		end
+		if randomFishSpot == 1 then
+		FishPattern = 1	
+		elseif randomFishSpot == 2 then
+		FishPattern = 2	
+		elseif randomFishSpot == 3 then
+		FishPattern= 3	
+		elseif randomFishSpot == 4 then
+		FishPattern = 4
+		elseif randomFishSpot == 5 then
+		FishPattern = 5
+	    end
 		log("Battle Log")
 		log("=======================================")
 		log("Info | Random Number is " .. randomnizer .. " Next Pattern will be " .. Pattern)
@@ -446,7 +484,8 @@ function onBattleMessage(wild)
 	trapped = true
 	log("Info | Anti-Trap mode activated")
 		elseif stringContains(wild, "caught ") then
-		randomnizer = math.random(1,10)
+		randomnizer = math.random(1,usePattern)
+	    randomFishSpot = math.random(1,noOfFishingSpot)
         Catch = Catch + 1
 	    recentPBall = getItemQuantity("Pokeball")
 		recentGBall = getItemQuantity("Great Ball")
@@ -472,6 +511,17 @@ function onBattleMessage(wild)
 		elseif randomnizer == 10 then
 		Pattern = 10
 		end
+		if randomFishSpot == 1 then
+		FishPattern = 1	
+		elseif randomFishSpot == 2 then
+		FishPattern = 2	
+		elseif randomFishSpot == 3 then
+		FishPattern= 3	
+		elseif randomFishSpot == 4 then
+		FishPattern = 4
+		elseif randomFishSpot == 5 then
+		FishPattern = 5
+	    end
 	    log("Battle Log")
 		log("=======================================")
 		log("Info | Random Number is " .. randomnizer .. " Next Pattern will be " .. Pattern)
@@ -711,6 +761,7 @@ end
 function onPathAction()
 get_usingMove = false
 trapped = false
+randTime = math.floor(os.clock())
 if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > healthToRunAt and isPokemonUsable(ReturnHighestIndexUnderLevel()) then
 	
 	if sorting == "Asc" and not onlyCatch and not IsSorted() and powerLevel == 0 and evTraining == 0 and not advanceCatching and not useMoveOnly then
@@ -722,12 +773,10 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > hea
         log("Sorting Pokemon Level Descendingly in-progress")
 	
     elseif stopBotByTime and ((randTime / 60) / 60) >= stopTime then
-		log("Bot Run-Time Reached " .. stopTime .. " hours")
-		fatal("Stopping the Bot!")
+		fatal("Bot Run-Time Reached " .. stopTime .. " hours! Stopping the Bot!")
 	
 	elseif stopBotByEnc and wildCounter >= stopCount then
-		log("Bot Have Encountered " .. stopCount .. " Pokemons")
-		fatal("Stopping the Bot!")
+		fatal("Bot Have Encountered " .. stopCount .. " Pokemons Stopping the Bot!")
 	
 	elseif powerLevel >= 1 and getPokemonName(1) != powerLevelingPokemon then
 	    swapPokemonWithLeader(powerLevelingPokemon)
@@ -1067,12 +1116,32 @@ if getUsablePokemonCount() >= 1 and getPokemonHealthPercent(getTeamSize()) > hea
 			if lookFor == 0 then
 				moveToGrass()
 				elseif lookFor == 1 then
-                moveToWater()
-				elseif lookFor == 2 and (getPlayerX() != fishingSpotX and getPlayerY() != fishingSpotY) then
+                return moveToWater()
+				elseif lookFor == 2 and FishPattern == 1 and (getPlayerX() != fishingSpotX and getPlayerY() != fishingSpotY) then
 				moveToCell(fishingSpotX, fishingSpotY)
-				elseif lookFor == 2 and (getPlayerX() == fishingSpotX and getPlayerY() == fishingSpotY) then
+				log("Fishing at Spot 1")
+				elseif lookFor == 2 and FishPattern == 1 and (getPlayerX() == fishingSpotX and getPlayerY() == fishingSpotY) then
 				useItem(rod)
-				log("Fishing with " .. rod)
+				elseif lookFor == 2 and FishPattern == 2 and (getPlayerX() != fishingSpotX2 and getPlayerY() != fishingSpotY2) then
+				moveToCell(fishingSpotX2, fishingSpotY2)
+				log("Fishing at Spot 2")
+				elseif lookFor == 2 and FishPattern == 2 and (getPlayerX() == fishingSpotX2 and getPlayerY() == fishingSpotY2) then
+				useItem(rod)
+				elseif lookFor == 2 and FishPattern == 3 and (getPlayerX() != fishingSpotX3 and getPlayerY() != fishingSpotY3) then
+				moveToCell(fishingSpotX3, fishingSpotY3)
+				log("Fishing at Spot 3")
+				elseif lookFor == 2 and FishPattern == 3 and (getPlayerX() == fishingSpotX3 and getPlayerY() == fishingSpotY3) then
+				useItem(rod)
+				elseif lookFor == 2 and FishPattern == 4 and (getPlayerX() != fishingSpotX4 and getPlayerY() != fishingSpotY4) then
+				moveToCell(fishingSpotX4, fishingSpotY4)
+				log("Fishing at Spot 4")
+				elseif lookFor == 2 and FishPattern == 4 and (getPlayerX() == fishingSpotX4 and getPlayerY() == fishingSpotY4) then
+				useItem(rod)
+				elseif lookFor == 2 and FishPattern == 5 and (getPlayerX() != fishingSpotX5 and getPlayerY() != fishingSpotY5) then
+				moveToCell(fishingSpotX5, fishingSpotY5)
+				log("Fishing at Spot 5")
+				elseif lookFor == 2 and FishPattern == 5 and (getPlayerX() == fishingSpotX5 and getPlayerY() == fishingSpotY5) then
+				useItem(rod)
 			else
 				if Pattern == 1 then
 		                moveToRectangle(rectX1, rectY1, rectX2, rectY2)
